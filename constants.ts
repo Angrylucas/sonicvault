@@ -23,6 +23,14 @@ export const SOUND_BASE_PATH = '/sounds/';
 
 export const SOUND_LIBRARY: Sound[] = [
   {
+    id: '1770196457886',
+    filename: 'city-traffic.mp3',
+    title: 'City Traffic',
+    category: SoundCategory.MISC,
+    description: 'City Traffic',
+    duration: '3:13'
+  },
+  {
     id: '1770196447838',
     filename: 'cafe-chatter.mp3',
     title: 'Cafe Chatter',
