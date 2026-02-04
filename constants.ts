@@ -23,6 +23,14 @@ export const SOUND_BASE_PATH = '/sounds/';
 
 export const SOUND_LIBRARY: Sound[] = [
   {
+    id: '1770209675695',
+    filename: 'cat-meowing.mp3',
+    title: 'Cat Meowing',
+    category: SoundCategory.MISC,
+    description: 'Cat Meowing',
+    duration: '1:04'
+  },
+  {
     id: '1770209665987',
     filename: 'monk-chant.mp3',
     title: 'Monk Chant',
