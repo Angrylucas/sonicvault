@@ -23,6 +23,14 @@ export const SOUND_BASE_PATH = '/sounds/';
 
 export const SOUND_LIBRARY: Sound[] = [
   {
+    id: '1770196191008',
+    filename: 'birds.mp3',
+    title: 'Birds',
+    category: SoundCategory.MISC,
+    description: 'Birds',
+    duration: '1:27'
+  },
+  {
     id: '1',
     filename: 'success_bell.mp3', 
     title: 'Success Bell',
