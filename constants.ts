@@ -23,6 +23,14 @@ export const SOUND_BASE_PATH = '/sounds/';
 
 export const SOUND_LIBRARY: Sound[] = [
   {
+    id: '1770209665987',
+    filename: 'monk-chant.mp3',
+    title: 'Monk Chant',
+    category: SoundCategory.MISC,
+    description: 'Monk Chant',
+    duration: '1:33'
+  },
+  {
     id: '1770209653330',
     filename: 'space.mp3',
     title: 'Space',
