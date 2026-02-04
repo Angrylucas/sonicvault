@@ -23,6 +23,14 @@ export const SOUND_BASE_PATH = '/sounds/';
 
 export const SOUND_LIBRARY: Sound[] = [
   {
+    id: '1770196534539',
+    filename: 'cow-bells.mp3',
+    title: 'Cow Bells',
+    category: SoundCategory.MISC,
+    description: 'Cow Bells',
+    duration: '1:48'
+  },
+  {
     id: '1770196468466',
     filename: 'howling-wind.mp3',
     title: 'Howling Wind',
