@@ -23,6 +23,14 @@ export const SOUND_BASE_PATH = '/sounds/';
 
 export const SOUND_LIBRARY: Sound[] = [
   {
+    id: '1770209704849',
+    filename: 'owl.mp3',
+    title: 'Owl',
+    category: SoundCategory.MISC,
+    description: 'Owl',
+    duration: '0:08'
+  },
+  {
     id: '1770209695411',
     filename: 'wolf.mp3',
     title: 'Wolf',
