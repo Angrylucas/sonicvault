@@ -23,6 +23,14 @@ export const SOUND_BASE_PATH = '/sounds/';
 
 export const SOUND_LIBRARY: Sound[] = [
   {
+    id: '1770196606642',
+    filename: 'wind.mp3',
+    title: 'Wind',
+    category: SoundCategory.MISC,
+    description: 'Wind',
+    duration: '1:29'
+  },
+  {
     id: '1770196592975',
     filename: 'wind-in-trees.mp3',
     title: 'Wind in Trees',
