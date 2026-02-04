@@ -1,0 +1,5 @@
+{
+  "name": "SonicVault",
+  "description": "A modern, sharable sound library for hosting and distributing custom audio assets via direct links.",
+  "requestFramePermissions": []
+}
