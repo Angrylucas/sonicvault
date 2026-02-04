@@ -23,6 +23,14 @@ export const SOUND_BASE_PATH = '/sounds/';
 
 export const SOUND_LIBRARY: Sound[] = [
   {
+    id: '1770196763960',
+    filename: 'crickets.mp3',
+    title: 'Crickets',
+    category: SoundCategory.MISC,
+    description: 'Crickets',
+    duration: '1:53'
+  },
+  {
     id: '1770196754374',
     filename: 'lakeside.mp3',
     title: 'Lakeside',
