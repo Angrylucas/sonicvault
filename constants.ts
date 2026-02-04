@@ -23,6 +23,14 @@ export const SOUND_BASE_PATH = '/sounds/';
 
 export const SOUND_LIBRARY: Sound[] = [
   {
+    id: '1770209723594',
+    filename: 'polar-weather.mp3',
+    title: 'Polar Weather',
+    category: SoundCategory.MISC,
+    description: 'Polar Weather',
+    duration: '6:32'
+  },
+  {
     id: '1770209713237',
     filename: 'thunder.mp3',
     title: 'Thunder',
