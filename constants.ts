@@ -23,6 +23,14 @@ export const SOUND_BASE_PATH = '/sounds/';
 
 export const SOUND_LIBRARY: Sound[] = [
   {
+    id: '1770209589631',
+    filename: 'mindful-breathing.mp3',
+    title: 'Mindful Breathing',
+    category: SoundCategory.MISC,
+    description: 'Mindful Breathing',
+    duration: '2:21'
+  },
+  {
     id: '1770196772164',
     filename: 'frogs.mp3',
     title: 'Frogs',
