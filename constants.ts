@@ -23,6 +23,14 @@ export const SOUND_BASE_PATH = '/sounds/';
 
 export const SOUND_LIBRARY: Sound[] = [
   {
+    id: '1770196436780',
+    filename: 'fireplace.mp3',
+    title: 'Fireplace',
+    category: SoundCategory.MISC,
+    description: 'Fireplace',
+    duration: '2:51'
+  },
+  {
     id: '1770196424538',
     filename: 'snow-footsteps.mp3',
     title: 'Snow Footsteps',
