@@ -23,6 +23,14 @@ export const SOUND_BASE_PATH = '/sounds/';
 
 export const SOUND_LIBRARY: Sound[] = [
   {
+    id: '1770209653330',
+    filename: 'space.mp3',
+    title: 'Space',
+    category: SoundCategory.MISC,
+    description: 'Space',
+    duration: '2:25'
+  },
+  {
     id: '1770209636288',
     filename: 'spa-ambient.mp3',
     title: 'Spa Ambient',
