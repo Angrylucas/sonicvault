@@ -23,6 +23,14 @@ export const SOUND_BASE_PATH = '/sounds/';
 
 export const SOUND_LIBRARY: Sound[] = [
   {
+    id: '1770196447838',
+    filename: 'cafe-chatter.mp3',
+    title: 'Cafe Chatter',
+    category: SoundCategory.MISC,
+    description: 'Cafe Chatter',
+    duration: '4:47'
+  },
+  {
     id: '1770196436780',
     filename: 'fireplace.mp3',
     title: 'Fireplace',
