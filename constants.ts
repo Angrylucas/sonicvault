@@ -23,6 +23,14 @@ export const SOUND_BASE_PATH = '/sounds/';
 
 export const SOUND_LIBRARY: Sound[] = [
   {
+    id: '1770209608560',
+    filename: 'spa-ambient2.mp3',
+    title: 'Spa Ambient 2',
+    category: SoundCategory.MISC,
+    description: 'Spa Ambient 2',
+    duration: '9:46'
+  },
+  {
     id: '1770209589631',
     filename: 'mindful-breathing.mp3',
     title: 'Mindful Breathing',
