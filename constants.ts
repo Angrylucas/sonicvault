@@ -26,7 +26,7 @@ export const SOUND_LIBRARY: Sound[] = [
     id: '1770196772164',
     filename: 'frogs.mp3',
     title: 'Frogs',
-    category: SoundCategory.MISC,
+    category: SoundCategory.AMBIENCE,
     description: 'Frogs',
     duration: '1:59'
   },
@@ -34,7 +34,7 @@ export const SOUND_LIBRARY: Sound[] = [
     id: '1770196763960',
     filename: 'crickets.mp3',
     title: 'Crickets',
-    category: SoundCategory.MISC,
+    category: SoundCategory.AMBIENCE,
     description: 'Crickets',
     duration: '1:53'
   },
@@ -42,7 +42,7 @@ export const SOUND_LIBRARY: Sound[] = [
     id: '1770196754374',
     filename: 'lakeside.mp3',
     title: 'Lakeside',
-    category: SoundCategory.MISC,
+    category: SoundCategory.AMBIENCE,
     description: 'Lakeside',
     duration: '3:00'
   },
@@ -50,7 +50,7 @@ export const SOUND_LIBRARY: Sound[] = [
     id: '1770196745272',
     filename: 'medium-rain.mp3',
     title: 'Medium Rain',
-    category: SoundCategory.MISC,
+    category: SoundCategory.AMBIENCE,
     description: 'Medium Rain',
     duration: '1:57'
   },
@@ -58,7 +58,7 @@ export const SOUND_LIBRARY: Sound[] = [
     id: '1770196735647',
     filename: 'forest-rain.mp3',
     title: 'Forest Rain',
-    category: SoundCategory.MISC,
+    category: SoundCategory.AMBIENCE,
     description: 'Forest Rain',
     duration: '2:20'
   },
@@ -66,7 +66,7 @@ export const SOUND_LIBRARY: Sound[] = [
     id: '1770196725369',
     filename: 'rainforest-rain.mp3',
     title: 'Rainforest Rain',
-    category: SoundCategory.MISC,
+    category: SoundCategory.AMBIENCE,
     description: 'Rainforest Rain',
     duration: '3:48'
   },
@@ -74,7 +74,7 @@ export const SOUND_LIBRARY: Sound[] = [
     id: '1770196713166',
     filename: 'rain-on-tent.mp3',
     title: 'Rain on Tent',
-    category: SoundCategory.MISC,
+    category: SoundCategory.AMBIENCE,
     description: 'Rain on Tent',
     duration: '5:09'
   },
@@ -82,7 +82,7 @@ export const SOUND_LIBRARY: Sound[] = [
     id: '1770196703602',
     filename: 'rain-on-window.mp3',
     title: 'Rain on Window',
-    category: SoundCategory.MISC,
+    category: SoundCategory.AMBIENCE,
     description: 'Rain on Window',
     duration: '3:52'
   },
@@ -90,7 +90,7 @@ export const SOUND_LIBRARY: Sound[] = [
     id: '1770196606642',
     filename: 'wind.mp3',
     title: 'Wind',
-    category: SoundCategory.MISC,
+    category: SoundCategory.AMBIENCE,
     description: 'Wind',
     duration: '1:29'
   },
@@ -98,7 +98,7 @@ export const SOUND_LIBRARY: Sound[] = [
     id: '1770196592975',
     filename: 'wind-in-trees.mp3',
     title: 'Wind in Trees',
-    category: SoundCategory.MISC,
+    category: SoundCategory.AMBIENCE,
     description: 'Wind in Trees',
     duration: '3:47'
   },
@@ -106,7 +106,7 @@ export const SOUND_LIBRARY: Sound[] = [
     id: '1770196583177',
     filename: 'river.mp3',
     title: 'River',
-    category: SoundCategory.MISC,
+    category: SoundCategory.AMBIENCE,
     description: 'River',
     duration: '1:44'
   },
@@ -114,7 +114,7 @@ export const SOUND_LIBRARY: Sound[] = [
     id: '1770196574380',
     filename: 'ocean-waves.mp3',
     title: 'Ocean Waves',
-    category: SoundCategory.MISC,
+    category: SoundCategory.AMBIENCE,
     description: 'Ocean Waves',
     duration: '3:19'
   },
@@ -122,7 +122,7 @@ export const SOUND_LIBRARY: Sound[] = [
     id: '1770196564538',
     filename: 'underwater.mp3',
     title: 'Underwater',
-    category: SoundCategory.MISC,
+    category: SoundCategory.AMBIENCE,
     description: 'Underwater',
     duration: '3:43'
   },
@@ -130,7 +130,7 @@ export const SOUND_LIBRARY: Sound[] = [
     id: '1770196554838',
     filename: 'waterfall.mp3',
     title: 'Waterfall',
-    category: SoundCategory.MISC,
+    category: SoundCategory.AMBIENCE,
     description: 'Waterfall',
     duration: '0:45'
   },
@@ -138,7 +138,7 @@ export const SOUND_LIBRARY: Sound[] = [
     id: '1770196543932',
     filename: 'dusk.mp3',
     title: 'Dusk',
-    category: SoundCategory.MISC,
+    category: SoundCategory.AMBIENCE,
     description: 'Dusk',
     duration: '1:58'
   },
@@ -146,7 +146,7 @@ export const SOUND_LIBRARY: Sound[] = [
     id: '1770196534539',
     filename: 'cow-bells.mp3',
     title: 'Cow Bells',
-    category: SoundCategory.MISC,
+    category: SoundCategory.AMBIENCE,
     description: 'Cow Bells',
     duration: '1:48'
   },
@@ -162,7 +162,7 @@ export const SOUND_LIBRARY: Sound[] = [
     id: '1770196457886',
     filename: 'city-traffic.mp3',
     title: 'City Traffic',
-    category: SoundCategory.MISC,
+    category: SoundCategory.AMBIENCE,
     description: 'City Traffic',
     duration: '3:13'
   },
@@ -170,7 +170,7 @@ export const SOUND_LIBRARY: Sound[] = [
     id: '1770196447838',
     filename: 'cafe-chatter.mp3',
     title: 'Cafe Chatter',
-    category: SoundCategory.MISC,
+    category: SoundCategory.AMBIENCE,
     description: 'Cafe Chatter',
     duration: '4:47'
   },
@@ -178,7 +178,7 @@ export const SOUND_LIBRARY: Sound[] = [
     id: '1770196436780',
     filename: 'fireplace.mp3',
     title: 'Fireplace',
-    category: SoundCategory.MISC,
+    category: SoundCategory.AMBIENCE,
     description: 'Fireplace',
     duration: '2:51'
   },
@@ -186,7 +186,7 @@ export const SOUND_LIBRARY: Sound[] = [
     id: '1770196424538',
     filename: 'snow-footsteps.mp3',
     title: 'Snow Footsteps',
-    category: SoundCategory.MISC,
+    category: SoundCategory.AMBIENCE,
     description: 'Snow Footsteps',
     duration: '2:06'
   },
@@ -194,7 +194,7 @@ export const SOUND_LIBRARY: Sound[] = [
     id: '1770196209880',
     filename: 'heartbeat.mp3',
     title: 'Heartbeat',
-    category: SoundCategory.MISC,
+    category: SoundCategory.AMBIENCE,
     description: 'Heartbeat',
     duration: '3:37'
   },
@@ -202,25 +202,9 @@ export const SOUND_LIBRARY: Sound[] = [
     id: '1770196191008',
     filename: 'birds.mp3',
     title: 'Birds',
-    category: SoundCategory.MISC,
+    category: SoundCategory.AMBIENCE,
     description: 'Birds',
     duration: '1:27'
-  },
-  {
-    id: '1',
-    filename: 'success_bell.mp3', 
-    title: 'Success Bell',
-    category: SoundCategory.UI,
-    description: 'A cheerful chime indicating a successful action.',
-    duration: '0:02'
-  },
-  {
-    id: '2',
-    filename: 'error_buzzer.mp3',
-    title: 'Error Buzzer',
-    category: SoundCategory.UI,
-    description: 'A flat buzzer sound for validation errors.',
-    duration: '0:01'
   },
   {
     id: '3',
@@ -230,31 +214,7 @@ export const SOUND_LIBRARY: Sound[] = [
     description: 'Light wind through trees with distant birds.',
     duration: '0:15'
   },
-  {
-    id: '4',
-    filename: 'coin_pickup.wav',
-    title: 'Coin Pickup',
-    category: SoundCategory.GAME,
-    description: 'Classic retro 8-bit coin collect sound.',
-    duration: '0:01'
-  },
-  {
-    id: '5',
-    filename: 'message_pop.mp3',
-    title: 'Message Pop',
-    category: SoundCategory.NOTIFICATION,
-    description: 'Soft bubble pop for incoming messages.',
-    duration: '0:01'
-  },
-  {
-    id: '6',
-    filename: 'laser_shoot.wav',
-    title: 'Laser Blast',
-    category: SoundCategory.GAME,
-    description: 'Futuristic sci-fi laser weapon fire.',
-    duration: '0:02'
-  },
-  {
+    {
     id: '7',
     filename: 'rain_heavy.mp3',
     title: 'Heavy Rain',
