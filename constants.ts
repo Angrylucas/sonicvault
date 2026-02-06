@@ -23,6 +23,14 @@ export const SOUND_BASE_PATH = '/sounds/';
 
 export const SOUND_LIBRARY: Sound[] = [
   {
+    id: '1770386569739',
+    filename: '400-hz.mp3',
+    title: '400 Hz',
+    category: SoundCategory.UI,
+    description: '400 Hz',
+    duration: '0:10'
+  },
+  {
     id: '1770386559375',
     filename: 'peaceful.mp3',
     title: 'Peaceful',
