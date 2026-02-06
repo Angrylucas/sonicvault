@@ -23,6 +23,14 @@ export const SOUND_BASE_PATH = '/sounds/';
 
 export const SOUND_LIBRARY: Sound[] = [
   {
+    id: '1770386711158',
+    filename: 'brown-noise.mp3',
+    title: 'Brown Noise',
+    category: SoundCategory.UI,
+    description: 'Brown Noise',
+    duration: '10:00'
+  },
+  {
     id: '1770386701020',
     filename: 'blue-noise.mp3',
     title: 'Blue Noise',
