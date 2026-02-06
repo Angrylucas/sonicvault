@@ -23,6 +23,14 @@ export const SOUND_BASE_PATH = '/sounds/';
 
 export const SOUND_LIBRARY: Sound[] = [
   {
+    id: '1770386607233',
+    filename: 'rain-on-roof.mp3',
+    title: 'Rain on Roof',
+    category: SoundCategory.UI,
+    description: 'Rain on Roof',
+    duration: '2:06'
+  },
+  {
     id: '1770386596988',
     filename: '200-hz.mp3',
     title: '200 Hz',
