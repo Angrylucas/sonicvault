@@ -23,6 +23,14 @@ export const SOUND_BASE_PATH = '/sounds/';
 
 export const SOUND_LIBRARY: Sound[] = [
   {
+    id: '1770712186060',
+    filename: 'calm-sleep.mp3',
+    title: 'Calm Sleep',
+    category: SoundCategory.AMBIENCE,
+    description: 'Calm Sleep',
+    duration: '10:00'
+  },
+  {
     id: '1770712172695',
     filename: 'wim-hof-breathing-(easy).mp3',
     title: 'Wim Hof Breathing (easy)',
