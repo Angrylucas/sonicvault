@@ -23,6 +23,14 @@ export const SOUND_BASE_PATH = '/sounds/';
 
 export const SOUND_LIBRARY: Sound[] = [
   {
+    id: '1770712201292',
+    filename: 'tibetan-singing-bowls.mp3',
+    title: 'Tibetan Singing Bowls',
+    category: SoundCategory.AMBIENCE,
+    description: 'Tibetan Singing Bowls',
+    duration: '8:28'
+  },
+  {
     id: '1770712186060',
     filename: 'calm-sleep.mp3',
     title: 'Calm Sleep',
