@@ -23,6 +23,14 @@ export const SOUND_BASE_PATH = '/sounds/';
 
 export const SOUND_LIBRARY: Sound[] = [
   {
+    id: '1770712117526',
+    filename: '14-minutes-body-scan.mp3',
+    title: '14 Minutes Body Scan',
+    category: SoundCategory.AMBIENCE,
+    description: '14 Minutes Body Scan',
+    duration: '14:36'
+  },
+  {
     id: '1770712102579',
     filename: 'breath-sounds-body-toughts-emotions.mp3',
     title: 'Breath Sounds Body Toughts Emotions',
