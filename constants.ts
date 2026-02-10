@@ -23,6 +23,14 @@ export const SOUND_BASE_PATH = '/sounds/';
 
 export const SOUND_LIBRARY: Sound[] = [
   {
+    id: '1770712158551',
+    filename: 'deep-healing.mp3',
+    title: 'Deep Healing',
+    category: SoundCategory.AMBIENCE,
+    description: 'Deep Healing',
+    duration: '8:57'
+  },
+  {
     id: '1770712144790',
     filename: 'deep-spiritual.mp3',
     title: 'Deep Spiritual',
