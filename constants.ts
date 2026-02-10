@@ -23,6 +23,14 @@ export const SOUND_BASE_PATH = '/sounds/';
 
 export const SOUND_LIBRARY: Sound[] = [
   {
+    id: '1770712847605',
+    filename: 'binaural-waves.mp3',
+    title: 'Binaural-Waves',
+    category: SoundCategory.AMBIENCE,
+    description: 'Binaural-Waves',
+    duration: '15:12'
+  },
+  {
     id: '1770712695534',
     filename: 'wim-hof-breathing-expert.mp3',
     title: 'Wim-Hof-Breathing-expert',
