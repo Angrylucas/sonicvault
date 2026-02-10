@@ -23,6 +23,14 @@ export const SOUND_BASE_PATH = '/sounds/';
 
 export const SOUND_LIBRARY: Sound[] = [
   {
+    id: '1770712025340',
+    filename: '4-7-8-breathing-10-min.mp3',
+    title: '4-7-8 Breathing 10 Min',
+    category: SoundCategory.AMBIENCE,
+    description: '4-7-8 Breathing 10 Min',
+    duration: '10:32'
+  },
+  {
     id: '1770712013141',
     filename: 'tension-release.mp3',
     title: 'Tension Release',
