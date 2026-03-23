@@ -710,6 +710,14 @@ export const SOUND_LIBRARY: Sound[] = [
     description: 'Intense rainstorm against a window.',
     duration: '0:30'
   }
+  {
+  id: '38',
+  filename: 'AMBRoom_Electric Sauna Ambience FROSTWAVE AUDIO SAUNA 02.mp3',
+  title: 'Sauna Oven',
+  category: SoundCategory.AMBIENCE,
+  description: 'Sauna Oven',
+  duration: '1:43'
+}
 ];
 
 /**
