@@ -2,13 +2,14 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { MixerSoundState } from '../types';
 import { MIX_SOUNDS, SOUND_BASE_PATH } from '../data';
 
-const STORAGE_KEY = 'sonicvault-mix-v1';
+const STORAGE_KEY = 'sonicvault-mix-v2';
 const TICK_MS = 120;
+const RANDOMNESS_AMOUNT = 0.38; // Schwankungstiefe wenn Randomness aktiv
 
 interface LfoState {
-  current: number;    // aktuell gesetzte Lautstärke (0..1)
-  target: number;     // Ziel-Lautstärke, zu der gedriftet wird
-  nextChangeAt: number; // Zeitstempel für das nächste Zufallsziel
+  current: number;
+  target: number;
+  nextChangeAt: number;
 }
 
 const FILE_BY_ID: Record<string, string> = Object.fromEntries(
@@ -21,11 +22,12 @@ function loadSaved(): Record<string, MixerSoundState> {
     if (!raw) return {};
     const parsed = JSON.parse(raw);
     const clean: Record<string, MixerSoundState> = {};
-    for (const [id, st] of Object.entries(parsed as Record<string, MixerSoundState>)) {
-      if (FILE_BY_ID[id] && typeof st?.volume === 'number') {
+    for (const [id, st] of Object.entries(parsed as Record<string, unknown>)) {
+      const s = st as MixerSoundState | null;
+      if (FILE_BY_ID[id] && s && typeof s.volume === 'number') {
         clean[id] = {
-          volume: Math.min(1, Math.max(0, st.volume)),
-          randomness: Math.min(1, Math.max(0, st.randomness ?? 0)),
+          volume: Math.min(1, Math.max(0, s.volume)),
+          randomness: !!s.randomness,
         };
       }
     }
@@ -35,11 +37,6 @@ function loadSaved(): Record<string, MixerSoundState> {
   }
 }
 
-/**
- * Verwaltet den Ambient-Sound-Mixer: beliebig viele gleichzeitig laufende
- * Loops mit eigener Lautstärke und einem Randomness-Regler, der die
- * Lautstärke organisch um den eingestellten Wert schwanken lässt.
- */
 export function useMixer() {
   const [sounds, setSounds] = useState<Record<string, MixerSoundState>>(loadSaved);
   const [playing, setPlaying] = useState(false);
@@ -51,13 +48,8 @@ export function useMixer() {
   const playingRef = useRef(playing);
   playingRef.current = playing;
 
-  // Mix-Konfiguration speichern
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(sounds));
-    } catch {
-      // localStorage nicht verfügbar – Mix wird nur für die Sitzung gehalten
-    }
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(sounds)); } catch { /* noop */ }
   }, [sounds]);
 
   const ensureEl = useCallback((id: string): HTMLAudioElement => {
@@ -71,7 +63,7 @@ export function useMixer() {
     return el;
   }, []);
 
-  // Randomness-LFO: lässt jede Lautstärke sanft um den Basiswert wandern
+  // Randomness-LFO
   useEffect(() => {
     const interval = setInterval(() => {
       if (!playingRef.current) return;
@@ -86,15 +78,13 @@ export function useMixer() {
           lfo.current.set(id, state);
         }
 
-        if (st.randomness <= 0.001) {
+        if (!st.randomness) {
           state.current = st.volume;
           state.target = st.volume;
         } else {
           if (now >= state.nextChangeAt) {
-            // Neues Zufallsziel zwischen (1 - randomness) * volume und volume
-            const min = st.volume * (1 - st.randomness);
+            const min = st.volume * (1 - RANDOMNESS_AMOUNT);
             state.target = min + Math.random() * (st.volume - min);
-            // Alle 1,5–4,5 s ein neues Ziel
             state.nextChangeAt = now + 1500 + Math.random() * 3000;
           }
           state.current += (state.target - state.current) * 0.06;
@@ -111,14 +101,11 @@ export function useMixer() {
       if (next[id]) {
         delete next[id];
         const el = audioEls.current.get(id);
-        if (el) {
-          el.pause();
-          el.currentTime = 0;
-        }
+        if (el) { el.pause(); el.currentTime = 0; }
         lfo.current.delete(id);
         if (Object.keys(next).length === 0) setPlaying(false);
       } else {
-        next[id] = { volume: 0.7, randomness: 0 };
+        next[id] = { volume: 0.7, randomness: false };
         const el = ensureEl(id);
         el.volume = 0.7;
         el.play().catch(() => undefined);
@@ -132,18 +119,18 @@ export function useMixer() {
     setSounds(prev => (prev[id] ? { ...prev, [id]: { ...prev[id], volume } } : prev));
     const el = audioEls.current.get(id);
     const state = lfo.current.get(id);
-    if (state) {
-      state.current = volume;
-      state.target = volume;
-      state.nextChangeAt = 0;
-    }
+    if (state) { state.current = volume; state.target = volume; state.nextChangeAt = 0; }
     if (el) el.volume = volume;
   }, []);
 
-  const setRandomness = useCallback((id: string, randomness: number) => {
-    setSounds(prev => (prev[id] ? { ...prev, [id]: { ...prev[id], randomness } } : prev));
-    const state = lfo.current.get(id);
-    if (state) state.nextChangeAt = 0;
+  const toggleRandomness = useCallback((id: string) => {
+    setSounds(prev => {
+      if (!prev[id]) return prev;
+      const newVal = !prev[id].randomness;
+      const state = lfo.current.get(id);
+      if (state) state.nextChangeAt = 0;
+      return { ...prev, [id]: { ...prev[id], randomness: newVal } };
+    });
   }, []);
 
   const pause = useCallback(() => {
@@ -163,18 +150,18 @@ export function useMixer() {
   }, [ensureEl]);
 
   const stopAll = useCallback(() => {
-    for (const el of audioEls.current.values()) {
-      el.pause();
-      el.currentTime = 0;
-    }
+    for (const el of audioEls.current.values()) { el.pause(); el.currentTime = 0; }
     lfo.current.clear();
     setSounds({});
     setPlaying(false);
   }, []);
 
-  const activeCount = Object.keys(sounds).length;
-
-  return { sounds, playing, activeCount, toggle, setVolume, setRandomness, pause, resume, stopAll };
+  return {
+    sounds, playing,
+    activeCount: Object.keys(sounds).length,
+    toggle, setVolume, toggleRandomness,
+    pause, resume, stopAll,
+  };
 }
 
 export type Mixer = ReturnType<typeof useMixer>;
