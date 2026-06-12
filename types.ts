@@ -5,8 +5,9 @@ export interface GuidedTrack {
   id: string;
   filename: string;
   title: string;
-  duration: string; // z. B. "10:32"
-  tag: string;      // z. B. "Schlaf", "Body Scan"
+  duration: string;  // z. B. "10:32"
+  tag: string;       // z. B. "Schlaf", "Body Scan"
+  pattern?: string;  // Atemmuster-ID für den synchronisierten visuellen Indikator
 }
 
 /** Loopbarer Ambient-Sound für den Mixer */

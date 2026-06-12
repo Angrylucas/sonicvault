@@ -24,9 +24,10 @@ export const MEDITATIONS: GuidedTrack[] = [
   { id: 'med-tension-release', filename: 'tension-release.mp3', title: 'Tension Release', duration: '5:45', tag: 'Heilung' },
   { id: 'med-loving-kindness', filename: 'loving-kindness-meditation.mp3', title: 'Loving Kindness', duration: '9:31', tag: 'Mitgefühl' },
   { id: 'med-calm-yoga', filename: 'calm-yoga.mp3', title: 'Calm Yoga', duration: '13:31', tag: 'Heilung' },
+  { id: 'med-tibetan-bowls', filename: 'tibetan-singing-bowls.mp3', title: 'Tibetische Klangschalen', duration: '8:28', tag: 'Klang' },
 ];
 
-export const MEDITATION_TAGS = ['Alle', 'Achtsamkeit', 'Body Scan', 'Schlaf', 'Heilung', 'Mitgefühl'];
+export const MEDITATION_TAGS = ['Alle', 'Achtsamkeit', 'Body Scan', 'Schlaf', 'Heilung', 'Mitgefühl', 'Klang'];
 
 /* ------------------------------------------------------------------ */
 /* Atemübungen                                                         */
@@ -75,17 +76,18 @@ export const BREATHING_PATTERNS: BreathingPattern[] = [
 ];
 
 export const BREATHING_TRACKS: GuidedTrack[] = [
-  { id: 'br-3min', filename: '3-minute-breathing.mp3', title: '3 Minute Breathing', duration: '3:35', tag: 'Kurz' },
-  { id: 'br-3min-space', filename: '3-minute-breathing-space.mp3', title: '3 Minute Breathing Space', duration: '3:34', tag: 'Kurz' },
-  { id: 'br-mindful', filename: 'mindful-breathing.mp3', title: 'Mindful Breathing', duration: '2:21', tag: 'Kurz' },
-  { id: 'br-5min', filename: '5-minute-breathing.mp3', title: '5 Minute Breathing', duration: '4:39', tag: 'Kurz' },
-  { id: 'br-meditation', filename: 'breathing-meditation.mp3', title: 'Breathing Meditation', duration: '5:31', tag: 'Achtsamkeit' },
-  { id: 'br-space', filename: 'breathing-space.mp3', title: 'Breathing Space', duration: '5:39', tag: 'Achtsamkeit' },
-  { id: 'br-10min', filename: '10-minute-breathing.mp3', title: '10 Minute Breathing', duration: '9:56', tag: 'Achtsamkeit' },
-  { id: 'br-compassionate', filename: 'compassionate-breath.mp3', title: 'Compassionate Breath', duration: '11:33', tag: 'Achtsamkeit' },
-  { id: 'br-478', filename: '4-7-8-breathing.mp3', title: '4-7-8 Breathing', duration: '4:02', tag: 'Technik' },
-  { id: 'br-478-10', filename: '4-7-8-breathing-10-min.mp3', title: '4-7-8 Breathing · 10 Min', duration: '10:32', tag: 'Technik' },
-  { id: 'br-box-5', filename: 'box-breathing-5-minutes.mp3', title: 'Box Breathing · 5 Min', duration: '6:52', tag: 'Technik' },
+  { id: 'br-3min', filename: '3-minute-breathing.mp3', title: '3 Minute Breathing', duration: '3:35', tag: 'Kurz', pattern: 'coherent' },
+  { id: 'br-3min-space', filename: '3-minute-breathing-space.mp3', title: '3 Minute Breathing Space', duration: '3:34', tag: 'Kurz', pattern: 'coherent' },
+  { id: 'br-mindful', filename: 'mindful-breathing.mp3', title: 'Mindful Breathing', duration: '2:21', tag: 'Kurz', pattern: 'coherent' },
+  { id: 'br-5min', filename: '5-minute-breathing.mp3', title: '5 Minute Breathing', duration: '4:39', tag: 'Kurz', pattern: 'coherent' },
+  { id: 'br-meditation', filename: 'breathing-meditation.mp3', title: 'Breathing Meditation', duration: '5:31', tag: 'Achtsamkeit', pattern: 'coherent' },
+  { id: 'br-space', filename: 'breathing-space.mp3', title: 'Breathing Space', duration: '5:39', tag: 'Achtsamkeit', pattern: 'coherent' },
+  { id: 'br-10min', filename: '10-minute-breathing.mp3', title: '10 Minute Breathing', duration: '9:56', tag: 'Achtsamkeit', pattern: 'coherent' },
+  { id: 'br-compassionate', filename: 'compassionate-breath.mp3', title: 'Compassionate Breath', duration: '11:33', tag: 'Achtsamkeit', pattern: 'coherent' },
+  { id: 'br-478', filename: '4-7-8-breathing.mp3', title: '4-7-8 Breathing', duration: '4:02', tag: 'Technik', pattern: '478' },
+  { id: 'br-478-10', filename: '4-7-8-breathing-10-min.mp3', title: '4-7-8 Breathing · 10 Min', duration: '10:32', tag: 'Technik', pattern: '478' },
+  { id: 'br-box-5', filename: 'box-breathing-5-minutes.mp3', title: 'Box Breathing · 5 Min', duration: '6:52', tag: 'Technik', pattern: 'box' },
+  // Wim Hof wechselt den Rhythmus während der Session – ein fester Indikator wäre irreführend
   { id: 'br-wim-easy', filename: 'wim-hof-breathing-(easy).mp3', title: 'Wim Hof Breathing · Easy', duration: '21:29', tag: 'Technik' },
   { id: 'br-wim-expert', filename: 'wim-hof-breathing-expert.mp3', title: 'Wim Hof Breathing · Expert', duration: '46:46', tag: 'Technik' },
 ];
@@ -144,7 +146,6 @@ export const MIX_SOUNDS: MixSound[] = [
 
   // Klang & Musik
   { id: 'singing-bowl', filename: 'singing-bowl.mp3', name: 'Klangschale', icon: 'CircleDot', category: 'Klang & Musik' },
-  { id: 'tibetan-bowls', filename: 'tibetan-singing-bowls.mp3', name: 'Tibetische Klangschalen', icon: 'CircleDot', category: 'Klang & Musik' },
   { id: 'monk-chant', filename: 'monk-chant.mp3', name: 'Mönchsgesang', icon: 'Music', category: 'Klang & Musik' },
   { id: 'peaceful', filename: 'peaceful.mp3', name: 'Friedvoll', icon: 'Heart', category: 'Klang & Musik' },
   { id: 'meditation-music', filename: 'meditation.mp3', name: 'Meditationsklang', icon: 'Music', category: 'Klang & Musik' },
