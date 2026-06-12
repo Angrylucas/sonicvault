@@ -20,8 +20,8 @@ export interface MixSound {
 
 /** Zustand eines aktiven Sounds im Mixer */
 export interface MixerSoundState {
-  volume: number;     // 0..1
-  randomness: number; // 0..1
+  volume: number;      // 0..1
+  randomness: boolean; // natürliche Lautstärkeschwankung ein/aus
 }
 
 /** Phase einer Atemübung */

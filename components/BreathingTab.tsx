@@ -62,16 +62,20 @@ const BreathSession: React.FC<{ pattern: BreathingPattern; running: boolean }> =
       <div className="relative w-56 h-56 flex items-center justify-center">
         {/* Äußerer Glow */}
         <div
-          className="breath-circle absolute inset-0 rounded-full bg-accent-400/10"
-          style={{ transform: `scale(${scale})`, transitionDuration: `${transitionSeconds}s` }}
+          className="breath-circle absolute inset-0 rounded-full"
+          style={{ background: 'rgba(245,192,96,0.07)', transform: `scale(${scale})`, transitionDuration: `${transitionSeconds}s` }}
         />
         <div
-          className="breath-circle absolute inset-6 rounded-full bg-accent-400/15 border border-accent-400/30"
-          style={{ transform: `scale(${scale})`, transitionDuration: `${transitionSeconds}s` }}
+          className="breath-circle absolute inset-6 rounded-full border"
+          style={{ background: 'rgba(245,192,96,0.12)', borderColor: 'rgba(245,192,96,0.28)', transform: `scale(${scale})`, transitionDuration: `${transitionSeconds}s` }}
         />
         <div
-          className="breath-circle w-28 h-28 rounded-full bg-gradient-to-br from-accent-400 to-lav-500 shadow-[0_0_60px_rgba(125,211,192,0.35)]"
-          style={{ transform: `scale(${scale})`, transitionDuration: `${transitionSeconds}s` }}
+          className="breath-circle w-28 h-28 rounded-full shadow-[0_0_60px_rgba(245,192,96,0.4)]"
+          style={{
+            background: 'linear-gradient(135deg, #f5c060, #9099d8)',
+            transform: `scale(${scale})`,
+            transitionDuration: `${transitionSeconds}s`,
+          }}
         />
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
           <span className="text-night-950 font-bold text-lg drop-shadow-sm">
