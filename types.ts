@@ -1,22 +1,39 @@
-export interface Sound {
+export type Tab = 'meditation' | 'breathing' | 'sounds';
+
+/** Geführter Audio-Track (Meditation oder Atemübung) */
+export interface GuidedTrack {
   id: string;
   filename: string;
   title: string;
-  category: SoundCategory;
-  description: string;
-  duration?: string; // e.g. "0:05"
+  duration: string; // z. B. "10:32"
+  tag: string;      // z. B. "Schlaf", "Body Scan"
 }
 
-export enum SoundCategory {
-  UI = 'UI Effects',
-  AMBIENCE = 'Ambience',
-  NOTIFICATION = 'Notifications',
-  GAME = 'Game FX',
-  MISC = 'Miscellaneous',
-}
-
-export interface ToastMessage {
+/** Loopbarer Ambient-Sound für den Mixer */
+export interface MixSound {
   id: string;
-  message: string;
-  type: 'success' | 'error' | 'info';
+  filename: string;
+  name: string;
+  icon: string;     // lucide-Icon-Name (siehe ICON_MAP in SoundsTab)
+  category: string; // Anzeigename der Kategorie
+}
+
+/** Zustand eines aktiven Sounds im Mixer */
+export interface MixerSoundState {
+  volume: number;     // 0..1
+  randomness: number; // 0..1
+}
+
+/** Phase einer Atemübung */
+export interface BreathPhase {
+  label: string;
+  kind: 'in' | 'hold' | 'out';
+  seconds: number;
+}
+
+export interface BreathingPattern {
+  id: string;
+  name: string;
+  description: string;
+  phases: BreathPhase[];
 }
