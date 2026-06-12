@@ -1,65 +1,50 @@
-# SonicVault - Custom Sound Library
+# SonicVault – Meditation & Klangwelten
 
-## 1. How to Add Your Own Sounds
+Eine ruhige, moderne Web-App für Meditation, Atemübungen und individuelle
+Klangräume – inspiriert von Apps wie BetterSleep. Funktioniert auf Desktop
+und Mobile (responsives Design mit Bottom-Navigation).
 
-To replace the demo sounds with your own custom audio files, follow these steps:
+## Features
 
-### A. Add the Files
-1.  Create a folder named `sounds` inside the `public` folder in your project root.
-    *   Structure: `public/sounds/`
-2.  Paste your audio files (`.mp3`, `.wav`, etc.) into this folder.
-    *   Example: `public/sounds/my-custom-bell.mp3`
+### 🧘 Meditation
+Geführte Meditationen (Body Scans, Schlaf, Achtsamkeit, Mitgefühl, Heilung)
+mit Filter-Chips und einem Mini-Player mit Fortschrittsanzeige und ±15 s.
 
-### B. Update the Code
-1.  Open the file `constants.ts`.
-2.  Find the `SOUND_LIBRARY` array.
-3.  Add a new entry for your file:
+### 🌬️ Atemübungen
+- Animierte Atem-Sessions: **Box Breathing**, **4-7-8**, **Kohärentes Atmen**,
+  **Entspannungsatmung** – ein Kreis wächst beim Einatmen und zieht sich beim
+  Ausatmen zusammen, inklusive Phasen-Countdown.
+- Geführte Atem-Audios (3–46 Minuten, inkl. Wim-Hof-Übungen).
 
-```typescript
-{
-  id: 'unique-id-here', // Use a unique string (e.g. '101')
-  filename: 'my-custom-bell.mp3', // MUST match the file name in public/sounds/
-  title: 'My Custom Bell',
-  category: SoundCategory.UI, // Choose a category
-  description: 'A description for the UI',
-  duration: '0:05'
-}
+### 🎚️ Sounds – dein eigener Klangraum
+Beliebig viele Ambient-Sounds lassen sich **stapeln** und gemeinsam abspielen.
+Pro Sound gibt es:
+- einen **Lautstärke-Regler**
+- einen **Randomness-Regler**: Die Lautstärke schwankt organisch um den
+  eingestellten Wert, sodass der Mix lebendig und natürlich klingt.
+
+Der Mix läuft beim Tab-Wechsel weiter, lässt sich über die Mix-Leiste
+pausieren/leeren und wird in `localStorage` gespeichert, sodass er beim
+nächsten Besuch wiederhergestellt wird.
+
+## Entwicklung
+
+```bash
+npm install
+npm run dev      # Dev-Server auf Port 3000
+npm run build    # Produktions-Build nach dist/
+npm run preview  # Build lokal testen
 ```
 
-### C. Remove Demo Links
-In `constants.ts`, look for `DEMO_URL_MAP`. To use your local files instead of the internet demo files, simply delete the entries inside this map or set it to an empty object `{}`.
+## Eigene Sounds hinzufügen
 
----
+1. Audiodatei nach `public/sounds/` legen.
+2. In `data.ts` eintragen:
+   - Loopbarer Ambient-Sound → `MIX_SOUNDS` (mit Name, Icon und Kategorie)
+   - Geführte Meditation → `MEDITATIONS`
+   - Geführte Atemübung → `BREATHING_TRACKS`
 
-## 2. How to Publish to GitHub
+## Deployment (Vercel)
 
-1.  **Initialize Git:**
-    Open your terminal in the project folder and run:
-    ```bash
-    git init
-    git add .
-    git commit -m "Initial commit"
-    ```
-
-2.  **Create Repository:**
-    Go to [GitHub.com](https://github.com), sign in, and create a new empty repository.
-
-3.  **Push Code:**
-    Follow the instructions shown by GitHub to push your existing code:
-    ```bash
-    git branch -M main
-    git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
-    git push -u origin main
-    ```
-
----
-
-## 3. How to Deploy to Vercel
-
-1.  Go to [Vercel.com](https://vercel.com) and sign up/login.
-2.  Click **"Add New..."** -> **"Project"**.
-3.  Select **"Import"** next to the GitHub repository you just created.
-4.  Leave the build settings as default (Framework: Vite/React).
-5.  Click **"Deploy"**.
-
-Your website will be live in a few minutes!
+1. Repository auf [vercel.com](https://vercel.com) importieren.
+2. Framework-Preset **Vite** übernehmen und deployen – fertig.

@@ -1,64 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SonicVault - Sound Library</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b1120" />
+    <title>SonicVault – Meditation & Klangwelten</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
-            colors: {
-              slate: {
-                850: '#1e293b',
-                900: '#0f172a',
-                950: '#020617',
-              },
-              primary: {
-                400: '#818cf8',
-                500: '#6366f1',
-                600: '#4f46e5',
-              }
+            fontFamily: {
+              sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
             },
-            animation: {
-              'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-              'bounce-small': 'bounce 0.5s infinite',
-            }
-          }
-        }
-      }
+            colors: {
+              night: {
+                700: '#2a3650',
+                800: '#1d2840',
+                850: '#16203a',
+                900: '#111a2e',
+                950: '#0b1120',
+              },
+              accent: {
+                200: '#bdf0e2',
+                300: '#9ce8d6',
+                400: '#7dd3c0',
+                500: '#5fbfae',
+                600: '#46a294',
+              },
+              lav: {
+                300: '#aebcf0',
+                400: '#8b9fe8',
+                500: '#6f86d6',
+              },
+            },
+          },
+        },
+      };
     </script>
-    <style>
-      /* Custom scrollbar for webkit */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #0f172a; 
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #334155; 
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #475569; 
-      }
-    </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "react": "https://esm.sh/react@^19.2.4"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
-</head>
-  <body class="bg-slate-950 text-slate-200 antialiased min-h-screen selection:bg-primary-500 selection:text-white">
+    <link rel="stylesheet" href="/index.css" />
+  </head>
+  <body class="bg-night-950 text-slate-200 antialiased min-h-screen selection:bg-accent-500/40 selection:text-white">
     <div id="root"></div>
-  <script type="module" src="/index.tsx"></script>
-</body>
+    <script type="module" src="/index.tsx"></script>
+  </body>
 </html>
