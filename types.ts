@@ -24,6 +24,13 @@ export interface MixerSoundState {
   randomness: boolean; // natürliche Lautstärkeschwankung ein/aus
 }
 
+/** Ein vom Nutzer benannter, gespeicherter Klangraum */
+export interface SavedSpace {
+  id: string;
+  name: string;
+  sounds: Record<string, MixerSoundState>;
+}
+
 /** Phase einer Atemübung */
 export interface BreathPhase {
   label: string;

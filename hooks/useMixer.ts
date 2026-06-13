@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { MixerSoundState } from '../types';
+import { MixerSoundState, SavedSpace } from '../types';
 import { MIX_SOUNDS, SOUND_BASE_PATH } from '../data';
 
 const STORAGE_KEY = 'sonicvault-mix-v2';
+const SPACES_KEY = 'sonicvault-spaces-v1';
 const TICK_MS = 120;
 const RANDOMNESS_AMOUNT = 0.38; // Schwankungstiefe wenn Randomness aktiv
 
@@ -37,9 +38,32 @@ function loadSaved(): Record<string, MixerSoundState> {
   }
 }
 
+function loadSpaces(): SavedSpace[] {
+  try {
+    const raw = localStorage.getItem(SPACES_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw) as SavedSpace[];
+    if (!Array.isArray(parsed)) return [];
+    return parsed
+      .filter(s => s && typeof s.name === 'string' && s.sounds)
+      .map(s => {
+        const clean: Record<string, MixerSoundState> = {};
+        for (const [id, st] of Object.entries(s.sounds) as [string, MixerSoundState][]) {
+          if (FILE_BY_ID[id] && typeof st?.volume === 'number') {
+            clean[id] = { volume: Math.min(1, Math.max(0, st.volume)), randomness: !!st.randomness };
+          }
+        }
+        return { id: s.id, name: s.name, sounds: clean };
+      });
+  } catch {
+    return [];
+  }
+}
+
 export function useMixer() {
   const [sounds, setSounds] = useState<Record<string, MixerSoundState>>(loadSaved);
   const [playing, setPlaying] = useState(false);
+  const [savedSpaces, setSavedSpaces] = useState<SavedSpace[]>(loadSpaces);
 
   const audioEls = useRef(new Map<string, HTMLAudioElement>());
   const lfo = useRef(new Map<string, LfoState>());
@@ -47,10 +71,16 @@ export function useMixer() {
   soundsRef.current = sounds;
   const playingRef = useRef(playing);
   playingRef.current = playing;
+  const spacesRef = useRef(savedSpaces);
+  spacesRef.current = savedSpaces;
 
   useEffect(() => {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(sounds)); } catch { /* noop */ }
   }, [sounds]);
+
+  useEffect(() => {
+    try { localStorage.setItem(SPACES_KEY, JSON.stringify(savedSpaces)); } catch { /* noop */ }
+  }, [savedSpaces]);
 
   const ensureEl = useCallback((id: string): HTMLAudioElement => {
     let el = audioEls.current.get(id);
@@ -168,11 +198,44 @@ export function useMixer() {
     setPlaying(false);
   }, []);
 
+  // Aktuellen Mix unter einem Namen speichern
+  const saveSpace = useCallback((name: string) => {
+    const snapshot = soundsRef.current;
+    if (Object.keys(snapshot).length === 0) return;
+    const space: SavedSpace = {
+      id: Date.now().toString(),
+      name: name.trim() || 'Klangraum',
+      sounds: JSON.parse(JSON.stringify(snapshot)),
+    };
+    setSavedSpaces(prev => [...prev, space]);
+  }, []);
+
+  // Gespeicherten Klangraum laden und sofort abspielen
+  const loadSpace = useCallback((id: string) => {
+    const space = spacesRef.current.find(s => s.id === id);
+    if (!space) return;
+    for (const el of audioEls.current.values()) { el.pause(); el.currentTime = 0; }
+    lfo.current.clear();
+    const next: Record<string, MixerSoundState> = JSON.parse(JSON.stringify(space.sounds));
+    setSounds(next);
+    for (const [sid, st] of Object.entries(next) as [string, MixerSoundState][]) {
+      const el = ensureEl(sid);
+      el.volume = st.volume;
+      el.play().catch(() => undefined);
+    }
+    setPlaying(Object.keys(next).length > 0);
+  }, [ensureEl]);
+
+  const deleteSpace = useCallback((id: string) => {
+    setSavedSpaces(prev => prev.filter(s => s.id !== id));
+  }, []);
+
   return {
-    sounds, playing,
+    sounds, playing, savedSpaces,
     activeCount: Object.keys(sounds).length,
     toggle, setVolume, toggleRandomness, setAllRandomness,
     pause, resume, stopAll,
+    saveSpace, loadSpace, deleteSpace,
   };
 }
 
