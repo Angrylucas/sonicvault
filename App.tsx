@@ -67,7 +67,7 @@ const App: React.FC = () => {
       </div>
 
       {/* ── Inhalt ── */}
-      <main className="flex-grow w-full max-w-5xl mx-auto px-4 sm:px-6 pt-8 pb-28">
+      <main className="flex-grow w-full max-w-5xl mx-auto px-4 sm:px-6 pt-8 pb-12">
         {tab === 'sounds'    && <SoundsTab mixer={mixer} />}
         {tab === 'meditation'&& <MeditationTab currentId={player.track?.id} onSelect={player.select} />}
         {tab === 'breathing' && <BreathingTab  player={player} />}

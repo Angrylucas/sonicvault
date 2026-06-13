@@ -37,7 +37,7 @@ const MixPanel: React.FC<{ mixer: Mixer }> = ({ mixer }) => {
 
   return (
     <div
-      className="rounded-2xl border border-accent-400/30 shadow-[0_8px_28px_rgba(0,0,0,0.5)] p-4 mt-4"
+      className="sticky bottom-3 z-30 rounded-2xl border border-accent-400/30 shadow-[0_8px_28px_rgba(0,0,0,0.55)] p-4 mt-4"
       style={{ background: 'rgba(14,22,46,0.95)', backdropFilter: 'blur(12px)' }}
     >
       <div className="flex items-center gap-3">
