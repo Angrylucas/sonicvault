@@ -36,10 +36,12 @@ const MixPanel: React.FC<{ mixer: Mixer }> = ({ mixer }) => {
   };
 
   return (
-    <div
-      className="sticky top-[60px] z-10 rounded-2xl border border-accent-400/30 shadow-[0_8px_28px_rgba(0,0,0,0.45)] p-4 mb-8"
-      style={{ background: 'rgba(14,22,46,0.92)', backdropFilter: 'blur(12px)' }}
-    >
+    <div className="fixed bottom-0 inset-x-0 z-40 pointer-events-none">
+      <div className="mx-auto max-w-3xl px-3 pb-3 md:pb-5">
+        <div
+          className="pointer-events-auto rounded-2xl border border-accent-400/30 shadow-[0_8px_28px_rgba(0,0,0,0.5)] p-4"
+          style={{ background: 'rgba(14,22,46,0.95)', backdropFilter: 'blur(12px)' }}
+        >
       <div className="flex items-center gap-3">
         <button
           onClick={playing ? pause : resume}
@@ -158,6 +160,8 @@ const MixPanel: React.FC<{ mixer: Mixer }> = ({ mixer }) => {
             </span>
           );
         })}
+          </div>
+        </div>
       </div>
     </div>
   );

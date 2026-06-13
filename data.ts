@@ -105,9 +105,6 @@ export const MIX_SOUNDS: MixSound[] = [
   { id: 'rain-on-tent', filename: 'rain-on-tent.mp3', name: 'Regen auf Zelt', icon: 'Tent', category: 'Regen & Gewitter' },
   { id: 'thunder', filename: 'thunder.mp3', name: 'Donner', icon: 'CloudLightning', category: 'Regen & Gewitter' },
   { id: 'thunderstorm', filename: 'thunderstorm.mp3', name: 'Gewitter', icon: 'Zap', category: 'Regen & Gewitter' },
-  { id: 'gen-rain-soft', filename: 'gen-rain-soft.wav', name: 'Regenrauschen', icon: 'CloudRain', category: 'Regen & Gewitter' },
-  { id: 'gen-rain-heavy', filename: 'gen-rain-heavy.wav', name: 'Wolkenbruch', icon: 'CloudRain', category: 'Regen & Gewitter' },
-  { id: 'gen-thunder', filename: 'gen-thunder.wav', name: 'Donnergrollen', icon: 'CloudLightning', category: 'Regen & Gewitter' },
 
   // Wasser
   { id: 'ocean-waves', filename: 'ocean-waves.mp3', name: 'Meereswellen', icon: 'Waves', category: 'Wasser' },
@@ -117,7 +114,6 @@ export const MIX_SOUNDS: MixSound[] = [
   { id: 'lakeside', filename: 'lakeside.mp3', name: 'Seeufer', icon: 'Mountain', category: 'Wasser' },
   { id: 'underwater', filename: 'underwater.mp3', name: 'Unterwasser', icon: 'Fish', category: 'Wasser' },
   { id: 'hot-tub', filename: 'hot-tub.mp3', name: 'Whirlpool', icon: 'Bath', category: 'Wasser' },
-  { id: 'gen-surf', filename: 'gen-surf.wav', name: 'Meeresbrandung', icon: 'Waves', category: 'Wasser' },
 
   // Natur
   { id: 'birds', filename: 'birds.mp3', name: 'Vögel', icon: 'Bird', category: 'Natur' },
@@ -130,8 +126,6 @@ export const MIX_SOUNDS: MixSound[] = [
   { id: 'polar-weather', filename: 'polar-weather.mp3', name: 'Polarwetter', icon: 'Snowflake', category: 'Natur' },
   { id: 'snow-footsteps', filename: 'snow-footsteps.mp3', name: 'Schritte im Schnee', icon: 'Footprints', category: 'Natur' },
   { id: 'cow-bells', filename: 'cow-bells.mp3', name: 'Kuhglocken', icon: 'Bell', category: 'Natur' },
-  { id: 'gen-wind-breeze', filename: 'gen-wind-breeze.wav', name: 'Windhauch', icon: 'Wind', category: 'Natur' },
-  { id: 'gen-wind-howling', filename: 'gen-wind-howling.wav', name: 'Pfeifender Wind', icon: 'Wind', category: 'Natur' },
 
   // Tiere
   { id: 'cat-purring', filename: 'cat-purring.mp3', name: 'Schnurrende Katze', icon: 'Cat', category: 'Tiere' },
@@ -148,7 +142,6 @@ export const MIX_SOUNDS: MixSound[] = [
   { id: 'space', filename: 'space.mp3', name: 'Weltraum', icon: 'Rocket', category: 'Orte & Atmosphäre' },
   { id: 'spa-ambient', filename: 'spa-ambient.mp3', name: 'Spa I', icon: 'Sparkles', category: 'Orte & Atmosphäre' },
   { id: 'spa-ambient2', filename: 'spa-ambient2.mp3', name: 'Spa II', icon: 'Sparkles', category: 'Orte & Atmosphäre' },
-  { id: 'gen-fire', filename: 'gen-fire.wav', name: 'Knisterndes Feuer', icon: 'Flame', category: 'Orte & Atmosphäre' },
 
   // Klang & Musik
   { id: 'singing-bowl', filename: 'singing-bowl.mp3', name: 'Klangschale', icon: 'CircleDot', category: 'Klang & Musik' },
