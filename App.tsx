@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Flower2, Wind, AudioWaveform } from 'lucide-react';
-import { Tab, GuidedTrack } from './types';
+import { Tab } from './types';
 import { useMixer } from './hooks/useMixer';
+import { useGuidedPlayer } from './hooks/useGuidedPlayer';
 import { NightScene } from './components/NightScene';
 import { MeditationTab } from './components/MeditationTab';
 import { BreathingTab } from './components/BreathingTab';
@@ -16,11 +17,8 @@ const TABS: { id: Tab; label: string; icon: React.FC<{ className?: string }> }[]
 
 const App: React.FC = () => {
   const [tab, setTab] = useState<Tab>('sounds');
-  const [track, setTrack] = useState<GuidedTrack | null>(null);
   const mixer = useMixer();
-
-  const selectTrack = (t: GuidedTrack) =>
-    setTrack(prev => (prev?.id === t.id ? null : t));
+  const player = useGuidedPlayer();
 
   return (
     <div className="min-h-screen flex flex-col" style={{ background: '#050c1a' }}>
@@ -71,12 +69,12 @@ const App: React.FC = () => {
       {/* ── Inhalt ── */}
       <main className="flex-grow w-full max-w-5xl mx-auto px-4 sm:px-6 pt-8 pb-44">
         {tab === 'sounds'    && <SoundsTab mixer={mixer} />}
-        {tab === 'meditation'&& <MeditationTab currentId={track?.id} onSelect={selectTrack} />}
-        {tab === 'breathing' && <BreathingTab  currentId={track?.id} onSelect={selectTrack} />}
+        {tab === 'meditation'&& <MeditationTab currentId={player.track?.id} onSelect={player.select} />}
+        {tab === 'breathing' && <BreathingTab  player={player} />}
       </main>
 
       {/* ── Geführter Player ── */}
-      {track && <GuidedPlayer track={track} onClose={() => setTrack(null)} />}
+      <GuidedPlayer player={player} />
     </div>
   );
 };
