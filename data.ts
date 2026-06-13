@@ -76,18 +76,17 @@ export const BREATHING_PATTERNS: BreathingPattern[] = [
 ];
 
 export const BREATHING_TRACKS: GuidedTrack[] = [
-  { id: 'br-3min', filename: '3-minute-breathing.mp3', title: '3 Minute Breathing', duration: '3:35', tag: 'Kurz', pattern: 'coherent' },
-  { id: 'br-3min-space', filename: '3-minute-breathing-space.mp3', title: '3 Minute Breathing Space', duration: '3:34', tag: 'Kurz', pattern: 'coherent' },
-  { id: 'br-mindful', filename: 'mindful-breathing.mp3', title: 'Mindful Breathing', duration: '2:21', tag: 'Kurz', pattern: 'coherent' },
-  { id: 'br-5min', filename: '5-minute-breathing.mp3', title: '5 Minute Breathing', duration: '4:39', tag: 'Kurz', pattern: 'coherent' },
-  { id: 'br-meditation', filename: 'breathing-meditation.mp3', title: 'Breathing Meditation', duration: '5:31', tag: 'Achtsamkeit', pattern: 'coherent' },
-  { id: 'br-space', filename: 'breathing-space.mp3', title: 'Breathing Space', duration: '5:39', tag: 'Achtsamkeit', pattern: 'coherent' },
-  { id: 'br-10min', filename: '10-minute-breathing.mp3', title: '10 Minute Breathing', duration: '9:56', tag: 'Achtsamkeit', pattern: 'coherent' },
-  { id: 'br-compassionate', filename: 'compassionate-breath.mp3', title: 'Compassionate Breath', duration: '11:33', tag: 'Achtsamkeit', pattern: 'coherent' },
-  { id: 'br-478', filename: '4-7-8-breathing.mp3', title: '4-7-8 Breathing', duration: '4:02', tag: 'Technik', pattern: '478' },
-  { id: 'br-478-10', filename: '4-7-8-breathing-10-min.mp3', title: '4-7-8 Breathing · 10 Min', duration: '10:32', tag: 'Technik', pattern: '478' },
-  { id: 'br-box-5', filename: 'box-breathing-5-minutes.mp3', title: 'Box Breathing · 5 Min', duration: '6:52', tag: 'Technik', pattern: 'box' },
-  // Wim Hof wechselt den Rhythmus während der Session – ein fester Indikator wäre irreführend
+  { id: 'br-3min', filename: '3-minute-breathing.mp3', title: '3 Minute Breathing', duration: '3:35', tag: 'Kurz' },
+  { id: 'br-3min-space', filename: '3-minute-breathing-space.mp3', title: '3 Minute Breathing Space', duration: '3:34', tag: 'Kurz' },
+  { id: 'br-mindful', filename: 'mindful-breathing.mp3', title: 'Mindful Breathing', duration: '2:21', tag: 'Kurz' },
+  { id: 'br-5min', filename: '5-minute-breathing.mp3', title: '5 Minute Breathing', duration: '4:39', tag: 'Kurz' },
+  { id: 'br-meditation', filename: 'breathing-meditation.mp3', title: 'Breathing Meditation', duration: '5:31', tag: 'Achtsamkeit' },
+  { id: 'br-space', filename: 'breathing-space.mp3', title: 'Breathing Space', duration: '5:39', tag: 'Achtsamkeit' },
+  { id: 'br-10min', filename: '10-minute-breathing.mp3', title: '10 Minute Breathing', duration: '9:56', tag: 'Achtsamkeit' },
+  { id: 'br-compassionate', filename: 'compassionate-breath.mp3', title: 'Compassionate Breath', duration: '11:33', tag: 'Achtsamkeit' },
+  { id: 'br-478', filename: '4-7-8-breathing.mp3', title: '4-7-8 Breathing', duration: '4:02', tag: 'Technik' },
+  { id: 'br-478-10', filename: '4-7-8-breathing-10-min.mp3', title: '4-7-8 Breathing · 10 Min', duration: '10:32', tag: 'Technik' },
+  { id: 'br-box-5', filename: 'box-breathing-5-minutes.mp3', title: 'Box Breathing · 5 Min', duration: '6:52', tag: 'Technik' },
   { id: 'br-wim-easy', filename: 'wim-hof-breathing-(easy).mp3', title: 'Wim Hof Breathing · Easy', duration: '21:29', tag: 'Technik' },
   { id: 'br-wim-expert', filename: 'wim-hof-breathing-expert.mp3', title: 'Wim Hof Breathing · Expert', duration: '46:46', tag: 'Technik' },
 ];
@@ -164,6 +163,20 @@ export const MIX_SOUNDS: MixSound[] = [
   { id: 'hz-100', filename: '100-hz.mp3', name: '100 Hz', icon: 'Activity', category: 'Noise & Frequenzen' },
   { id: 'hz-200', filename: '200-hz.mp3', name: '200 Hz', icon: 'Activity', category: 'Noise & Frequenzen' },
   { id: 'hz-400', filename: '400-hz.mp3', name: '400 Hz', icon: 'Activity', category: 'Noise & Frequenzen' },
+
+  // Heilfrequenzen (Solfeggio) – prozedural erzeugt, nahtlos loopbar
+  { id: 'sol-396', filename: '396-hz.wav', name: '396 Hz · Befreiung', icon: 'Sparkles', category: 'Heilfrequenzen' },
+  { id: 'sol-417', filename: '417-hz.wav', name: '417 Hz · Wandel', icon: 'Sparkles', category: 'Heilfrequenzen' },
+  { id: 'sol-432', filename: '432-hz.wav', name: '432 Hz · Harmonie', icon: 'Sparkles', category: 'Heilfrequenzen' },
+  { id: 'sol-528', filename: '528-hz.wav', name: '528 Hz · Heilung', icon: 'Sparkles', category: 'Heilfrequenzen' },
+  { id: 'sol-639', filename: '639-hz.wav', name: '639 Hz · Verbindung', icon: 'Sparkles', category: 'Heilfrequenzen' },
+  { id: 'sol-741', filename: '741-hz.wav', name: '741 Hz · Klarheit', icon: 'Sparkles', category: 'Heilfrequenzen' },
+  { id: 'sol-852', filename: '852-hz.wav', name: '852 Hz · Intuition', icon: 'Sparkles', category: 'Heilfrequenzen' },
+
+  // Binaurale Beats – Stereo, prozedural erzeugt (Kopfhörer empfohlen)
+  { id: 'bin-delta', filename: 'binaural-delta.wav', name: 'Delta · Tiefschlaf', icon: 'Brain', category: 'Binaurale Beats' },
+  { id: 'bin-theta', filename: 'binaural-theta.wav', name: 'Theta · Meditation', icon: 'Brain', category: 'Binaurale Beats' },
+  { id: 'bin-alpha', filename: 'binaural-alpha.wav', name: 'Alpha · Entspannung', icon: 'Brain', category: 'Binaurale Beats' },
 ];
 
 export const MIX_CATEGORIES = [
@@ -174,4 +187,6 @@ export const MIX_CATEGORIES = [
   'Orte & Atmosphäre',
   'Klang & Musik',
   'Noise & Frequenzen',
+  'Heilfrequenzen',
+  'Binaurale Beats',
 ];
