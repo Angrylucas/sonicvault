@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
-  Activity, AudioWaveform, Bath, Bell, Bird, Brain, Bug, Car, Cat, CircleDot,
+  Activity, AudioWaveform, Bath, Bell, Bird, Brain, Bug, Car, Cat, Check, CircleDot,
   CloudDrizzle, CloudLightning, CloudRain, Coffee, Droplets, Fish, Flame,
-  Footprints, Heart, HeartPulse, Home, Moon, Mountain, Music, Pause, Play,
-  Radio, Rocket, Shuffle, Snowflake, Sparkles, Sunset, Tent, Trash2, Trees,
+  Footprints, Heart, HeartPulse, Home, Layers, Moon, Mountain, Music, Pause, Play,
+  Radio, Rocket, Save, Shuffle, Snowflake, Sparkles, Sunset, Tent, Trash2, Trees,
   Volume2, Waves, Wind, X, Zap,
 } from 'lucide-react';
 import { MIX_CATEGORIES, MIX_SOUNDS } from '../data';
@@ -20,17 +20,25 @@ const SOUND_BY_ID = Object.fromEntries(MIX_SOUNDS.map(s => [s.id, s]));
 
 interface Props { mixer: Mixer }
 
-/** Mitlaufende Mix-Leiste (im normalen Fluss, scrollt mit). */
+/** Sticky Mix-Leiste: bleibt beim Scrollen oben sichtbar. */
 const MixPanel: React.FC<{ mixer: Mixer }> = ({ mixer }) => {
-  const { sounds, playing, activeCount, toggle, toggleRandomness, setAllRandomness, pause, resume, stopAll } = mixer;
+  const { sounds, playing, activeCount, toggle, toggleRandomness, setAllRandomness, pause, resume, stopAll, saveSpace } = mixer;
+  const [saving, setSaving] = useState(false);
+  const [name, setName] = useState('');
 
   const activeIds = Object.keys(sounds);
   const allNatural = activeIds.length > 0 && activeIds.every(id => sounds[id].randomness);
 
+  const confirmSave = () => {
+    saveSpace(name);
+    setName('');
+    setSaving(false);
+  };
+
   return (
     <div
-      className="rounded-2xl border border-accent-400/30 shadow-[0_0_28px_rgba(245,192,96,0.08)] p-4 mb-8"
-      style={{ background: 'rgba(14,22,46,0.85)', backdropFilter: 'blur(8px)' }}
+      className="sticky top-[60px] z-10 rounded-2xl border border-accent-400/30 shadow-[0_8px_28px_rgba(0,0,0,0.45)] p-4 mb-8"
+      style={{ background: 'rgba(14,22,46,0.92)', backdropFilter: 'blur(12px)' }}
     >
       <div className="flex items-center gap-3">
         <button
@@ -54,13 +62,22 @@ const MixPanel: React.FC<{ mixer: Mixer }> = ({ mixer }) => {
           onClick={() => setAllRandomness(!allNatural)}
           aria-pressed={allNatural}
           title="Natürliche Schwankung für alle Sounds"
-          className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold transition-all ${
+          className={`hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold transition-all ${
             allNatural ? 'text-night-950' : 'bg-night-800 text-slate-300 hover:bg-night-700'
           }`}
           style={allNatural ? { background: '#f5c060' } : undefined}
         >
           <Shuffle className="w-3.5 h-3.5" />
           alle natürlich
+        </button>
+
+        <button
+          onClick={() => setSaving(s => !s)}
+          aria-label="Klangraum speichern"
+          title="Klangraum speichern"
+          className="p-2.5 text-slate-300 hover:text-accent-400 transition-colors"
+        >
+          <Save className="w-5 h-5" />
         </button>
 
         <button
@@ -72,7 +89,43 @@ const MixPanel: React.FC<{ mixer: Mixer }> = ({ mixer }) => {
         </button>
       </div>
 
-      {/* Aktive Sounds als Chips – Klick entfernt den Sound */}
+      {/* Speichern-Eingabe */}
+      {saving && (
+        <div className="flex items-center gap-2 mt-3 fade-up">
+          <input
+            autoFocus
+            value={name}
+            onChange={e => setName(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter') confirmSave(); if (e.key === 'Escape') setSaving(false); }}
+            placeholder="Name für diesen Klangraum…"
+            maxLength={40}
+            className="flex-grow bg-night-900 border border-night-700 rounded-full px-4 py-2 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-accent-400/60"
+          />
+          <button
+            onClick={confirmSave}
+            className="shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold text-night-950 transition-opacity hover:opacity-80"
+            style={{ background: '#f5c060' }}
+          >
+            <Check className="w-3.5 h-3.5" />
+            Speichern
+          </button>
+        </div>
+      )}
+
+      {/* Master-Toggle auf Mobile (eigene Zeile) */}
+      <button
+        onClick={() => setAllRandomness(!allNatural)}
+        aria-pressed={allNatural}
+        className={`sm:hidden flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all mt-3 ${
+          allNatural ? 'text-night-950' : 'bg-night-800 text-slate-300'
+        }`}
+        style={allNatural ? { background: '#f5c060' } : undefined}
+      >
+        <Shuffle className="w-3.5 h-3.5" />
+        alle natürlich
+      </button>
+
+      {/* Aktive Sounds als Chips */}
       <div className="flex flex-wrap gap-2 mt-3.5">
         {activeIds.map(id => {
           const sound = SOUND_BY_ID[id];
@@ -82,7 +135,7 @@ const MixPanel: React.FC<{ mixer: Mixer }> = ({ mixer }) => {
           return (
             <span
               key={id}
-              className="group flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 rounded-full text-xs font-medium border border-night-700 bg-night-900/70 text-slate-200"
+              className="flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 rounded-full text-xs font-medium border border-night-700 bg-night-900/70 text-slate-200"
             >
               <Icon className={`w-3.5 h-3.5 ${natural ? 'text-accent-400' : 'text-slate-400'}`} />
               {sound.name}
@@ -110,6 +163,49 @@ const MixPanel: React.FC<{ mixer: Mixer }> = ({ mixer }) => {
   );
 };
 
+/** Liste gespeicherter Klangräume zum Laden/Löschen. */
+const SavedSpaces: React.FC<{ mixer: Mixer }> = ({ mixer }) => {
+  const { savedSpaces, loadSpace, deleteSpace } = mixer;
+  if (savedSpaces.length === 0) return null;
+
+  return (
+    <section className="mb-8">
+      <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-3 flex items-center gap-2">
+        <Layers className="w-3.5 h-3.5" />
+        Gespeicherte Klangräume
+      </h3>
+      <div className="flex flex-wrap gap-2">
+        {savedSpaces.map(space => {
+          const count = Object.keys(space.sounds).length;
+          return (
+            <span
+              key={space.id}
+              className="flex items-center gap-2 pl-1 pr-1.5 py-1 rounded-full border border-night-700 bg-night-900/70"
+            >
+              <button
+                onClick={() => loadSpace(space.id)}
+                className="flex items-center gap-2 pl-3 pr-1 py-1 rounded-full text-sm font-medium text-slate-100 hover:text-accent-300 transition-colors"
+                title="Klangraum laden"
+              >
+                <Play className="w-3.5 h-3.5 text-accent-400" />
+                {space.name}
+                <span className="text-xs text-slate-500">{count}</span>
+              </button>
+              <button
+                onClick={() => deleteSpace(space.id)}
+                aria-label={`${space.name} löschen`}
+                className="p-1 rounded-full text-slate-500 hover:text-red-400 transition-colors"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+              </button>
+            </span>
+          );
+        })}
+      </div>
+    </section>
+  );
+};
+
 export const SoundsTab: React.FC<Props> = ({ mixer }) => {
   const { sounds, playing, activeCount, toggle, setVolume, toggleRandomness } = mixer;
 
@@ -121,6 +217,8 @@ export const SoundsTab: React.FC<Props> = ({ mixer }) => {
       </p>
 
       {activeCount > 0 && <MixPanel mixer={mixer} />}
+
+      <SavedSpaces mixer={mixer} />
 
       {MIX_CATEGORIES.map(category => (
         <section key={category} className="mb-8">
@@ -143,7 +241,6 @@ export const SoundsTab: React.FC<Props> = ({ mixer }) => {
                   }`}
                   style={active ? { background: 'rgba(245,192,96,0.07)' } : undefined}
                 >
-                  {/* Toggle-Button */}
                   <button
                     onClick={() => toggle(sound.id)}
                     className="w-full flex items-center gap-3 p-3.5 text-left"
@@ -164,7 +261,6 @@ export const SoundsTab: React.FC<Props> = ({ mixer }) => {
                     </span>
                   </button>
 
-                  {/* Lautstärke + Randomness-Toggle */}
                   {active && (
                     <div className="px-3.5 pb-3.5 space-y-2.5 fade-up">
                       <div className="flex items-center gap-2.5">
