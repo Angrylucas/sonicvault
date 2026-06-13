@@ -133,6 +133,18 @@ export function useMixer() {
     });
   }, []);
 
+  // Setzt Randomness für alle aktiven Sounds gleichzeitig
+  const setAllRandomness = useCallback((value: boolean) => {
+    for (const state of lfo.current.values()) state.nextChangeAt = 0;
+    setSounds(prev => {
+      const next: Record<string, MixerSoundState> = {};
+      for (const [id, st] of Object.entries(prev) as [string, MixerSoundState][]) {
+        next[id] = { ...st, randomness: value };
+      }
+      return next;
+    });
+  }, []);
+
   const pause = useCallback(() => {
     for (const el of audioEls.current.values()) el.pause();
     setPlaying(false);
@@ -159,7 +171,7 @@ export function useMixer() {
   return {
     sounds, playing,
     activeCount: Object.keys(sounds).length,
-    toggle, setVolume, toggleRandomness,
+    toggle, setVolume, toggleRandomness, setAllRandomness,
     pause, resume, stopAll,
   };
 }
