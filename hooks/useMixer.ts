@@ -4,13 +4,17 @@ import { MIX_SOUNDS, SOUND_BASE_PATH } from '../data';
 
 const STORAGE_KEY = 'sonicvault-mix-v2';
 const SPACES_KEY = 'sonicvault-spaces-v1';
-const TICK_MS = 120;
-const RANDOMNESS_AMOUNT = 0.38; // Schwankungstiefe wenn Randomness aktiv
+const TICK_MS = 150;
+const RANDOMNESS_AMOUNT = 0.38;
 
 interface LfoState {
-  current: number;
   target: number;
   nextChangeAt: number;
+}
+
+interface ActiveNode {
+  source: AudioBufferSourceNode;
+  gain: GainNode;
 }
 
 const FILE_BY_ID: Record<string, string> = Object.fromEntries(
@@ -65,8 +69,12 @@ export function useMixer() {
   const [playing, setPlaying] = useState(false);
   const [savedSpaces, setSavedSpaces] = useState<SavedSpace[]>(loadSpaces);
 
-  const audioEls = useRef(new Map<string, HTMLAudioElement>());
+  // Web Audio API refs — AudioBufferSourceNode gives zero-gap looping
+  const ctxRef = useRef<AudioContext | null>(null);
+  const bufferCache = useRef(new Map<string, AudioBuffer>());
+  const activeNodes = useRef(new Map<string, ActiveNode>());
   const lfo = useRef(new Map<string, LfoState>());
+
   const soundsRef = useRef(sounds);
   soundsRef.current = sounds;
   const playingRef = useRef(playing);
@@ -82,44 +90,87 @@ export function useMixer() {
     try { localStorage.setItem(SPACES_KEY, JSON.stringify(savedSpaces)); } catch { /* noop */ }
   }, [savedSpaces]);
 
-  const ensureEl = useCallback((id: string): HTMLAudioElement => {
-    let el = audioEls.current.get(id);
-    if (!el) {
-      el = new Audio(SOUND_BASE_PATH + encodeURIComponent(FILE_BY_ID[id]));
-      el.loop = true;
-      el.preload = 'auto';
-      audioEls.current.set(id, el);
+  const getCtx = useCallback((): AudioContext => {
+    if (!ctxRef.current) {
+      ctxRef.current = new AudioContext();
     }
-    return el;
+    return ctxRef.current;
   }, []);
 
-  // Randomness-LFO
+  const fetchBuffer = useCallback(async (id: string): Promise<AudioBuffer | null> => {
+    const cached = bufferCache.current.get(id);
+    if (cached) return cached;
+    try {
+      const url = SOUND_BASE_PATH + encodeURIComponent(FILE_BY_ID[id]);
+      const res = await fetch(url);
+      const arr = await res.arrayBuffer();
+      const ctx = getCtx();
+      const buf = await ctx.decodeAudioData(arr);
+      bufferCache.current.set(id, buf);
+      return buf;
+    } catch {
+      return null;
+    }
+  }, [getCtx]);
+
+  const spawnNode = useCallback((id: string, buffer: AudioBuffer, volume: number): ActiveNode => {
+    const ctx = getCtx();
+    if (ctx.state === 'suspended') ctx.resume();
+
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(volume, ctx.currentTime);
+    gain.connect(ctx.destination);
+
+    const source = ctx.createBufferSource();
+    source.buffer = buffer;
+    source.loop = true;
+    source.connect(gain);
+    source.start(0);
+
+    return { source, gain };
+  }, [getCtx]);
+
+  const killNode = useCallback((id: string) => {
+    const node = activeNodes.current.get(id);
+    if (!node) return;
+    try { node.source.stop(); } catch { /* already ended */ }
+    node.source.disconnect();
+    node.gain.disconnect();
+    activeNodes.current.delete(id);
+  }, []);
+
+  // LFO tick — uses AudioParam.setTargetAtTime for smooth, click-free ramping
   useEffect(() => {
     const interval = setInterval(() => {
       if (!playingRef.current) return;
+      const ctx = ctxRef.current;
+      if (!ctx || ctx.state !== 'running') return;
       const now = Date.now();
+
       for (const [id, st] of Object.entries(soundsRef.current) as [string, MixerSoundState][]) {
-        const el = audioEls.current.get(id);
-        if (!el || el.paused) continue;
+        const node = activeNodes.current.get(id);
+        if (!node) continue;
+
+        if (!st.randomness) {
+          // Snap back to base volume smoothly
+          node.gain.gain.setTargetAtTime(st.volume, ctx.currentTime, 0.1);
+          lfo.current.delete(id);
+          continue;
+        }
 
         let state = lfo.current.get(id);
         if (!state) {
-          state = { current: st.volume, target: st.volume, nextChangeAt: 0 };
+          state = { target: st.volume, nextChangeAt: 0 };
           lfo.current.set(id, state);
         }
 
-        if (!st.randomness) {
-          state.current = st.volume;
-          state.target = st.volume;
-        } else {
-          if (now >= state.nextChangeAt) {
-            const min = st.volume * (1 - RANDOMNESS_AMOUNT);
-            state.target = min + Math.random() * (st.volume - min);
-            state.nextChangeAt = now + 1500 + Math.random() * 3000;
-          }
-          state.current += (state.target - state.current) * 0.06;
+        if (now >= state.nextChangeAt) {
+          const min = st.volume * (1 - RANDOMNESS_AMOUNT);
+          state.target = min + Math.random() * (st.volume - min);
+          state.nextChangeAt = now + 1500 + Math.random() * 3000;
+          // Exponential ramp to target over ~0.5s — inaudible click-free
+          node.gain.gain.setTargetAtTime(state.target, ctx.currentTime, 0.4);
         }
-        el.volume = Math.min(1, Math.max(0, state.current));
       }
     }, TICK_MS);
     return () => clearInterval(interval);
@@ -130,42 +181,44 @@ export function useMixer() {
       const next = { ...prev };
       if (next[id]) {
         delete next[id];
-        const el = audioEls.current.get(id);
-        if (el) { el.pause(); el.currentTime = 0; }
+        killNode(id);
         lfo.current.delete(id);
         if (Object.keys(next).length === 0) setPlaying(false);
       } else {
         next[id] = { volume: 0.7, randomness: false };
-        const el = ensureEl(id);
-        el.volume = 0.7;
-        el.play().catch(() => undefined);
+        fetchBuffer(id).then(buf => {
+          if (!buf || !soundsRef.current[id]) return;
+          const node = spawnNode(id, buf, soundsRef.current[id].volume);
+          activeNodes.current.set(id, node);
+        });
         setPlaying(true);
       }
       return next;
     });
-  }, [ensureEl]);
+  }, [killNode, fetchBuffer, spawnNode]);
 
   const setVolume = useCallback((id: string, volume: number) => {
     setSounds(prev => (prev[id] ? { ...prev, [id]: { ...prev[id], volume } } : prev));
-    const el = audioEls.current.get(id);
+    const node = activeNodes.current.get(id);
     const state = lfo.current.get(id);
-    if (state) { state.current = volume; state.target = volume; state.nextChangeAt = 0; }
-    if (el) el.volume = volume;
+    if (state) { state.target = volume; state.nextChangeAt = 0; }
+    if (node && ctxRef.current) {
+      node.gain.gain.setTargetAtTime(volume, ctxRef.current.currentTime, 0.05);
+    }
   }, []);
 
   const toggleRandomness = useCallback((id: string) => {
     setSounds(prev => {
       if (!prev[id]) return prev;
-      const newVal = !prev[id].randomness;
       const state = lfo.current.get(id);
       if (state) state.nextChangeAt = 0;
-      return { ...prev, [id]: { ...prev[id], randomness: newVal } };
+      return { ...prev, [id]: { ...prev[id], randomness: !prev[id].randomness } };
     });
   }, []);
 
-  // Setzt Randomness für alle aktiven Sounds gleichzeitig
   const setAllRandomness = useCallback((value: boolean) => {
     for (const state of lfo.current.values()) state.nextChangeAt = 0;
+    if (!value) lfo.current.clear();
     setSounds(prev => {
       const next: Record<string, MixerSoundState> = {};
       for (const [id, st] of Object.entries(prev) as [string, MixerSoundState][]) {
@@ -175,30 +228,45 @@ export function useMixer() {
     });
   }, []);
 
+  // Pause: suspend the AudioContext — all sources freeze in place, no gap on resume
   const pause = useCallback(() => {
-    for (const el of audioEls.current.values()) el.pause();
+    ctxRef.current?.suspend();
     setPlaying(false);
   }, []);
 
-  const resume = useCallback(() => {
+  // Resume: unsuspend OR spawn fresh nodes if context was closed/missing
+  const resume = useCallback(async () => {
     const active = soundsRef.current;
     if (Object.keys(active).length === 0) return;
+    const ctx = getCtx();
+    if (ctx.state === 'suspended') {
+      await ctx.resume();
+      setPlaying(true);
+      return;
+    }
+    // Nodes missing (e.g. after stopAll then re-play)
     for (const [id, st] of Object.entries(active) as [string, MixerSoundState][]) {
-      const el = ensureEl(id);
-      el.volume = st.volume;
-      el.play().catch(() => undefined);
+      if (activeNodes.current.has(id)) continue;
+      const buf = bufferCache.current.get(id);
+      if (buf) {
+        activeNodes.current.set(id, spawnNode(id, buf, st.volume));
+      } else {
+        fetchBuffer(id).then(b => {
+          if (!b || !soundsRef.current[id]) return;
+          activeNodes.current.set(id, spawnNode(id, b, soundsRef.current[id].volume));
+        });
+      }
     }
     setPlaying(true);
-  }, [ensureEl]);
+  }, [getCtx, spawnNode, fetchBuffer]);
 
   const stopAll = useCallback(() => {
-    for (const el of audioEls.current.values()) { el.pause(); el.currentTime = 0; }
+    for (const id of activeNodes.current.keys()) killNode(id);
     lfo.current.clear();
     setSounds({});
     setPlaying(false);
-  }, []);
+  }, [killNode]);
 
-  // Aktuellen Mix unter einem Namen speichern
   const saveSpace = useCallback((name: string) => {
     const snapshot = soundsRef.current;
     if (Object.keys(snapshot).length === 0) return;
@@ -210,21 +278,26 @@ export function useMixer() {
     setSavedSpaces(prev => [...prev, space]);
   }, []);
 
-  // Gespeicherten Klangraum laden und sofort abspielen
   const loadSpace = useCallback((id: string) => {
     const space = spacesRef.current.find(s => s.id === id);
     if (!space) return;
-    for (const el of audioEls.current.values()) { el.pause(); el.currentTime = 0; }
+    for (const nid of activeNodes.current.keys()) killNode(nid);
     lfo.current.clear();
     const next: Record<string, MixerSoundState> = JSON.parse(JSON.stringify(space.sounds));
     setSounds(next);
     for (const [sid, st] of Object.entries(next) as [string, MixerSoundState][]) {
-      const el = ensureEl(sid);
-      el.volume = st.volume;
-      el.play().catch(() => undefined);
+      const buf = bufferCache.current.get(sid);
+      if (buf) {
+        activeNodes.current.set(sid, spawnNode(sid, buf, st.volume));
+      } else {
+        fetchBuffer(sid).then(b => {
+          if (!b || !soundsRef.current[sid]) return;
+          activeNodes.current.set(sid, spawnNode(sid, b, soundsRef.current[sid].volume));
+        });
+      }
     }
     setPlaying(Object.keys(next).length > 0);
-  }, [ensureEl]);
+  }, [killNode, spawnNode, fetchBuffer]);
 
   const deleteSpace = useCallback((id: string) => {
     setSavedSpaces(prev => prev.filter(s => s.id !== id));
