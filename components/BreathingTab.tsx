@@ -101,24 +101,53 @@ export const BreathingTab: React.FC<Props> = ({ player }) => {
       </p>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-        {BREATHING_PATTERNS.map(p => (
-          <button
-            key={p.id}
-            onClick={() => {
-              setPattern(p);
-              setRunning(false);
-            }}
-            className={`p-4 rounded-2xl border text-left transition-all ${
-              pattern.id === p.id
-                ? 'border-accent-400/40'
-                : 'bg-night-900/70 border-night-800 hover:border-night-700'
-            }`}
-            style={pattern.id === p.id ? { background: 'rgba(245,192,96,0.07)' } : undefined}
-          >
-            <span className="block text-sm font-semibold text-slate-100">{p.name}</span>
-            <span className="block text-xs text-slate-400 mt-1 leading-relaxed">{p.description}</span>
-          </button>
-        ))}
+        {BREATHING_PATTERNS.map(p => {
+          const total = p.phases.reduce((s, ph) => s + ph.seconds, 0);
+          const active = pattern.id === p.id;
+          return (
+            <button
+              key={p.id}
+              onClick={() => { setPattern(p); setRunning(false); }}
+              className={`rounded-2xl border text-left transition-all overflow-hidden ${
+                active
+                  ? 'border-accent-400/40'
+                  : 'bg-night-900/70 border-night-800 hover:border-night-700'
+              }`}
+              style={active ? { background: 'rgba(245,192,96,0.07)' } : undefined}
+            >
+              {/* Rhythm bar */}
+              <div className="flex h-1.5 rounded-t-2xl overflow-hidden">
+                {p.phases.map((ph, i) => (
+                  <div
+                    key={i}
+                    style={{ width: `${(ph.seconds / total) * 100}%` }}
+                    className={
+                      ph.kind === 'in'   ? 'bg-teal-400/70' :
+                      ph.kind === 'hold' ? 'bg-accent-400/60' :
+                                           'bg-lav-400/70'
+                    }
+                  />
+                ))}
+              </div>
+              <div className="p-4 pt-3">
+                <span className="block text-sm font-bold text-slate-100">{p.name}</span>
+                {/* Phase pills */}
+                <div className="flex flex-wrap gap-1 mt-2 mb-2.5">
+                  {p.phases.map((ph, i) => (
+                    <span key={i} className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${
+                      ph.kind === 'in'   ? 'bg-teal-900/60 text-teal-300' :
+                      ph.kind === 'hold' ? 'bg-accent-400/15 text-accent-300' :
+                                           'bg-lav-900/60 text-lav-300'
+                    }`}>
+                      {ph.label} {ph.seconds}s
+                    </span>
+                  ))}
+                </div>
+                <span className="block text-xs text-slate-400 leading-relaxed">{p.description}</span>
+              </div>
+            </button>
+          );
+        })}
       </div>
 
       <div className="bg-night-900/70 border border-night-800 rounded-3xl overflow-hidden mb-10">
