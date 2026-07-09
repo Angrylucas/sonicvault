@@ -130,7 +130,7 @@ export const TrackList: React.FC<Props> = ({ tracks, currentId, onSelect }) => (
           onClick={() => onSelect(track)}
           className={`group rounded-2xl border overflow-hidden text-left transition-all duration-200 ${
             active
-              ? 'border-accent-400/50 shadow-[0_0_24px_rgba(245,192,96,0.18)]'
+              ? 'border-transparent shadow-[0_0_0_2px_#e4e4e7]'
               : 'border-night-800 hover:border-night-700'
           }`}
         >
@@ -144,13 +144,13 @@ export const TrackList: React.FC<Props> = ({ tracks, currentId, onSelect }) => (
 
             {/* Playing indicator dot */}
             {active && (
-              <span className="absolute top-2.5 left-2.5 w-2 h-2 rounded-full bg-accent-400 shadow-[0_0_8px_rgba(245,192,96,0.9)]" />
+              <span className="absolute top-2.5 left-2.5 w-2 h-2 rounded-full bg-slate-50 shadow-[0_0_8px_rgba(250,250,250,0.9)]" />
             )}
 
             {/* Play / Pause badge */}
             <span className={`absolute bottom-2.5 right-2.5 w-8 h-8 rounded-full flex items-center justify-center transition-all ${
               active
-                ? 'bg-accent-400 text-night-950'
+                ? 'bg-slate-50 text-night-950'
                 : 'bg-black/50 text-slate-300 opacity-0 group-hover:opacity-100'
             }`}>
               {active
@@ -161,7 +161,7 @@ export const TrackList: React.FC<Props> = ({ tracks, currentId, onSelect }) => (
 
           {/* Track info */}
           <div className="bg-night-900/80 px-3 pt-2.5 pb-3 space-y-1.5">
-            <span className="block text-sm font-semibold text-slate-100 leading-snug line-clamp-2">
+            <span className="block font-heading text-sm font-semibold text-slate-100 leading-snug line-clamp-2">
               {track.title}
             </span>
             <span className="flex items-center gap-1.5 text-xs text-slate-500">
