@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import {
-  Activity, AudioWaveform, Bath, Bell, Bird, Brain, Bug, Car, Cat, Check, CircleDot,
-  CloudDrizzle, CloudLightning, CloudRain, Coffee, Droplets, Fish, Flame,
-  Footprints, Heart, HeartPulse, Home, Layers, Moon, Mountain, Music, Pause, Play,
-  Radio, Rocket, Save, Shuffle, Snowflake, Sparkles, Sunset, Tent, Trash2, Trees,
+  Activity, AudioWaveform, Bath, Bell, Bird, BookOpen, Brain, Bug, Car, Cat, Check,
+  Church, CircleDot, Clock, CloudDrizzle, CloudLightning, CloudRain, Coffee, Disc3,
+  Droplets, Fan, Fish, Flame, Footprints, Heart, HeartPulse, Home, Landmark, Layers,
+  Leaf, Moon, Mountain, Music, Pause, Plane, Play, Radio, Rocket, Sailboat, Save,
+  Shuffle, Snowflake, Sparkles, Sunset, Tent, TrainFront, Trash2, Trees, Umbrella,
   Volume2, Waves, Wind, X, Zap,
 } from 'lucide-react';
 import { MIX_CATEGORIES, MIX_SOUNDS } from '../data';
 import { Mixer } from '../hooks/useMixer';
 
 const ICON_MAP: Record<string, React.FC<{ className?: string }>> = {
-  Activity, AudioWaveform, Bath, Bell, Bird, Brain, Bug, Car, Cat, CircleDot,
-  CloudDrizzle, CloudLightning, CloudRain, Coffee, Droplets, Fish, Flame,
-  Footprints, Heart, HeartPulse, Home, Moon, Mountain, Music, Radio, Rocket,
-  Snowflake, Sparkles, Sunset, Tent, Trees, Waves, Wind, Zap,
+  Activity, AudioWaveform, Bath, Bell, Bird, BookOpen, Brain, Bug, Car, Cat, Church,
+  CircleDot, Clock, CloudDrizzle, CloudLightning, CloudRain, Coffee, Disc3, Droplets,
+  Fan, Fish, Flame, Footprints, Heart, HeartPulse, Home, Landmark, Leaf, Moon,
+  Mountain, Music, Plane, Radio, Rocket, Sailboat, Snowflake, Sparkles, Sunset,
+  Tent, TrainFront, Trees, Umbrella, Waves, Wind, Zap,
 };
 
 const SOUND_BY_ID = Object.fromEntries(MIX_SOUNDS.map(s => [s.id, s]));
