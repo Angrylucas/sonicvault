@@ -18,12 +18,12 @@ export const MeditationTab: React.FC<Props> = ({ currentId, onSelect }) => {
 
   return (
     <div className="fade-up">
-      <h2 className="text-2xl font-semibold text-slate-100">Meditation</h2>
-      <p className="text-sm text-slate-400 mt-1 mb-6">
+      <h2 className="font-display text-2xl text-slate-100 text-center">Meditation</h2>
+      <p className="text-sm text-slate-400 mt-1 mb-6 text-center">
         Geführte Meditationen für Ruhe, Schlaf und Achtsamkeit.
       </p>
 
-      <div className="flex gap-2 overflow-x-auto pb-3 mb-4 -mx-1 px-1">
+      <div className="flex gap-2 overflow-x-auto pb-3 mb-4 -mx-1 px-1 sm:justify-center">
         {MEDITATION_TAGS.map(t => (
           <button
             key={t}

@@ -62,16 +62,16 @@ const BreathSession: React.FC<{ pattern: BreathingPattern; running: boolean }> =
       <div className="relative w-56 h-56 flex items-center justify-center">
         <div
           className="breath-circle absolute inset-0 rounded-full"
-          style={{ background: 'rgba(245,192,96,0.07)', transform: `scale(${scale})`, transitionDuration: `${transitionSeconds}s` }}
+          style={{ background: 'rgba(250,250,250,0.05)', transform: `scale(${scale})`, transitionDuration: `${transitionSeconds}s` }}
         />
         <div
           className="breath-circle absolute inset-6 rounded-full border"
-          style={{ background: 'rgba(245,192,96,0.12)', borderColor: 'rgba(245,192,96,0.28)', transform: `scale(${scale})`, transitionDuration: `${transitionSeconds}s` }}
+          style={{ background: 'rgba(250,250,250,0.08)', borderColor: 'rgba(250,250,250,0.22)', transform: `scale(${scale})`, transitionDuration: `${transitionSeconds}s` }}
         />
         <div
-          className="breath-circle w-28 h-28 rounded-full shadow-[0_0_60px_rgba(245,192,96,0.4)]"
+          className="breath-circle w-28 h-28 rounded-full shadow-[0_0_60px_rgba(250,250,250,0.3)]"
           style={{
-            background: 'linear-gradient(135deg, #f5c060, #9099d8)',
+            background: 'linear-gradient(135deg, #fafafa, #a1a1aa)',
             transform: `scale(${scale})`,
             transitionDuration: `${transitionSeconds}s`,
           }}
@@ -95,30 +95,59 @@ export const BreathingTab: React.FC<Props> = ({ player }) => {
 
   return (
     <div className="fade-up">
-      <h2 className="text-2xl font-semibold text-slate-100">Atemübungen</h2>
-      <p className="text-sm text-slate-400 mt-1 mb-6">
+      <h2 className="font-display text-2xl text-slate-100 text-center">Atemübungen</h2>
+      <p className="text-sm text-slate-400 mt-1 mb-6 text-center">
         Folge dem Kreis: Er wächst beim Einatmen und zieht sich beim Ausatmen zusammen.
       </p>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-        {BREATHING_PATTERNS.map(p => (
-          <button
-            key={p.id}
-            onClick={() => {
-              setPattern(p);
-              setRunning(false);
-            }}
-            className={`p-4 rounded-2xl border text-left transition-all ${
-              pattern.id === p.id
-                ? 'border-accent-400/40'
-                : 'bg-night-900/70 border-night-800 hover:border-night-700'
-            }`}
-            style={pattern.id === p.id ? { background: 'rgba(245,192,96,0.07)' } : undefined}
-          >
-            <span className="block text-sm font-semibold text-slate-100">{p.name}</span>
-            <span className="block text-xs text-slate-400 mt-1 leading-relaxed">{p.description}</span>
-          </button>
-        ))}
+        {BREATHING_PATTERNS.map(p => {
+          const total = p.phases.reduce((s, ph) => s + ph.seconds, 0);
+          const active = pattern.id === p.id;
+          return (
+            <button
+              key={p.id}
+              onClick={() => { setPattern(p); setRunning(false); }}
+              className={`rounded-xl border text-left transition-all overflow-hidden ${
+                active
+                  ? 'border-transparent shadow-[0_0_0_2px_#e4e4e7]'
+                  : 'bg-night-900/70 border-night-800 hover:border-night-700'
+              }`}
+              style={active ? { background: 'rgba(250,250,250,0.04)' } : undefined}
+            >
+              {/* Rhythm bar */}
+              <div className="flex h-1.5 rounded-t-xl overflow-hidden">
+                {p.phases.map((ph, i) => (
+                  <div
+                    key={i}
+                    style={{ width: `${(ph.seconds / total) * 100}%` }}
+                    className={
+                      ph.kind === 'in'   ? 'bg-slate-50/80' :
+                      ph.kind === 'hold' ? 'bg-slate-400/60' :
+                                           'bg-slate-600/60'
+                    }
+                  />
+                ))}
+              </div>
+              <div className="p-4 pt-3">
+                <span className="block font-heading text-sm font-bold text-slate-100">{p.name}</span>
+                {/* Phase pills */}
+                <div className="flex flex-wrap gap-1 mt-2 mb-2.5">
+                  {p.phases.map((ph, i) => (
+                    <span key={i} className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${
+                      ph.kind === 'in'   ? 'bg-night-700 text-slate-100' :
+                      ph.kind === 'hold' ? 'bg-night-800 text-slate-300' :
+                                           'bg-night-900 text-slate-400 border border-night-800'
+                    }`}>
+                      {ph.label} {ph.seconds}s
+                    </span>
+                  ))}
+                </div>
+                <span className="block text-xs text-slate-400 leading-relaxed">{p.description}</span>
+              </div>
+            </button>
+          );
+        })}
       </div>
 
       <div className="bg-night-900/70 border border-night-800 rounded-3xl overflow-hidden mb-10">
@@ -129,9 +158,8 @@ export const BreathingTab: React.FC<Props> = ({ player }) => {
             className={`flex items-center gap-2 px-8 py-3 rounded-full font-semibold text-sm transition-colors ${
               running
                 ? 'bg-night-800 text-slate-200 hover:bg-night-700'
-                : 'text-night-950 hover:opacity-80'
+                : 'bg-accent-400 text-night-950 hover:opacity-80'
             }`}
-            style={!running ? { background: '#f5c060' } : undefined}
           >
             {running ? (
               <>
@@ -146,7 +174,7 @@ export const BreathingTab: React.FC<Props> = ({ player }) => {
         </div>
       </div>
 
-      <h3 className="text-lg font-semibold text-slate-100 mb-4">Geführte Atemübungen</h3>
+      <h3 className="font-display text-xl text-slate-100 mb-4 text-center">Geführte Atemübungen</h3>
       <TrackList tracks={BREATHING_TRACKS} currentId={player.track?.id} onSelect={player.select} />
     </div>
   );

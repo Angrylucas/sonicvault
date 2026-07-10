@@ -3,40 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#050c1a" />
+    <meta name="theme-color" content="#09090b" />
     <title>SonicVault – Meditation & Klangwelten</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@600;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             fontFamily: {
-              sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+              heading: ['"Inter Tight"', 'Inter', 'sans-serif'],
+              display: ['Fraunces', 'Georgia', 'serif'],
             },
+            // Zinc-Monochrom nach Moodist-Vorbild
             colors: {
               night: {
-                700: '#1c2647',
-                800: '#131d38',
-                850: '#0e162e',
-                900: '#090f22',
-                950: '#050c1a',
+                700: '#3f3f46',
+                800: '#27272a',
+                850: '#1f1f23',
+                900: '#18181b',
+                950: '#09090b',
               },
-              // Warm amber (firefly gold) – primary accent
+              // "Akzent" ist im Moodist-Look neutral hell (weiße Auswahl)
               accent: {
-                200: '#fde68a',
-                300: '#fcd34d',
-                400: '#f5c060',
-                500: '#e8a83a',
-                600: '#c98520',
+                200: '#f4f4f5',
+                300: '#e4e4e7',
+                400: '#fafafa',
+                500: '#d4d4d8',
+                600: '#a1a1aa',
               },
-              // Cool lavender – secondary
               lav: {
-                300: '#b3b8e8',
-                400: '#9099d8',
-                500: '#7080c8',
+                300: '#d4d4d8',
+                400: '#a1a1aa',
+                500: '#71717a',
               },
             },
           },
@@ -45,7 +47,7 @@
     </script>
     <link rel="stylesheet" href="/index.css" />
   </head>
-  <body class="bg-night-950 text-slate-200 antialiased min-h-screen selection:bg-accent-500/40 selection:text-white">
+  <body class="bg-night-950 text-slate-200 antialiased min-h-screen selection:bg-night-700 selection:text-white">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>

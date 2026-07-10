@@ -44,6 +44,12 @@ npm run preview  # Build lokal testen
    - Geführte Meditation → `MEDITATIONS`
    - Geführte Atemübung → `BREATHING_TRACKS`
 
+## Sound-Quellen
+
+Ein Teil der Ambient-Sounds stammt aus dem Open-Source-Projekt
+[Moodist](https://github.com/remvze/moodist) (MIT-Lizenz; die Aufnahmen
+selbst sind CC0 / Public Domain, u. a. von freesound.org).
+
 ## Deployment (Vercel)
 
 1. Repository auf [vercel.com](https://vercel.com) importieren.
