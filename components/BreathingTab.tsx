@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Play, Square } from 'lucide-react';
-import { BreathingPattern } from '../types';
+import { Play, Square, Volume2 } from 'lucide-react';
+import { BreathingPattern, BreathPhase } from '../types';
 import { BREATHING_PATTERNS, BREATHING_TRACKS } from '../data';
 import { TrackList } from './TrackList';
 import { GuidedPlayerState } from '../hooks/useGuidedPlayer';
+import { BREATHING_VOICES, useBreathingVoice } from '../hooks/useBreathingVoice';
 
 interface Props {
   player: GuidedPlayerState;
@@ -13,7 +14,11 @@ const SCALE_IN = 1.45;
 const SCALE_OUT = 1.0;
 
 /** Animierte Atem-Session für ein Muster. */
-const BreathSession: React.FC<{ pattern: BreathingPattern; running: boolean }> = ({ pattern, running }) => {
+const BreathSession: React.FC<{
+  pattern: BreathingPattern;
+  running: boolean;
+  playCue: (kind: BreathPhase['kind']) => void;
+}> = ({ pattern, running, playCue }) => {
   const [phaseIndex, setPhaseIndex] = useState(0);
   const [countdown, setCountdown] = useState(pattern.phases[0].seconds);
 
@@ -22,15 +27,16 @@ const BreathSession: React.FC<{ pattern: BreathingPattern; running: boolean }> =
     setCountdown(pattern.phases[0].seconds);
   }, [pattern, running]);
 
-  // Phasenwechsel
+  // Phasenwechsel + Audio-Cue für die neu begonnene Phase
   useEffect(() => {
     if (!running) return;
     const phase = pattern.phases[phaseIndex];
+    playCue(phase.kind);
     const t = setTimeout(() => {
       setPhaseIndex(i => (i + 1) % pattern.phases.length);
     }, phase.seconds * 1000);
     return () => clearTimeout(t);
-  }, [running, phaseIndex, pattern]);
+  }, [running, phaseIndex, pattern, playCue]);
 
   // Sekunden-Countdown innerhalb der Phase
   useEffect(() => {
@@ -92,6 +98,7 @@ const BreathSession: React.FC<{ pattern: BreathingPattern; running: boolean }> =
 export const BreathingTab: React.FC<Props> = ({ player }) => {
   const [pattern, setPattern] = useState<BreathingPattern>(BREATHING_PATTERNS[0]);
   const [running, setRunning] = useState(false);
+  const { voice, setVoice, playCue } = useBreathingVoice();
 
   return (
     <div className="fade-up">
@@ -151,7 +158,27 @@ export const BreathingTab: React.FC<Props> = ({ player }) => {
       </div>
 
       <div className="bg-night-900/70 border border-night-800 rounded-3xl overflow-hidden mb-10">
-        <BreathSession pattern={pattern} running={running} />
+        <BreathSession pattern={pattern} running={running} playCue={playCue} />
+
+        {/* Stimmen-Auswahl für die Phasen-Ansagen */}
+        <div className="flex items-center justify-center gap-1.5 mb-5">
+          <Volume2 className="w-3.5 h-3.5 text-slate-500 mr-1" />
+          {BREATHING_VOICES.map(v => (
+            <button
+              key={v.id}
+              onClick={() => setVoice(v.id)}
+              aria-pressed={voice === v.id}
+              className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+                voice === v.id
+                  ? 'bg-accent-400 text-night-950'
+                  : 'bg-night-800 text-slate-400 hover:bg-night-700 hover:text-slate-300'
+              }`}
+            >
+              {v.label}
+            </button>
+          ))}
+        </div>
+
         <div className="flex justify-center pb-8">
           <button
             onClick={() => setRunning(r => !r)}
