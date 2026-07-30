@@ -6,14 +6,16 @@ import { TrackList } from './TrackList';
 interface Props {
   currentId?: string;
   onSelect: (track: GuidedTrack) => void;
+  query: string;
 }
 
-export const MeditationTab: React.FC<Props> = ({ currentId, onSelect }) => {
+export const MeditationTab: React.FC<Props> = ({ currentId, onSelect, query }) => {
   const [tag, setTag] = useState('Alle');
+  const q = query.trim().toLowerCase();
 
   const filtered = useMemo(
-    () => (tag === 'Alle' ? MEDITATIONS : MEDITATIONS.filter(m => m.tag === tag)),
-    [tag]
+    () => MEDITATIONS.filter(m => (tag === 'Alle' || m.tag === tag) && m.title.toLowerCase().includes(q)),
+    [tag, q]
   );
 
   // Tracks mit `series` werden zu benannten Sektionen gruppiert (Reihenfolge = erstes Vorkommen);
@@ -35,21 +37,17 @@ export const MeditationTab: React.FC<Props> = ({ currentId, onSelect }) => {
 
   return (
     <div className="fade-up">
-      <h2 className="font-display text-2xl text-slate-100 text-center">Meditation</h2>
-      <p className="text-sm text-slate-400 mt-1 mb-6 text-center">
-        Geführte Meditationen für Ruhe, Schlaf und Achtsamkeit.
-      </p>
-
-      <div className="flex gap-2 overflow-x-auto pb-3 mb-4 -mx-1 px-1 sm:justify-center">
+      <div className="flex gap-2 overflow-x-auto pb-3 mb-5 -mx-1 px-1">
         {MEDITATION_TAGS.map(t => (
           <button
             key={t}
             onClick={() => setTag(t)}
-            className={`shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+            className="shrink-0 px-4 py-2 rounded-full text-xs font-bold transition-colors"
+            style={
               tag === t
-                ? 'bg-accent-400 text-night-950'
-                : 'bg-night-900 text-slate-300 border border-night-800 hover:border-night-700'
-            }`}
+                ? { background: 'var(--accent)', color: 'var(--accent-ink)' }
+                : { background: 'var(--surface)', color: 'var(--text-muted)', boxShadow: '0 4px 12px var(--shadow)' }
+            }
           >
             {t}
           </button>
@@ -59,7 +57,7 @@ export const MeditationTab: React.FC<Props> = ({ currentId, onSelect }) => {
       <div className="space-y-8">
         {seriesGroups.map(group => (
           <section key={group.name}>
-            <h3 className="text-xs font-semibold tracking-wide uppercase text-slate-500 mb-3">
+            <h3 className="text-xs font-extrabold tracking-wide uppercase mb-3" style={{ color: 'var(--text-faint)' }}>
               {group.name}
             </h3>
             <TrackList tracks={group.tracks} currentId={currentId} onSelect={onSelect} />
@@ -68,7 +66,7 @@ export const MeditationTab: React.FC<Props> = ({ currentId, onSelect }) => {
         {standalone.length > 0 && (
           <section>
             {seriesGroups.length > 0 && (
-              <h3 className="text-xs font-semibold tracking-wide uppercase text-slate-500 mb-3">
+              <h3 className="text-xs font-extrabold tracking-wide uppercase mb-3" style={{ color: 'var(--text-faint)' }}>
                 Weitere
               </h3>
             )}

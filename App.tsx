@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Flower2, Wind, AudioWaveform } from 'lucide-react';
+import { AudioWaveform, Flower2, Moon, Search, Sun, Wind } from 'lucide-react';
 import { Tab } from './types';
-import { MIX_SOUNDS } from './data';
+import { MIX_SOUNDS, MEDITATIONS, BREATHING_PATTERNS, BREATHING_TRACKS } from './data';
 import { useMixer } from './hooks/useMixer';
 import { useGuidedPlayer } from './hooks/useGuidedPlayer';
+import { useTheme } from './hooks/useTheme';
 import { MeditationTab } from './components/MeditationTab';
 import { BreathingTab } from './components/BreathingTab';
 import { SoundsTab } from './components/SoundsTab';
@@ -15,81 +16,135 @@ const TABS: { id: Tab; label: string; icon: React.FC<{ className?: string }> }[]
   { id: 'breathing', label: 'Atmung',    icon: Wind },
 ];
 
-/** Hero im Moodist-Stil: Punktmuster, Serifen-Titel, Sound-Zähler. */
-const Hero: React.FC = () => (
-  <header className="relative text-center pt-20 pb-12 px-4 overflow-hidden">
-    <div className="hero-pattern absolute inset-0 pointer-events-none" aria-hidden="true" />
-    <div className="relative">
-      <div className="mx-auto mb-6 w-11 h-11 rounded-full border border-night-700 bg-gradient-to-b from-night-950 to-night-900 flex items-center justify-center">
-        <AudioWaveform className="w-5 h-5 text-slate-400" />
-      </div>
-      <h1 className="font-display text-4xl sm:text-5xl text-slate-50 leading-tight">
-        SonicVault
-        <span className="block text-2xl sm:text-3xl text-slate-300 mt-1">Klang für Ruhe & Fokus</span>
-      </h1>
-      <p className="text-sm text-slate-500 mt-4">Meditation · Atmung · Klangräume</p>
-      <p className="inline-flex items-center gap-2 mt-6 px-4 py-1.5 rounded-full border border-night-800 bg-night-950 text-xs text-slate-400">
-        <AudioWaveform className="w-3.5 h-3.5" />
-        {MIX_SOUNDS.length} Sounds
-      </p>
-    </div>
-  </header>
-);
+const TAB_META: Record<Tab, { title: string; sub: string; placeholder: string }> = {
+  sounds: {
+    title: 'Guten Abend.<br/>Wonach klingt es heute?',
+    sub: `${MIX_SOUNDS.length} Sounds · frei kombinierbar`,
+    placeholder: 'Sound suchen …',
+  },
+  meditation: {
+    title: 'Einen Moment<br/>für dich.',
+    sub: `${MEDITATIONS.length} geführte Sessions`,
+    placeholder: 'Meditation suchen …',
+  },
+  breathing: {
+    title: 'Atme ruhig<br/>und tief.',
+    sub: `${BREATHING_PATTERNS.length} Muster · ${BREATHING_TRACKS.length} geführte Übungen`,
+    placeholder: 'Übung suchen …',
+  },
+};
 
 const App: React.FC = () => {
   const [tab, setTab] = useState<Tab>('sounds');
+  const [query, setQuery] = useState('');
   const mixer = useMixer();
   const player = useGuidedPlayer();
+  const { theme, toggle: toggleTheme } = useTheme();
+
+  const changeTab = (t: Tab) => {
+    setTab(t);
+    setQuery('');
+  };
+
+  const meta = TAB_META[tab];
 
   return (
-    <div className="min-h-screen flex flex-col bg-night-950">
-      <Hero />
+    <div className="min-h-screen flex flex-col" style={{ background: 'var(--bg)' }}>
+      {/* ── Banner ── */}
+      <header
+        className="relative overflow-hidden px-5 pt-5 pb-14"
+        style={{ background: 'linear-gradient(160deg, var(--accent-soft), var(--lav-soft) 130%)' }}
+      >
+        <div className="hero-pattern absolute inset-0 pointer-events-none opacity-30" style={{ color: 'var(--text)' }} aria-hidden="true" />
+        <div className="relative flex items-start justify-between">
+          <div className="flex items-center gap-2">
+            <span
+              className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
+              style={{ background: 'var(--surface)', color: 'var(--accent)', boxShadow: '0 6px 16px var(--shadow)' }}
+            >
+              <AudioWaveform className="w-4 h-4" />
+            </span>
+            <span className="font-bold text-base" style={{ color: 'var(--text)' }}>SonicVault</span>
+          </div>
+          <button
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? 'Zu Light Mode wechseln' : 'Zu Dark Mode wechseln'}
+            className="w-11 h-11 rounded-full flex items-center justify-center shrink-0 transition-transform hover:scale-105"
+            style={{ background: 'var(--surface)', color: 'var(--accent)', boxShadow: '0 8px 20px var(--shadow)' }}
+          >
+            {theme === 'dark' ? <Sun className="w-[18px] h-[18px]" /> : <Moon className="w-[18px] h-[18px]" />}
+          </button>
+        </div>
 
-      {/* ── Tab-Navigation ── */}
-      <div className="sticky top-0 z-20" style={{ background: 'rgba(9,9,11,0.88)', backdropFilter: 'blur(16px)', borderBottom: '1px solid #27272a' }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          {/* Desktop */}
-          <nav className="hidden md:flex items-center justify-center gap-1 py-2">
-            {TABS.map(({ id, label, icon: Icon }) => (
-              <button
-                key={id}
-                onClick={() => setTab(id)}
-                className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium transition-all ${
-                  tab === id
-                    ? 'bg-accent-400 text-night-950'
-                    : 'text-slate-400 hover:text-slate-200'
-                }`}
-              >
-                <Icon className="w-4 h-4" />
-                {label}
-              </button>
-            ))}
-          </nav>
+        <h1
+          className="relative mt-5 text-2xl font-extrabold leading-tight"
+          style={{ color: 'var(--text)' }}
+          dangerouslySetInnerHTML={{ __html: meta.title }}
+        />
+        <p className="relative mt-1 text-xs font-semibold" style={{ color: 'var(--text-muted)' }}>{meta.sub}</p>
+      </header>
 
-          {/* Mobile */}
-          <nav className="flex md:hidden items-center gap-1 py-2">
-            {TABS.map(({ id, label, icon: Icon }) => (
-              <button
-                key={id}
-                onClick={() => setTab(id)}
-                className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-full text-xs font-semibold transition-all ${
-                  tab === id ? 'bg-accent-400 text-night-950' : 'text-slate-400'
-                }`}
-              >
-                <Icon className="w-4 h-4" />
-                {label}
-              </button>
-            ))}
-          </nav>
+      {/* ── Suche (überlappt das Banner) ── */}
+      <div className="relative px-5 -mt-8 z-10">
+        <div
+          className="flex items-center gap-2.5 rounded-full px-4 py-3"
+          style={{ background: 'var(--surface)', boxShadow: '0 10px 26px var(--shadow)' }}
+        >
+          <Search className="w-4 h-4 shrink-0" style={{ color: 'var(--text-faint)' }} />
+          <input
+            type="text"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            placeholder={meta.placeholder}
+            className="w-full bg-transparent outline-none text-sm font-semibold placeholder:font-medium"
+            style={{ color: 'var(--text)' }}
+          />
         </div>
       </div>
 
+      {/* ── Desktop-Navigation ── */}
+      <nav className="hidden md:flex items-center gap-1 px-6 pt-4 sticky top-0 z-20" style={{ background: 'var(--bg)' }}>
+        {TABS.map(({ id, label, icon: Icon }) => (
+          <button
+            key={id}
+            onClick={() => changeTab(id)}
+            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold transition-all"
+            style={
+              tab === id
+                ? { background: 'var(--accent)', color: 'var(--accent-ink)' }
+                : { color: 'var(--text-muted)' }
+            }
+          >
+            <Icon className="w-4 h-4" />
+            {label}
+          </button>
+        ))}
+      </nav>
+
       {/* ── Inhalt ── */}
-      <main className="flex-grow w-full max-w-5xl mx-auto px-4 sm:px-6 pt-8 pb-12">
-        {tab === 'sounds'    && <SoundsTab mixer={mixer} />}
-        {tab === 'meditation'&& <MeditationTab currentId={player.track?.id} onSelect={player.select} />}
-        {tab === 'breathing' && <BreathingTab  player={player} />}
+      <main className="flex-grow w-full max-w-6xl mx-auto px-5 pt-6 pb-28 md:pb-10">
+        {tab === 'sounds'     && <SoundsTab mixer={mixer} query={query} />}
+        {tab === 'meditation' && <MeditationTab currentId={player.track?.id} onSelect={player.select} query={query} />}
+        {tab === 'breathing'  && <BreathingTab  player={player} query={query} />}
       </main>
+
+      {/* ── Mobile Bottom-Tab-Bar ── */}
+      <nav
+        className="md:hidden fixed bottom-0 inset-x-0 z-30 flex"
+        style={{ background: 'var(--surface)', boxShadow: '0 -8px 24px var(--shadow)', padding: '10px 10px calc(10px + env(safe-area-inset-bottom, 0px))' }}
+      >
+        {TABS.map(({ id, label, icon: Icon }) => (
+          <button
+            key={id}
+            onClick={() => changeTab(id)}
+            className="flex-1 flex flex-col items-center gap-1 py-1 text-[10.5px] font-bold"
+            style={{ color: tab === id ? 'var(--accent)' : 'var(--text-faint)' }}
+          >
+            <Icon className="w-[18px] h-[18px]" />
+            {label}
+          </button>
+        ))}
+      </nav>
 
       {/* ── Geführter Player ── */}
       <GuidedPlayer player={player} />

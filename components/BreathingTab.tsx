@@ -8,10 +8,22 @@ import { BREATHING_VOICES, useBreathingVoice } from '../hooks/useBreathingVoice'
 
 interface Props {
   player: GuidedPlayerState;
+  query: string;
 }
 
-const SCALE_IN = 1.45;
+const SCALE_IN = 1.35;
 const SCALE_OUT = 1.0;
+
+const PHASE_COLOR: Record<BreathPhase['kind'], string> = {
+  in: 'var(--accent)',
+  hold: 'var(--text-faint)',
+  out: 'var(--lav)',
+};
+const PHASE_TINT: Record<BreathPhase['kind'], string> = {
+  in: 'var(--accent-soft)',
+  hold: 'var(--surface-2)',
+  out: 'var(--lav-soft)',
+};
 
 /** Animierte Atem-Session für ein Muster. */
 const BreathSession: React.FC<{
@@ -27,7 +39,6 @@ const BreathSession: React.FC<{
     setCountdown(pattern.phases[0].seconds);
   }, [pattern, running]);
 
-  // Phasenwechsel + Audio-Cue für die neu begonnene Phase
   useEffect(() => {
     if (!running) return;
     const phase = pattern.phases[phaseIndex];
@@ -38,7 +49,6 @@ const BreathSession: React.FC<{
     return () => clearTimeout(t);
   }, [running, phaseIndex, pattern, playCue]);
 
-  // Sekunden-Countdown innerhalb der Phase
   useEffect(() => {
     if (!running) return;
     setCountdown(pattern.phases[phaseIndex].seconds);
@@ -50,7 +60,6 @@ const BreathSession: React.FC<{
 
   const phase = pattern.phases[phaseIndex];
 
-  // Ziel-Skalierung: bei "Halten" bleibt die Skalierung der letzten Atemphase
   const scale = useMemo(() => {
     if (!running) return SCALE_OUT;
     for (let i = phaseIndex; i >= 0; i--) {
@@ -64,50 +73,51 @@ const BreathSession: React.FC<{
   const transitionSeconds = phase.kind === 'hold' ? 0 : phase.seconds;
 
   return (
-    <div className="flex flex-col items-center justify-center py-10">
-      <div className="relative w-56 h-56 flex items-center justify-center">
+    <div className="flex flex-col items-center justify-center py-8">
+      <div className="relative w-44 h-44 flex items-center justify-center">
         <div
           className="breath-circle absolute inset-0 rounded-full"
-          style={{ background: 'rgba(250,250,250,0.05)', transform: `scale(${scale})`, transitionDuration: `${transitionSeconds}s` }}
+          style={{ background: 'var(--accent-soft)', transform: `scale(${scale})`, transitionDuration: `${transitionSeconds}s` }}
         />
         <div
-          className="breath-circle absolute inset-6 rounded-full border"
-          style={{ background: 'rgba(250,250,250,0.08)', borderColor: 'rgba(250,250,250,0.22)', transform: `scale(${scale})`, transitionDuration: `${transitionSeconds}s` }}
+          className="breath-circle absolute inset-4 rounded-full"
+          style={{ background: 'var(--lav-soft)', transform: `scale(${scale})`, transitionDuration: `${transitionSeconds}s` }}
         />
         <div
-          className="breath-circle w-28 h-28 rounded-full shadow-[0_0_60px_rgba(250,250,250,0.3)]"
+          className="breath-circle w-[68px] h-[68px] rounded-full flex flex-col items-center justify-center"
           style={{
-            background: 'linear-gradient(135deg, #fafafa, #a1a1aa)',
+            background: 'linear-gradient(135deg, var(--accent), var(--lav))',
+            boxShadow: '0 10px 30px var(--shadow)',
             transform: `scale(${scale})`,
             transitionDuration: `${transitionSeconds}s`,
           }}
-        />
-        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-          <span className="text-night-950 font-bold text-lg drop-shadow-sm">
-            {running ? phase.label : 'Bereit?'}
-          </span>
-          {running && (
-            <span className="text-night-950/80 font-semibold text-sm tabular-nums">{countdown}</span>
-          )}
+        >
+          <span className="text-white font-extrabold text-xs">{running ? phase.label : 'Bereit?'}</span>
+          {running && <span className="text-white/85 font-bold text-[10px] tabular-nums">{countdown}</span>}
         </div>
       </div>
     </div>
   );
 };
 
-export const BreathingTab: React.FC<Props> = ({ player }) => {
+export const BreathingTab: React.FC<Props> = ({ player, query }) => {
   const [pattern, setPattern] = useState<BreathingPattern>(BREATHING_PATTERNS[0]);
   const [running, setRunning] = useState(false);
   const { voice, setVoice, playCue } = useBreathingVoice();
 
+  const q = query.trim().toLowerCase();
+  const filteredTracks = useMemo(
+    () => BREATHING_TRACKS.filter(t => t.title.toLowerCase().includes(q)),
+    [q]
+  );
+
   return (
     <div className="fade-up">
-      <h2 className="font-display text-2xl text-slate-100 text-center">Atemübungen</h2>
-      <p className="text-sm text-slate-400 mt-1 mb-6 text-center">
-        Folge dem Kreis: Er wächst beim Einatmen und zieht sich beim Ausatmen zusammen.
-      </p>
+      <div className="text-xs font-extrabold uppercase tracking-wide mb-3" style={{ color: 'var(--text-faint)' }}>
+        Atemmuster
+      </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
         {BREATHING_PATTERNS.map(p => {
           const total = p.phases.reduce((s, ph) => s + ph.seconds, 0);
           const active = pattern.id === p.id;
@@ -115,94 +125,78 @@ export const BreathingTab: React.FC<Props> = ({ player }) => {
             <button
               key={p.id}
               onClick={() => { setPattern(p); setRunning(false); }}
-              className={`rounded-xl border text-left transition-all overflow-hidden ${
-                active
-                  ? 'border-transparent shadow-[0_0_0_2px_#e4e4e7]'
-                  : 'bg-night-900/70 border-night-800 hover:border-night-700'
-              }`}
-              style={active ? { background: 'rgba(250,250,250,0.04)' } : undefined}
+              className="rounded-2xl text-left overflow-hidden transition-all"
+              style={{
+                background: 'var(--surface)',
+                boxShadow: '0 10px 22px -12px var(--shadow)',
+                outline: active ? '2px solid var(--accent)' : 'none',
+                outlineOffset: active ? '-2px' : undefined,
+              }}
             >
-              {/* Rhythm bar */}
-              <div className="flex h-1.5 rounded-t-xl overflow-hidden">
+              <div className="flex h-1.5">
                 {p.phases.map((ph, i) => (
-                  <div
-                    key={i}
-                    style={{ width: `${(ph.seconds / total) * 100}%` }}
-                    className={
-                      ph.kind === 'in'   ? 'bg-slate-50/80' :
-                      ph.kind === 'hold' ? 'bg-slate-400/60' :
-                                           'bg-slate-600/60'
-                    }
-                  />
+                  <div key={i} style={{ width: `${(ph.seconds / total) * 100}%`, background: PHASE_COLOR[ph.kind] }} />
                 ))}
               </div>
-              <div className="p-4 pt-3">
-                <span className="block font-heading text-sm font-bold text-slate-100">{p.name}</span>
-                {/* Phase pills */}
-                <div className="flex flex-wrap gap-1 mt-2 mb-2.5">
+              <div className="p-3.5">
+                <span className="block text-xs font-extrabold mb-1.5" style={{ color: 'var(--text)' }}>{p.name}</span>
+                <div className="flex flex-wrap gap-1 mb-2">
                   {p.phases.map((ph, i) => (
-                    <span key={i} className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${
-                      ph.kind === 'in'   ? 'bg-night-700 text-slate-100' :
-                      ph.kind === 'hold' ? 'bg-night-800 text-slate-300' :
-                                           'bg-night-900 text-slate-400 border border-night-800'
-                    }`}>
+                    <span
+                      key={i}
+                      className="text-[9px] font-extrabold px-1.5 py-0.5 rounded-full"
+                      style={{ background: PHASE_TINT[ph.kind], color: PHASE_COLOR[ph.kind] }}
+                    >
                       {ph.label} {ph.seconds}s
                     </span>
                   ))}
                 </div>
-                <span className="block text-xs text-slate-400 leading-relaxed">{p.description}</span>
+                <span className="block text-[10.5px] leading-relaxed" style={{ color: 'var(--text-muted)' }}>{p.description}</span>
               </div>
             </button>
           );
         })}
       </div>
 
-      <div className="bg-night-900/70 border border-night-800 rounded-3xl overflow-hidden mb-10">
+      <div className="rounded-3xl p-5 mb-8 flex flex-col items-center" style={{ background: 'var(--surface)', boxShadow: '0 10px 26px -12px var(--shadow)' }}>
         <BreathSession pattern={pattern} running={running} playCue={playCue} />
 
-        {/* Stimmen-Auswahl für die Phasen-Ansagen */}
-        <div className="flex items-center justify-center gap-1.5 mb-5">
-          <Volume2 className="w-3.5 h-3.5 text-slate-500 mr-1" />
+        <div className="flex items-center justify-center gap-1.5 flex-wrap mb-4">
+          <Volume2 className="w-3.5 h-3.5 mr-0.5" style={{ color: 'var(--text-faint)' }} />
           {BREATHING_VOICES.map(v => (
             <button
               key={v.id}
               onClick={() => setVoice(v.id)}
               aria-pressed={voice === v.id}
-              className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+              className="px-3 py-1.5 rounded-full text-xs font-bold transition-colors"
+              style={
                 voice === v.id
-                  ? 'bg-accent-400 text-night-950'
-                  : 'bg-night-800 text-slate-400 hover:bg-night-700 hover:text-slate-300'
-              }`}
+                  ? { background: 'var(--accent)', color: 'var(--accent-ink)' }
+                  : { background: 'var(--surface-2)', color: 'var(--text-muted)' }
+              }
             >
               {v.label}
             </button>
           ))}
         </div>
 
-        <div className="flex justify-center pb-8">
-          <button
-            onClick={() => setRunning(r => !r)}
-            className={`flex items-center gap-2 px-8 py-3 rounded-full font-semibold text-sm transition-colors ${
-              running
-                ? 'bg-night-800 text-slate-200 hover:bg-night-700'
-                : 'bg-accent-400 text-night-950 hover:opacity-80'
-            }`}
-          >
-            {running ? (
-              <>
-                <Square className="w-4 h-4" /> Beenden
-              </>
-            ) : (
-              <>
-                <Play className="w-4 h-4" /> Starten
-              </>
-            )}
-          </button>
-        </div>
+        <button
+          onClick={() => setRunning(r => !r)}
+          className="flex items-center gap-2 px-8 py-3 rounded-full font-bold text-sm transition-colors"
+          style={
+            running
+              ? { background: 'var(--surface-2)', color: 'var(--text)', boxShadow: 'inset 0 0 0 1px var(--border)' }
+              : { background: 'var(--accent)', color: 'var(--accent-ink)' }
+          }
+        >
+          {running ? (<><Square className="w-4 h-4" /> Beenden</>) : (<><Play className="w-4 h-4" /> Starten</>)}
+        </button>
       </div>
 
-      <h3 className="font-display text-xl text-slate-100 mb-4 text-center">Geführte Atemübungen</h3>
-      <TrackList tracks={BREATHING_TRACKS} currentId={player.track?.id} onSelect={player.select} />
+      <div className="text-xs font-extrabold uppercase tracking-wide mb-3" style={{ color: 'var(--text-faint)' }}>
+        Geführte Atemübungen
+      </div>
+      <TrackList tracks={filteredTracks} currentId={player.track?.id} onSelect={player.select} />
     </div>
   );
 };

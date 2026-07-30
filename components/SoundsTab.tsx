@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   Activity, AudioWaveform, Bath, Bell, Bird, BookOpen, Brain, Bug, Car, Cat, Check,
   Church, CircleDot, Clock, CloudDrizzle, CloudLightning, CloudRain, Coffee, Disc3,
@@ -18,21 +18,25 @@ const ICON_MAP: Record<string, React.FC<{ className?: string }>> = {
   Tent, TrainFront, Trees, Umbrella, Waves, Wind, Zap,
 };
 
-const CATEGORY_ICON: Record<string, React.FC<{ className?: string }>> = {
-  'Regen & Gewitter': CloudRain,
-  'Wasser': Waves,
-  'Natur': Trees,
-  'Tiere': Bird,
-  'Orte & Atmosphäre': Home,
-  'Klang & Musik': Music,
-  'Noise & Frequenzen': Radio,
-  'Heilfrequenzen': Sparkles,
-  'Binaurale Beats': Brain,
+// Kategorien wechseln sich zwischen Mint (accent) und Lavendel (lav) ab.
+const CATEGORY_TINT: Record<string, 'accent' | 'lav'> = {
+  'Regen & Gewitter': 'accent',
+  'Wasser': 'lav',
+  'Natur': 'accent',
+  'Tiere': 'lav',
+  'Orte & Atmosphäre': 'accent',
+  'Klang & Musik': 'lav',
+  'Noise & Frequenzen': 'accent',
+  'Heilfrequenzen': 'lav',
+  'Binaurale Beats': 'accent',
 };
 
 const SOUND_BY_ID = Object.fromEntries(MIX_SOUNDS.map(s => [s.id, s]));
 
-interface Props { mixer: Mixer }
+interface Props {
+  mixer: Mixer;
+  query: string;
+}
 
 /** Sticky Mix-Leiste: bleibt beim Scrollen unten sichtbar. */
 const MixPanel: React.FC<{ mixer: Mixer }> = ({ mixer }) => {
@@ -51,33 +55,32 @@ const MixPanel: React.FC<{ mixer: Mixer }> = ({ mixer }) => {
 
   return (
     <div
-      className="sticky bottom-3 z-30 rounded-2xl border border-night-700 shadow-[0_8px_28px_rgba(0,0,0,0.55)] p-4 mt-4"
-      style={{ background: 'rgba(24,24,27,0.95)', backdropFilter: 'blur(12px)' }}
+      className="sticky bottom-[84px] md:bottom-3 z-20 rounded-2xl p-4 mt-4"
+      style={{ background: 'var(--surface)', boxShadow: '0 14px 30px var(--shadow)' }}
     >
       <div className="flex items-center gap-3">
         <button
           onClick={playing ? pause : resume}
           aria-label={playing ? 'Mix pausieren' : 'Mix abspielen'}
-          className="w-11 h-11 shrink-0 rounded-full bg-accent-400 text-night-950 flex items-center justify-center transition-opacity hover:opacity-80"
+          className="w-11 h-11 shrink-0 rounded-full flex items-center justify-center transition-opacity hover:opacity-80"
+          style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}
         >
           {playing ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-0.5" />}
         </button>
 
         <div className="min-w-0 flex-grow">
-          <p className="text-sm font-semibold text-slate-100 font-heading">Dein Klangraum</p>
-          <p className="text-xs text-slate-400">
+          <p className="text-sm font-bold" style={{ color: 'var(--text)' }}>Dein Klangraum</p>
+          <p className="text-xs font-semibold" style={{ color: 'var(--text-muted)' }}>
             {activeCount} {activeCount === 1 ? 'Sound' : 'Sounds'} {playing ? 'aktiv' : 'pausiert'}
           </p>
         </div>
 
-        {/* Master-Toggle: alle Sounds gleichzeitig auf "natürlich" */}
         <button
           onClick={() => setAllRandomness(!allNatural)}
           aria-pressed={allNatural}
           title="Natürliche Schwankung für alle Sounds"
-          className={`hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold transition-all ${
-            allNatural ? 'bg-accent-400 text-night-950' : 'bg-night-800 text-slate-300 hover:bg-night-700'
-          }`}
+          className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold transition-all"
+          style={allNatural ? { background: 'var(--accent)', color: 'var(--accent-ink)' } : { background: 'var(--surface-2)', color: 'var(--text-muted)' }}
         >
           <Shuffle className="w-3.5 h-3.5" />
           alle natürlich
@@ -87,7 +90,8 @@ const MixPanel: React.FC<{ mixer: Mixer }> = ({ mixer }) => {
           onClick={() => setSaving(s => !s)}
           aria-label="Klangraum speichern"
           title="Klangraum speichern"
-          className="p-2.5 text-slate-300 hover:text-white transition-colors"
+          className="p-2.5 transition-colors"
+          style={{ color: 'var(--text-muted)' }}
         >
           <Save className="w-5 h-5" />
         </button>
@@ -95,13 +99,12 @@ const MixPanel: React.FC<{ mixer: Mixer }> = ({ mixer }) => {
         <button
           onClick={stopAll}
           aria-label="Mix leeren"
-          className="p-2.5 text-slate-500 hover:text-red-400 transition-colors"
+          className="p-2.5 text-red-400 hover:text-red-500 transition-colors"
         >
           <Trash2 className="w-5 h-5" />
         </button>
       </div>
 
-      {/* Speichern-Eingabe */}
       {saving && (
         <div className="flex items-center gap-2 mt-3 fade-up">
           <input
@@ -111,11 +114,13 @@ const MixPanel: React.FC<{ mixer: Mixer }> = ({ mixer }) => {
             onKeyDown={e => { if (e.key === 'Enter') confirmSave(); if (e.key === 'Escape') setSaving(false); }}
             placeholder="Name für diesen Klangraum…"
             maxLength={40}
-            className="flex-grow bg-night-950 border border-night-700 rounded-full px-4 py-2 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-night-700"
+            className="flex-grow rounded-full px-4 py-2 text-sm font-medium focus:outline-none"
+            style={{ background: 'var(--surface-2)', color: 'var(--text)' }}
           />
           <button
             onClick={confirmSave}
-            className="shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-accent-400 text-night-950 transition-opacity hover:opacity-80"
+            className="shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-opacity hover:opacity-80"
+            style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}
           >
             <Check className="w-3.5 h-3.5" />
             Speichern
@@ -123,19 +128,16 @@ const MixPanel: React.FC<{ mixer: Mixer }> = ({ mixer }) => {
         </div>
       )}
 
-      {/* Master-Toggle auf Mobile (eigene Zeile) */}
       <button
         onClick={() => setAllRandomness(!allNatural)}
         aria-pressed={allNatural}
-        className={`sm:hidden flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all mt-3 ${
-          allNatural ? 'bg-accent-400 text-night-950' : 'bg-night-800 text-slate-300'
-        }`}
+        className="sm:hidden flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all mt-3"
+        style={allNatural ? { background: 'var(--accent)', color: 'var(--accent-ink)' } : { background: 'var(--surface-2)', color: 'var(--text-muted)' }}
       >
         <Shuffle className="w-3.5 h-3.5" />
         alle natürlich
       </button>
 
-      {/* Aktive Sounds als Chips */}
       <div className="flex flex-wrap gap-2 mt-3.5">
         {activeIds.map(id => {
           const sound = SOUND_BY_ID[id];
@@ -145,23 +147,23 @@ const MixPanel: React.FC<{ mixer: Mixer }> = ({ mixer }) => {
           return (
             <span
               key={id}
-              className="flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 rounded-full text-xs font-medium border border-night-700 bg-night-950/70 text-slate-200"
+              className="flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 rounded-full text-xs font-semibold"
+              style={{ background: 'var(--surface-2)', color: 'var(--text)' }}
             >
-              <Icon className={`w-3.5 h-3.5 ${natural ? 'text-slate-50' : 'text-slate-500'}`} />
+              <Icon className="w-3.5 h-3.5" style={{ color: natural ? 'var(--accent)' : 'var(--text-faint)' }} />
               {sound.name}
               <button
                 onClick={() => toggleRandomness(id)}
                 title={natural ? 'Natürlich aus' : 'Natürlich an'}
-                className={`ml-0.5 p-0.5 rounded-full transition-colors ${
-                  natural ? 'text-slate-50' : 'text-slate-500 hover:text-slate-300'
-                }`}
+                className="ml-0.5 p-0.5 rounded-full transition-colors"
+                style={{ color: natural ? 'var(--accent)' : 'var(--text-faint)' }}
               >
                 <Shuffle className="w-3 h-3" />
               </button>
               <button
                 onClick={() => toggle(id)}
                 aria-label={`${sound.name} entfernen`}
-                className="p-0.5 rounded-full text-slate-500 hover:text-red-400 transition-colors"
+                className="p-0.5 rounded-full text-red-400 hover:text-red-500 transition-colors"
               >
                 <X className="w-3 h-3" />
               </button>
@@ -179,32 +181,34 @@ const SavedSpaces: React.FC<{ mixer: Mixer }> = ({ mixer }) => {
   if (savedSpaces.length === 0) return null;
 
   return (
-    <section className="mb-10">
-      <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-3 flex items-center gap-2 justify-center">
+    <section className="mb-8">
+      <h3 className="text-xs font-bold uppercase tracking-widest mb-3 flex items-center gap-2" style={{ color: 'var(--text-faint)' }}>
         <Layers className="w-3.5 h-3.5" />
         Gespeicherte Klangräume
       </h3>
-      <div className="flex flex-wrap gap-2 justify-center">
+      <div className="flex flex-wrap gap-2">
         {savedSpaces.map(space => {
           const count = Object.keys(space.sounds).length;
           return (
             <span
               key={space.id}
-              className="flex items-center gap-2 pl-1 pr-1.5 py-1 rounded-full border border-night-800 bg-night-900/70"
+              className="flex items-center gap-2 pl-1 pr-1.5 py-1 rounded-full"
+              style={{ background: 'var(--surface)', boxShadow: '0 4px 12px var(--shadow)' }}
             >
               <button
                 onClick={() => loadSpace(space.id)}
-                className="flex items-center gap-2 pl-3 pr-1 py-1 rounded-full text-sm font-medium text-slate-100 hover:text-white transition-colors"
+                className="flex items-center gap-2 pl-3 pr-1 py-1 rounded-full text-sm font-bold transition-colors"
+                style={{ color: 'var(--text)' }}
                 title="Klangraum laden"
               >
-                <Play className="w-3.5 h-3.5 text-slate-400" />
+                <Play className="w-3.5 h-3.5" style={{ color: 'var(--accent)' }} />
                 {space.name}
-                <span className="text-xs text-slate-500">{count}</span>
+                <span className="text-xs font-medium" style={{ color: 'var(--text-faint)' }}>{count}</span>
               </button>
               <button
                 onClick={() => deleteSpace(space.id)}
                 aria-label={`${space.name} löschen`}
-                className="p-1 rounded-full text-slate-500 hover:text-red-400 transition-colors"
+                className="p-1 rounded-full text-red-400 hover:text-red-500 transition-colors"
               >
                 <Trash2 className="w-3.5 h-3.5" />
               </button>
@@ -216,105 +220,112 @@ const SavedSpaces: React.FC<{ mixer: Mixer }> = ({ mixer }) => {
   );
 };
 
-/** Kategorie-Kopf im Moodist-Stil: vertikale Linie, Icon-Kreis, Serifen-Titel. */
-const CategoryHeader: React.FC<{ category: string; first: boolean }> = ({ category, first }) => {
-  const Icon = CATEGORY_ICON[category] ?? Music;
-  return (
-    <div className="flex flex-col items-center mb-6">
-      {!first && (
-        <div className="w-px h-16 bg-gradient-to-b from-transparent to-night-700 mb-4" aria-hidden="true" />
-      )}
-      <div className="w-11 h-11 rounded-full border border-night-700 bg-gradient-to-b from-night-950 to-night-900 flex items-center justify-center mb-3">
-        <Icon className="w-5 h-5 text-slate-400" />
-      </div>
-      <h3 className="font-display text-xl text-slate-100 text-center">{category}</h3>
-    </div>
-  );
-};
-
-export const SoundsTab: React.FC<Props> = ({ mixer }) => {
+export const SoundsTab: React.FC<Props> = ({ mixer, query }) => {
   const { sounds, playing, activeCount, toggle, setVolume, toggleRandomness } = mixer;
+  const q = query.trim().toLowerCase();
+
+  const groups = useMemo(() => {
+    return MIX_CATEGORIES
+      .map(category => ({
+        category,
+        items: MIX_SOUNDS.filter(s => s.category === category && s.name.toLowerCase().includes(q)),
+      }))
+      .filter(g => g.items.length > 0);
+  }, [q]);
 
   return (
     <div className="fade-up">
       <SavedSpaces mixer={mixer} />
 
-      {MIX_CATEGORIES.map((category, ci) => (
-        <section key={category} className="mb-10">
-          <CategoryHeader category={category} first={ci === 0} />
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            {MIX_SOUNDS.filter(s => s.category === category).map(sound => {
-              const state = sounds[sound.id];
-              const active = !!state;
-              const Icon = ICON_MAP[sound.icon] ?? Music;
+      {groups.length === 0 && (
+        <p className="text-center text-sm py-16" style={{ color: 'var(--text-faint)' }}>Keine Sounds gefunden.</p>
+      )}
 
-              return (
-                <div
-                  key={sound.id}
-                  className={`relative rounded-xl transition-all duration-200 ${
-                    active
-                      ? 'border border-transparent shadow-[0_0_0_2px_#e4e4e7]'
-                      : 'border border-night-800 hover:border-night-700'
-                  }`}
-                  style={{ background: 'linear-gradient(rgba(24,24,27,0.5), transparent)' }}
-                >
-                  {!active && <span className="tile-shine" aria-hidden="true" />}
+      {groups.map(({ category, items }) => {
+        const tint = CATEGORY_TINT[category] ?? 'accent';
+        return (
+          <section key={category} className="mb-8">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="w-1.5 h-1.5 rounded-full" style={{ background: `var(--${tint})` }} />
+              <h3 className="text-sm font-extrabold" style={{ color: 'var(--text)' }}>{category}</h3>
+              <span className="text-xs font-bold" style={{ color: 'var(--text-faint)' }}>{items.length}</span>
+            </div>
 
-                  <button
-                    onClick={() => toggle(sound.id)}
-                    className="w-full flex flex-col items-center pt-6 pb-5 px-3 text-center"
-                    aria-pressed={active}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 gap-3">
+              {items.map(sound => {
+                const state = sounds[sound.id];
+                const active = !!state;
+                const Icon = ICON_MAP[sound.icon] ?? Music;
+
+                return (
+                  <div
+                    key={sound.id}
+                    className="rounded-2xl transition-all duration-200"
+                    style={{
+                      background: active ? 'var(--accent)' : 'var(--surface)',
+                      boxShadow: active ? '0 12px 26px -10px var(--shadow)' : '0 10px 22px -12px var(--shadow)',
+                    }}
                   >
-                    {/* Runder Icon-Badge mit Gradient-Ring */}
-                    <span className="p-px rounded-full bg-gradient-to-b from-night-700 to-night-900">
-                      <span className={`w-10 h-10 rounded-full bg-night-950 flex items-center justify-center transition-colors ${
-                        active ? `text-slate-50 ${playing ? 'pulse-soft' : ''}` : 'text-slate-500'
-                      }`}>
-                        <Icon className="w-[18px] h-[18px]" />
-                      </span>
-                    </span>
-                    <span className={`font-heading text-sm font-semibold mt-2.5 leading-snug ${
-                      active ? 'text-slate-50' : 'text-slate-300'
-                    }`}>
-                      {sound.name}
-                    </span>
-                  </button>
-
-                  {active && (
-                    <div className="px-4 pb-5 space-y-3 fade-up flex flex-col items-center">
-                      <div className="flex items-center gap-2.5 w-full max-w-[150px]">
-                        <Volume2 className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                        <input
-                          type="range"
-                          min={0} max={1} step={0.01}
-                          value={state.volume}
-                          onChange={e => setVolume(sound.id, Number(e.target.value))}
-                          style={{ '--fill': `${state.volume * 100}%` } as React.CSSProperties}
-                          aria-label={`Lautstärke ${sound.name}`}
-                        />
-                      </div>
-
-                      <button
-                        onClick={() => toggleRandomness(sound.id)}
-                        className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all ${
-                          state.randomness
-                            ? 'bg-accent-400 text-night-950'
-                            : 'bg-night-800 text-slate-400 hover:bg-night-700 hover:text-slate-300'
-                        }`}
-                        aria-pressed={state.randomness}
-                        title="Natürliche Lautstärke-Schwankung"
+                    <button
+                      onClick={() => toggle(sound.id)}
+                      className="w-full flex flex-col items-center pt-4 pb-3.5 px-2 text-center"
+                      aria-pressed={active}
+                    >
+                      <span
+                        className="w-9 h-9 rounded-full flex items-center justify-center transition-colors"
+                        style={
+                          active
+                            ? { background: 'rgba(255,255,255,0.28)', color: 'var(--accent-ink)' }
+                            : { background: `var(--${tint}-soft)`, color: `var(--${tint})` }
+                        }
                       >
-                        <Shuffle className="w-3 h-3" />
-                        natürlich
-                      </button>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </section>
-      ))}
+                        <Icon className={`w-[17px] h-[17px] ${active && playing ? 'pulse-soft' : ''}`} />
+                      </span>
+                      <span
+                        className="text-[11px] font-bold mt-2 leading-snug min-h-[2.4em] flex items-start justify-center"
+                        style={{ color: active ? 'var(--accent-ink)' : 'var(--text)' }}
+                      >
+                        {sound.name}
+                      </span>
+                    </button>
+
+                    {active && (
+                      <div className="px-3 pb-3.5 space-y-2.5 fade-up flex flex-col items-center">
+                        <div className="flex items-center gap-2 w-full max-w-[110px]">
+                          <Volume2 className="w-3 h-3 shrink-0" style={{ color: 'rgba(255,255,255,0.8)' }} />
+                          <input
+                            type="range"
+                            min={0} max={1} step={0.01}
+                            value={state.volume}
+                            onChange={e => setVolume(sound.id, Number(e.target.value))}
+                            style={{ '--fill': `${state.volume * 100}%` } as React.CSSProperties}
+                            aria-label={`Lautstärke ${sound.name}`}
+                          />
+                        </div>
+
+                        <button
+                          onClick={() => toggleRandomness(sound.id)}
+                          className="flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold transition-all"
+                          style={
+                            state.randomness
+                              ? { background: '#fff', color: 'var(--accent)' }
+                              : { background: 'rgba(255,255,255,0.22)', color: 'var(--accent-ink)' }
+                          }
+                          aria-pressed={state.randomness}
+                          title="Natürliche Lautstärke-Schwankung"
+                        >
+                          <Shuffle className="w-2.5 h-2.5" />
+                          natürlich
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        );
+      })}
 
       {activeCount > 0 && <MixPanel mixer={mixer} />}
     </div>
