@@ -17,24 +17,25 @@ export const GuidedPlayer: React.FC<{ player: GuidedPlayerState }> = ({ player }
   const progress = duration > 0 ? (time / duration) * 100 : 0;
 
   return (
-    <div className="fixed bottom-0 inset-x-0 z-40 fade-up">
+    <div className="fixed inset-x-0 z-40 fade-up bottom-[76px] md:bottom-0">
       <div className="mx-auto max-w-3xl px-3 pb-2 md:pb-4">
         <div
-          className="backdrop-blur-xl border border-night-700 rounded-2xl shadow-2xl px-4 py-3"
-          style={{ background: 'rgba(24,24,27,0.95)' }}
+          className="rounded-2xl px-4 py-3"
+          style={{ background: 'var(--surface)', boxShadow: '0 14px 32px var(--shadow)' }}
         >
           <div className="flex items-center gap-3">
             <button
               onClick={togglePlay}
               aria-label={playing ? 'Pause' : 'Abspielen'}
-              className="w-11 h-11 shrink-0 rounded-full bg-accent-400 text-night-950 flex items-center justify-center transition-opacity hover:opacity-80"
+              className="w-11 h-11 shrink-0 rounded-full flex items-center justify-center transition-opacity hover:opacity-80"
+              style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}
             >
               {playing ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-0.5" />}
             </button>
             <div className="min-w-0 flex-grow">
-              <p className="text-sm font-semibold text-slate-100 truncate">{track.title}</p>
+              <p className="text-sm font-bold truncate" style={{ color: 'var(--text)' }}>{track.title}</p>
               <div className="flex items-center gap-2 mt-1">
-                <span className="text-[11px] text-slate-400 tabular-nums w-9">{fmt(time)}</span>
+                <span className="text-[11px] font-semibold tabular-nums w-9" style={{ color: 'var(--text-muted)' }}>{fmt(time)}</span>
                 <input
                   type="range"
                   min={0}
@@ -45,16 +46,16 @@ export const GuidedPlayer: React.FC<{ player: GuidedPlayerState }> = ({ player }
                   style={{ '--fill': `${progress}%` } as React.CSSProperties}
                   aria-label="Fortschritt"
                 />
-                <span className="text-[11px] text-slate-400 tabular-nums w-9 text-right">{fmt(duration)}</span>
+                <span className="text-[11px] font-semibold tabular-nums w-9 text-right" style={{ color: 'var(--text-muted)' }}>{fmt(duration)}</span>
               </div>
             </div>
-            <button onClick={() => skip(-15)} aria-label="15 Sekunden zurück" className="hidden sm:flex p-2 text-slate-400 hover:text-white transition-colors">
+            <button onClick={() => skip(-15)} aria-label="15 Sekunden zurück" className="hidden sm:flex p-2 transition-colors" style={{ color: 'var(--text-muted)' }}>
               <RotateCcw className="w-4 h-4" />
             </button>
-            <button onClick={() => skip(15)} aria-label="15 Sekunden vor" className="hidden sm:flex p-2 text-slate-400 hover:text-white transition-colors">
+            <button onClick={() => skip(15)} aria-label="15 Sekunden vor" className="hidden sm:flex p-2 transition-colors" style={{ color: 'var(--text-muted)' }}>
               <RotateCw className="w-4 h-4" />
             </button>
-            <button onClick={close} aria-label="Player schließen" className="p-2 text-slate-400 hover:text-white transition-colors">
+            <button onClick={close} aria-label="Player schließen" className="p-2 transition-colors" style={{ color: 'var(--text-muted)' }}>
               <X className="w-5 h-5" />
             </button>
           </div>
