@@ -103,6 +103,15 @@ const TAG_ART: Record<string, ArtConfig> = {
   Klang:        { gradient: 'linear-gradient(135deg,#451a03,#92400e)', Illustration: SingingBowl },
   Kurz:         { gradient: 'linear-gradient(135deg,#022c22,#134e4a)', Illustration: BreathWave },
   Technik:      { gradient: 'linear-gradient(135deg,#1e1b4b,#164e63)', Illustration: BreathWave },
+
+  // Import 2026-07-30: neue Tags, bestehende Illustrationen mit neuen Gradients
+  Emotionen:                 { gradient: 'linear-gradient(135deg,#3b0764,#a21caf)', Illustration: HeartAura },
+  Beziehungen:                { gradient: 'linear-gradient(135deg,#4a044e,#be185d)', Illustration: MeditatingFigure },
+  'Alltag & Arbeit':          { gradient: 'linear-gradient(135deg,#0f172a,#334155)', Illustration: BreathWave },
+  Reisen:                     { gradient: 'linear-gradient(135deg,#083344,#0e7490)', Illustration: Lotus },
+  'Angst & Stress':           { gradient: 'linear-gradient(135deg,#1e3a2f,#15803d)', Illustration: HealingRays },
+  'Dankbarkeit & Mitgefühl':  { gradient: 'linear-gradient(135deg,#451a03,#b45309)', Illustration: HeartAura },
+  Schlafgeschichten:          { gradient: 'linear-gradient(135deg,#0f0c29,#302b63)', Illustration: MoonStars },
 };
 
 const DEFAULT_ART: ArtConfig = {
