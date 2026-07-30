@@ -1,5 +1,12 @@
 export type Tab = 'meditation' | 'breathing' | 'sounds';
 
+/** Sprecher-Variante desselben Tracks (gleicher Inhalt, andere Stimme) */
+export interface NarratorVariant {
+  narrator: string;  // z. B. "Andy", "Eve", "Dora"
+  filename: string;
+  duration: string;
+}
+
 /** Geführter Audio-Track (Meditation oder Atemübung) */
 export interface GuidedTrack {
   id: string;
@@ -7,6 +14,8 @@ export interface GuidedTrack {
   title: string;
   duration: string; // z. B. "10:32"
   tag: string;      // z. B. "Schlaf", "Body Scan"
+  narrators?: NarratorVariant[]; // gesetzt, wenn derselbe Track mit mehreren Sprechern existiert
+  series?: string;   // optionale Gruppierung für Sektions-Header, z. B. "Sleepcasts"
 }
 
 /** Loopbarer Ambient-Sound für den Mixer */

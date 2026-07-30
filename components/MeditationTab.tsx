@@ -16,6 +16,23 @@ export const MeditationTab: React.FC<Props> = ({ currentId, onSelect }) => {
     [tag]
   );
 
+  // Tracks mit `series` werden zu benannten Sektionen gruppiert (Reihenfolge = erstes Vorkommen);
+  // Tracks ohne `series` landen gesammelt in einer letzten, unbetitelten Sektion.
+  const { seriesGroups, standalone } = useMemo(() => {
+    const order: string[] = [];
+    const groups: Record<string, typeof filtered> = {};
+    const rest: typeof filtered = [];
+    for (const t of filtered) {
+      if (t.series) {
+        if (!groups[t.series]) { groups[t.series] = []; order.push(t.series); }
+        groups[t.series].push(t);
+      } else {
+        rest.push(t);
+      }
+    }
+    return { seriesGroups: order.map(name => ({ name, tracks: groups[name] })), standalone: rest };
+  }, [filtered]);
+
   return (
     <div className="fade-up">
       <h2 className="font-display text-2xl text-slate-100 text-center">Meditation</h2>
@@ -39,7 +56,26 @@ export const MeditationTab: React.FC<Props> = ({ currentId, onSelect }) => {
         ))}
       </div>
 
-      <TrackList tracks={filtered} currentId={currentId} onSelect={onSelect} />
+      <div className="space-y-8">
+        {seriesGroups.map(group => (
+          <section key={group.name}>
+            <h3 className="text-xs font-semibold tracking-wide uppercase text-slate-500 mb-3">
+              {group.name}
+            </h3>
+            <TrackList tracks={group.tracks} currentId={currentId} onSelect={onSelect} />
+          </section>
+        ))}
+        {standalone.length > 0 && (
+          <section>
+            {seriesGroups.length > 0 && (
+              <h3 className="text-xs font-semibold tracking-wide uppercase text-slate-500 mb-3">
+                Weitere
+              </h3>
+            )}
+            <TrackList tracks={standalone} currentId={currentId} onSelect={onSelect} />
+          </section>
+        )}
+      </div>
     </div>
   );
 };

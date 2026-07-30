@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Play, Pause, Clock } from 'lucide-react';
 import { GuidedTrack } from '../types';
 
@@ -127,61 +127,117 @@ interface Props {
   onSelect: (track: GuidedTrack) => void;
 }
 
+/** Löst die aktuell gewählte Sprecher-Variante zu einem spielbaren Track auf. */
+function resolveVariant(track: GuidedTrack, narrator: string | null): GuidedTrack {
+  if (!track.narrators || !narrator) return track;
+  const variant = track.narrators.find(n => n.narrator === narrator);
+  if (!variant) return track;
+  return {
+    ...track,
+    id: `${track.id}::${variant.narrator}`,
+    filename: variant.filename,
+    duration: variant.duration,
+  };
+}
+
+const TrackCard: React.FC<{
+  track: GuidedTrack;
+  currentId?: string;
+  onSelect: (track: GuidedTrack) => void;
+}> = ({ track, currentId, onSelect }) => {
+  const hasNarrators = !!track.narrators && track.narrators.length > 1;
+  const [narrator, setNarrator] = useState<string | null>(
+    hasNarrators ? track.narrators![0].narrator : null
+  );
+  const resolved = resolveVariant(track, narrator);
+  const active = resolved.id === currentId;
+  const { gradient, Illustration } = TAG_ART[track.tag] ?? DEFAULT_ART;
+
+  return (
+    <button
+      onClick={() => onSelect(resolved)}
+      className={`group rounded-2xl border overflow-hidden text-left transition-all duration-200 ${
+        active
+          ? 'border-transparent shadow-[0_0_0_2px_#e4e4e7]'
+          : 'border-night-800 hover:border-night-700'
+      }`}
+    >
+      {/* Artwork */}
+      <div className="relative h-28 sm:h-32 overflow-hidden" style={{ background: gradient }}>
+        <div className="absolute inset-0 scale-110 opacity-65 pointer-events-none">
+          <Illustration />
+        </div>
+        {/* Bottom fade into card body */}
+        <div className="absolute bottom-0 inset-x-0 h-12 bg-gradient-to-t from-black/50 to-transparent" />
+
+        {/* Playing indicator dot */}
+        {active && (
+          <span className="absolute top-2.5 left-2.5 w-2 h-2 rounded-full bg-slate-50 shadow-[0_0_8px_rgba(250,250,250,0.9)]" />
+        )}
+
+        {/* Play / Pause badge */}
+        <span className={`absolute bottom-2.5 right-2.5 w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+          active
+            ? 'bg-slate-50 text-night-950'
+            : 'bg-black/50 text-slate-300 opacity-0 group-hover:opacity-100'
+        }`}>
+          {active
+            ? <Pause className="w-3.5 h-3.5" />
+            : <Play  className="w-3.5 h-3.5 ml-0.5" />}
+        </span>
+      </div>
+
+      {/* Track info */}
+      <div className="bg-night-900/80 px-3 pt-2.5 pb-3 space-y-1.5">
+        <span className="block font-heading text-sm font-semibold text-slate-100 leading-snug line-clamp-2">
+          {track.title}
+        </span>
+        <span className="flex items-center gap-1.5 text-xs text-slate-500">
+          <Clock className="w-3 h-3 shrink-0" />
+          {resolved.duration}
+          <span className="text-slate-700">·</span>
+          {track.tag}
+        </span>
+
+        {hasNarrators && (
+          <span className="flex flex-wrap gap-1 pt-0.5">
+            {track.narrators!.map(v => (
+              <span
+                key={v.narrator}
+                role="button"
+                tabIndex={0}
+                onClick={e => {
+                  e.stopPropagation();
+                  setNarrator(v.narrator);
+                  if (active) onSelect(resolveVariant(track, v.narrator));
+                }}
+                onKeyDown={e => {
+                  if (e.key !== 'Enter' && e.key !== ' ') return;
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setNarrator(v.narrator);
+                  if (active) onSelect(resolveVariant(track, v.narrator));
+                }}
+                className={`px-2 py-0.5 rounded-full text-[10px] font-medium transition-colors ${
+                  v.narrator === narrator
+                    ? 'bg-slate-50 text-night-950'
+                    : 'bg-night-800 text-slate-400 hover:text-slate-200'
+                }`}
+              >
+                {v.narrator}
+              </span>
+            ))}
+          </span>
+        )}
+      </div>
+    </button>
+  );
+};
+
 export const TrackList: React.FC<Props> = ({ tracks, currentId, onSelect }) => (
   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-    {tracks.map(track => {
-      const active = track.id === currentId;
-      const { gradient, Illustration } = TAG_ART[track.tag] ?? DEFAULT_ART;
-
-      return (
-        <button
-          key={track.id}
-          onClick={() => onSelect(track)}
-          className={`group rounded-2xl border overflow-hidden text-left transition-all duration-200 ${
-            active
-              ? 'border-transparent shadow-[0_0_0_2px_#e4e4e7]'
-              : 'border-night-800 hover:border-night-700'
-          }`}
-        >
-          {/* Artwork */}
-          <div className="relative h-28 sm:h-32 overflow-hidden" style={{ background: gradient }}>
-            <div className="absolute inset-0 scale-110 opacity-65 pointer-events-none">
-              <Illustration />
-            </div>
-            {/* Bottom fade into card body */}
-            <div className="absolute bottom-0 inset-x-0 h-12 bg-gradient-to-t from-black/50 to-transparent" />
-
-            {/* Playing indicator dot */}
-            {active && (
-              <span className="absolute top-2.5 left-2.5 w-2 h-2 rounded-full bg-slate-50 shadow-[0_0_8px_rgba(250,250,250,0.9)]" />
-            )}
-
-            {/* Play / Pause badge */}
-            <span className={`absolute bottom-2.5 right-2.5 w-8 h-8 rounded-full flex items-center justify-center transition-all ${
-              active
-                ? 'bg-slate-50 text-night-950'
-                : 'bg-black/50 text-slate-300 opacity-0 group-hover:opacity-100'
-            }`}>
-              {active
-                ? <Pause className="w-3.5 h-3.5" />
-                : <Play  className="w-3.5 h-3.5 ml-0.5" />}
-            </span>
-          </div>
-
-          {/* Track info */}
-          <div className="bg-night-900/80 px-3 pt-2.5 pb-3 space-y-1.5">
-            <span className="block font-heading text-sm font-semibold text-slate-100 leading-snug line-clamp-2">
-              {track.title}
-            </span>
-            <span className="flex items-center gap-1.5 text-xs text-slate-500">
-              <Clock className="w-3 h-3 shrink-0" />
-              {track.duration}
-              <span className="text-slate-700">·</span>
-              {track.tag}
-            </span>
-          </div>
-        </button>
-      );
-    })}
+    {tracks.map(track => (
+      <TrackCard key={track.id} track={track} currentId={currentId} onSelect={onSelect} />
+    ))}
   </div>
 );

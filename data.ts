@@ -29,11 +29,15 @@ export const MEDITATIONS: GuidedTrack[] = [
   /* ---- Import 2026-07-30: Guided Meditations (105 Dateien) ---- */
 
   // Emotionen
-  { id: 'med-acceptance-andy-12m', filename: 'acceptance-andy-12m.mp3', title: 'Acceptance (Andy)', duration: '11:31', tag: 'Emotionen' },
-  { id: 'med-acceptance-eve-12m', filename: 'acceptance-eve-12m.mp3', title: 'Acceptance (Eve)', duration: '11:30', tag: 'Emotionen' },
+  { id: 'med-acceptance-12m', filename: 'acceptance-andy-12m.mp3', title: 'Acceptance', duration: '11:31', tag: 'Emotionen', narrators: [
+    { narrator: 'Andy', filename: 'acceptance-andy-12m.mp3', duration: '11:31' },
+    { narrator: 'Eve', filename: 'acceptance-eve-12m.mp3', duration: '11:30' },
+  ] },
   { id: 'med-anger-6m', filename: 'anger-6m.mp3', title: 'Anger', duration: '5:44', tag: 'Emotionen' },
-  { id: 'med-balance-andy-12m', filename: 'balance-andy-12m.mp3', title: 'Balance (Andy)', duration: '11:31', tag: 'Emotionen' },
-  { id: 'med-balance-dora-12m', filename: 'balance-dora-12m.mp3', title: 'Balance (Dora)', duration: '11:30', tag: 'Emotionen' },
+  { id: 'med-balance-12m', filename: 'balance-andy-12m.mp3', title: 'Balance', duration: '11:31', tag: 'Emotionen', narrators: [
+    { narrator: 'Andy', filename: 'balance-andy-12m.mp3', duration: '11:31' },
+    { narrator: 'Dora', filename: 'balance-dora-12m.mp3', duration: '11:30' },
+  ] },
   { id: 'med-boredom-4m', filename: 'boredom-4m.mp3', title: 'Boredom', duration: '3:52', tag: 'Emotionen' },
   { id: 'med-dealing-with-regret-andy-12m', filename: 'dealing-with-regret-andy-12m.mp3', title: 'Dealing With Regret (12 Min)', duration: '11:30', tag: 'Emotionen' },
   { id: 'med-dealing-with-regret-andy-17m', filename: 'dealing-with-regret-andy-17m.mp3', title: 'Dealing With Regret (17 Min)', duration: '16:30', tag: 'Emotionen' },
@@ -42,8 +46,10 @@ export const MEDITATIONS: GuidedTrack[] = [
   { id: 'med-doubt-4m', filename: 'doubt-4m.mp3', title: 'Doubt', duration: '4:15', tag: 'Emotionen' },
   { id: 'med-excitement-4m', filename: 'excitement-4m.mp3', title: 'Excitement', duration: '3:32', tag: 'Emotionen' },
   { id: 'med-guilt-4m', filename: 'guilt-4m.mp3', title: 'Guilt', duration: '3:50', tag: 'Emotionen' },
-  { id: 'med-happiness-andy-12m', filename: 'happiness-andy-12m.mp3', title: 'Happiness (Andy)', duration: '11:30', tag: 'Emotionen' },
-  { id: 'med-happiness-eve-12m', filename: 'happiness-eve-12m.mp3', title: 'Happiness (Eve)', duration: '11:30', tag: 'Emotionen' },
+  { id: 'med-happiness-12m', filename: 'happiness-andy-12m.mp3', title: 'Happiness', duration: '11:30', tag: 'Emotionen', narrators: [
+    { narrator: 'Andy', filename: 'happiness-andy-12m.mp3', duration: '11:30' },
+    { narrator: 'Eve', filename: 'happiness-eve-12m.mp3', duration: '11:30' },
+  ] },
   { id: 'med-irritability-4m', filename: 'irritability-4m.mp3', title: 'Irritability', duration: '4:18', tag: 'Emotionen' },
   { id: 'med-letting-go-andy-2m', filename: 'letting-go-andy-2m.mp3', title: 'Letting Go', duration: '1:54', tag: 'Emotionen' },
   { id: 'med-lust-5m', filename: 'lust-5m.mp3', title: 'Lust', duration: '4:55', tag: 'Emotionen' },
@@ -56,8 +62,10 @@ export const MEDITATIONS: GuidedTrack[] = [
   { id: 'med-regret-3m', filename: 'regret-3m.mp3', title: 'Regret', duration: '3:10', tag: 'Emotionen' },
   { id: 'med-resentment-5m', filename: 'resentment-5m.mp3', title: 'Resentment', duration: '5:01', tag: 'Emotionen' },
   { id: 'med-resistance-4m', filename: 'resistance-4m.mp3', title: 'Resistance', duration: '4:03', tag: 'Emotionen' },
-  { id: 'med-self-esteem-andy-11m', filename: 'self-esteem-andy-11m.mp3', title: 'Self-Esteem (Andy)', duration: '11:23', tag: 'Emotionen' },
-  { id: 'med-self-esteem-eve-11m', filename: 'self-esteem-eve-11m.mp3', title: 'Self-Esteem (Eve)', duration: '11:30', tag: 'Emotionen' },
+  { id: 'med-self-esteem-11m', filename: 'self-esteem-andy-11m.mp3', title: 'Self-Esteem', duration: '11:23', tag: 'Emotionen', narrators: [
+    { narrator: 'Andy', filename: 'self-esteem-andy-11m.mp3', duration: '11:23' },
+    { narrator: 'Eve', filename: 'self-esteem-eve-11m.mp3', duration: '11:30' },
+  ] },
   { id: 'med-under-effort-5m', filename: 'under-effort-5m.mp3', title: 'Under Effort', duration: '4:31', tag: 'Emotionen' },
   { id: 'med-what-to-do-when-patience-runs-out-7m', filename: 'what-to-do-when-patience-runs-out-7m.mp3', title: 'What to Do When Patience Runs Out', duration: '7:04', tag: 'Emotionen' },
 
@@ -71,8 +79,10 @@ export const MEDITATIONS: GuidedTrack[] = [
   // Alltag & Arbeit
   { id: 'med-allowing-yourself-to-unplug-dora-7m', filename: 'allowing-yourself-to-unplug-dora-7m.mp3', title: 'Allowing Yourself to Unplug', duration: '7:00', tag: 'Alltag & Arbeit' },
   { id: 'med-decompress-after-work-dora-8m', filename: 'decompress-after-work-dora-8m.mp3', title: 'Decompress After Work', duration: '7:30', tag: 'Alltag & Arbeit' },
-  { id: 'med-end-of-day-andy-3m', filename: 'end-of-day-andy-3m.mp3', title: 'End of Day (Andy)', duration: '3:00', tag: 'Alltag & Arbeit' },
-  { id: 'med-end-of-day-eve-4m', filename: 'end-of-day-eve-4m.mp3', title: 'End of Day (Eve)', duration: '3:33', tag: 'Alltag & Arbeit' },
+  { id: 'med-end-of-day-3m', filename: 'end-of-day-andy-3m.mp3', title: 'End of Day', duration: '3:00', tag: 'Alltag & Arbeit', narrators: [
+    { narrator: 'Andy', filename: 'end-of-day-andy-3m.mp3', duration: '3:00' },
+    { narrator: 'Eve', filename: 'end-of-day-eve-4m.mp3', duration: '3:33' },
+  ] },
   { id: 'med-finding-time-for-joy-eve-12m', filename: 'finding-time-for-joy-eve-12m.mp3', title: 'Finding Time for Joy', duration: '12:00', tag: 'Alltag & Arbeit' },
   { id: 'med-for-the-weekend-andy-5m', filename: 'for-the-weekend-andy-5m.mp3', title: 'For the Weekend', duration: '5:00', tag: 'Alltag & Arbeit' },
   { id: 'med-midday-check-in-dora-7m', filename: 'midday-check-in-dora-7m.mp3', title: 'Midday Check-in', duration: '7:15', tag: 'Alltag & Arbeit' },
@@ -81,8 +91,10 @@ export const MEDITATIONS: GuidedTrack[] = [
   { id: 'med-taking-a-break-andy-3m', filename: 'taking-a-break-andy-3m.mp3', title: 'Taking a Break (3 Min)', duration: '3:00', tag: 'Alltag & Arbeit' },
   { id: 'med-taking-a-break-andy-5m', filename: 'taking-a-break-andy-5m.mp3', title: 'Taking a Break (5 Min)', duration: '5:00', tag: 'Alltag & Arbeit' },
   { id: 'med-time-for-me-eve-6m', filename: 'time-for-me-eve-6m.mp3', title: 'Time for Me', duration: '5:45', tag: 'Alltag & Arbeit' },
-  { id: 'med-waking-up-andy-10m', filename: 'waking-up-andy-10m.mp3', title: 'Waking Up (Andy)', duration: '10:00', tag: 'Alltag & Arbeit' },
-  { id: 'med-waking-up-eve-11m', filename: 'waking-up-eve-11m.mp3', title: 'Waking Up (Eve)', duration: '10:32', tag: 'Alltag & Arbeit' },
+  { id: 'med-waking-up-10m', filename: 'waking-up-andy-10m.mp3', title: 'Waking Up', duration: '10:00', tag: 'Alltag & Arbeit', narrators: [
+    { narrator: 'Andy', filename: 'waking-up-andy-10m.mp3', duration: '10:00' },
+    { narrator: 'Eve', filename: 'waking-up-eve-11m.mp3', duration: '10:32' },
+  ] },
   { id: 'med-work-crisis-sos-eve-5m', filename: 'work-crisis-sos-eve-5m.mp3', title: 'Work Crisis SOS', duration: '5:00', tag: 'Alltag & Arbeit' },
 
   // Reisen
@@ -103,46 +115,86 @@ export const MEDITATIONS: GuidedTrack[] = [
   { id: 'med-managing-stress-in-uncertain-times-eve-12m', filename: 'managing-stress-in-uncertain-times-eve-12m.mp3', title: 'Managing Stress in Uncertain Times', duration: '11:30', tag: 'Angst & Stress' },
 
   // Dankbarkeit & Mitgefühl
-  { id: 'med-appreciation-andy-11m', filename: 'appreciation-andy-11m.mp3', title: 'Appreciation (Andy)', duration: '11:27', tag: 'Dankbarkeit & Mitgefühl' },
-  { id: 'med-appreciation-eve-11m', filename: 'appreciation-eve-11m.mp3', title: 'Appreciation (Eve)', duration: '11:30', tag: 'Dankbarkeit & Mitgefühl' },
+  { id: 'med-appreciation-11m', filename: 'appreciation-andy-11m.mp3', title: 'Appreciation', duration: '11:27', tag: 'Dankbarkeit & Mitgefühl', narrators: [
+    { narrator: 'Andy', filename: 'appreciation-andy-11m.mp3', duration: '11:27' },
+    { narrator: 'Eve', filename: 'appreciation-eve-11m.mp3', duration: '11:30' },
+  ] },
   { id: 'med-earth-appreciation-dora-9m', filename: 'earth-appreciation-dora-9m.mp3', title: 'Earth Appreciation', duration: '8:30', tag: 'Dankbarkeit & Mitgefühl' },
   { id: 'med-generosity-andy-12m', filename: 'generosity-andy-12m.mp3', title: 'Generosity (12 Min)', duration: '11:30', tag: 'Dankbarkeit & Mitgefühl' },
   { id: 'med-generosity-andy-17m', filename: 'generosity-andy-17m.mp3', title: 'Generosity (17 Min)', duration: '16:30', tag: 'Dankbarkeit & Mitgefühl' },
   { id: 'med-generosity-andy-22m', filename: 'generosity-andy-22m.mp3', title: 'Generosity (22 Min)', duration: '21:30', tag: 'Dankbarkeit & Mitgefühl' },
   { id: 'med-happiness-of-others-andy-1m', filename: 'happiness-of-others-andy-1m.mp3', title: 'Happiness of Others', duration: '1:15', tag: 'Dankbarkeit & Mitgefühl' },
-  { id: 'med-kindness-andy-12m', filename: 'kindness-andy-12m.mp3', title: 'Kindness (Andy · 12 Min)', duration: '11:31', tag: 'Dankbarkeit & Mitgefühl' },
-  { id: 'med-kindness-andy-22m', filename: 'kindness-andy-22m.mp3', title: 'Kindness (Andy · 22 Min)', duration: '21:32', tag: 'Dankbarkeit & Mitgefühl' },
-  { id: 'med-kindness-eve-12m', filename: 'kindness-eve-12m.mp3', title: 'Kindness (Eve · 12 Min)', duration: '11:30', tag: 'Dankbarkeit & Mitgefühl' },
-  { id: 'med-kindness-eve-22m', filename: 'kindness-eve-22m.mp3', title: 'Kindness (Eve · 22 Min)', duration: '21:30', tag: 'Dankbarkeit & Mitgefühl' },
+  { id: 'med-kindness-12m', filename: 'kindness-andy-12m.mp3', title: 'Kindness (12 Min)', duration: '11:31', tag: 'Dankbarkeit & Mitgefühl', narrators: [
+    { narrator: 'Andy', filename: 'kindness-andy-12m.mp3', duration: '11:31' },
+    { narrator: 'Eve', filename: 'kindness-eve-12m.mp3', duration: '11:30' },
+  ] },
+  { id: 'med-kindness-22m', filename: 'kindness-andy-22m.mp3', title: 'Kindness (22 Min)', duration: '21:32', tag: 'Dankbarkeit & Mitgefühl', narrators: [
+    { narrator: 'Andy', filename: 'kindness-andy-22m.mp3', duration: '21:32' },
+    { narrator: 'Eve', filename: 'kindness-eve-22m.mp3', duration: '21:30' },
+  ] },
 
   // Schlafgeschichten
-  { id: 'med-45-minutes-of-gentle-aquarium-ambience-cozy-underwater-sleep-45m', filename: '45-minutes-of-gentle-aquarium-ambience-cozy-underwater-sleep-45m.mp3', title: '45 Minutes of Gentle Aquarium Ambience: Cozy Underwater Sleep Story for Deep Rest', duration: '45:21', tag: 'Schlafgeschichten' },
-  { id: 'med-arctic-light-dora-45m', filename: 'arctic-light-dora-45m.mp3', title: 'Arctic Light (Dora)', duration: '45:00', tag: 'Schlafgeschichten' },
-  { id: 'med-arctic-light-kessonga-45m', filename: 'arctic-light-kessonga-45m.mp3', title: 'Arctic Light (Kessonga)', duration: '45:00', tag: 'Schlafgeschichten' },
-  { id: 'med-kauai-at-sunset-45-minute-hawaiian-sleep-story-for-deep-rest-45m', filename: 'kauai-at-sunset-45-minute-hawaiian-sleep-story-for-deep-rest-45m.mp3', title: 'Kauai at Sunset: 45 Minute Hawaiian Sleep Story for Deep, Restful Slumber', duration: '45:20', tag: 'Schlafgeschichten' },
-  { id: 'med-moonrise-meadow-dora-45m', filename: 'moonrise-meadow-dora-45m.mp3', title: 'Moonrise Meadow (Dora)', duration: '45:00', tag: 'Schlafgeschichten' },
-  { id: 'med-moonrise-meadow-kessonga-45m', filename: 'moonrise-meadow-kessonga-45m.mp3', title: 'Moonrise Meadow (Kessonga)', duration: '45:00', tag: 'Schlafgeschichten' },
-  { id: 'med-nighttime-in-joshua-tree-samantha-45m', filename: 'nighttime-in-joshua-tree-samantha-45m.mp3', title: 'Nighttime in Joshua Tree', duration: '45:00', tag: 'Schlafgeschichten' },
-  { id: 'med-rainy-grove-dora-45m', filename: 'rainy-grove-dora-45m.mp3', title: 'Rainy Grove (Dora)', duration: '45:00', tag: 'Schlafgeschichten' },
-  { id: 'med-rainy-grove-kessonga-45m', filename: 'rainy-grove-kessonga-45m.mp3', title: 'Rainy Grove (Kessonga)', duration: '45:00', tag: 'Schlafgeschichten' },
+  { id: 'med-45-minutes-of-gentle-aquarium-ambience-cozy-underwater-sleep-45m', filename: '45-minutes-of-gentle-aquarium-ambience-cozy-underwater-sleep-45m.mp3', title: '45 Minutes of Gentle Aquarium Ambience: Cozy Underwater Sleep Story for Deep Rest', duration: '45:21', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+  { id: 'med-arctic-light-45m', filename: 'arctic-light-dora-45m.mp3', title: 'Arctic Light', duration: '45:00', tag: 'Schlafgeschichten', series: 'Sleepcasts', narrators: [
+    { narrator: 'Dora', filename: 'arctic-light-dora-45m.mp3', duration: '45:00' },
+    { narrator: 'Kessonga', filename: 'arctic-light-kessonga-45m.mp3', duration: '45:00' },
+  ] },
+  { id: 'med-kauai-at-sunset-45-minute-hawaiian-sleep-story-for-deep-rest-45m', filename: 'kauai-at-sunset-45-minute-hawaiian-sleep-story-for-deep-rest-45m.mp3', title: 'Kauai at Sunset: 45 Minute Hawaiian Sleep Story for Deep, Restful Slumber', duration: '45:20', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+  { id: 'med-moonrise-meadow-45m', filename: 'moonrise-meadow-dora-45m.mp3', title: 'Moonrise Meadow', duration: '45:00', tag: 'Schlafgeschichten', series: 'Sleepcasts', narrators: [
+    { narrator: 'Dora', filename: 'moonrise-meadow-dora-45m.mp3', duration: '45:00' },
+    { narrator: 'Kessonga', filename: 'moonrise-meadow-kessonga-45m.mp3', duration: '45:00' },
+  ] },
+  { id: 'med-nighttime-in-joshua-tree-samantha-45m', filename: 'nighttime-in-joshua-tree-samantha-45m.mp3', title: 'Nighttime in Joshua Tree', duration: '45:00', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+  { id: 'med-rainy-grove-45m', filename: 'rainy-grove-dora-45m.mp3', title: 'Rainy Grove', duration: '45:00', tag: 'Schlafgeschichten', series: 'Sleepcasts', narrators: [
+    { narrator: 'Dora', filename: 'rainy-grove-dora-45m.mp3', duration: '45:00' },
+    { narrator: 'Kessonga', filename: 'rainy-grove-kessonga-45m.mp3', duration: '45:00' },
+  ] },
   { id: 'med-relaxation-dora-10m', filename: 'relaxation-dora-10m.mp3', title: 'Relaxation', duration: '10:15', tag: 'Schlafgeschichten' },
-  { id: 'med-sleep-to-the-sounds-of-twilight-beach-dora-45m', filename: 'sleep-to-the-sounds-of-twilight-beach-dora-45m.mp3', title: 'Sleep to the Sounds of Twilight Beach (Dora)', duration: '45:00', tag: 'Schlafgeschichten' },
-  { id: 'med-sleep-to-the-sounds-of-twilight-beach-kessonga-45m', filename: 'sleep-to-the-sounds-of-twilight-beach-kessonga-45m.mp3', title: 'Sleep to the Sounds of Twilight Beach (Kessonga)', duration: '45:00', tag: 'Schlafgeschichten' },
+  { id: 'med-sleep-to-the-sounds-of-twilight-beach-45m', filename: 'sleep-to-the-sounds-of-twilight-beach-dora-45m.mp3', title: 'Sleep to the Sounds of Twilight Beach', duration: '45:00', tag: 'Schlafgeschichten', series: 'Sleepcasts', narrators: [
+    { narrator: 'Dora', filename: 'sleep-to-the-sounds-of-twilight-beach-dora-45m.mp3', duration: '45:00' },
+    { narrator: 'Kessonga', filename: 'sleep-to-the-sounds-of-twilight-beach-kessonga-45m.mp3', duration: '45:00' },
+  ] },
   { id: 'med-sleepiness-5m', filename: 'sleepiness-5m.mp3', title: 'Sleepiness', duration: '4:32', tag: 'Schlafgeschichten' },
-  { id: 'med-unwind-in-maui-rosie-45m', filename: 'unwind-in-maui-rosie-45m.mp3', title: 'Unwind in Maui', duration: '45:00', tag: 'Schlafgeschichten' },
+  { id: 'med-unwind-in-maui-rosie-45m', filename: 'unwind-in-maui-rosie-45m.mp3', title: 'Unwind in Maui', duration: '45:00', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
   { id: 'med-walk-by-the-riverside-dora-10m', filename: 'walk-by-the-riverside-dora-10m.mp3', title: 'Walk by the Riverside', duration: '10:00', tag: 'Schlafgeschichten' },
   { id: 'med-walking-in-nature-andy-5m', filename: 'walking-in-nature-andy-5m.mp3', title: 'Walking in Nature', duration: '5:00', tag: 'Schlafgeschichten' },
   { id: 'med-waters-of-the-mind-dora-7m', filename: 'waters-of-the-mind-dora-7m.mp3', title: 'Waters of the Mind', duration: '7:00', tag: 'Schlafgeschichten' },
-  { id: 'med-whispering-pines-45-minute-moonlit-woodland-bedtime-story-wi-45m', filename: 'whispering-pines-45-minute-moonlit-woodland-bedtime-story-wi-45m.mp3', title: 'Whispering Pines: 45 Minute Moonlit Woodland Bedtime Story, with Eve', duration: '45:13', tag: 'Schlafgeschichten' },
+  { id: 'med-whispering-pines-45-minute-moonlit-woodland-bedtime-story-wi-45m', filename: 'whispering-pines-45-minute-moonlit-woodland-bedtime-story-wi-45m.mp3', title: 'Whispering Pines: 45 Minute Moonlit Woodland Bedtime Story, with Eve', duration: '45:13', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+
+  // Sleepcasts (Import 2026-07-30, Nachschlag)
+  { id: 'med-a-bedtime-story-for-adults-45m', filename: 'a-bedtime-story-for-adults-45m.mp3', title: 'A Bedtime Story for Adults', duration: '45:24', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+  { id: 'med-after-carnival-45m', filename: 'after-carnival-45m.mp3', title: 'After Carnival', duration: '45:24', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+  { id: 'med-cozy-lodge-by-a-peaceful-scottish-loch-45m', filename: 'cozy-lodge-by-a-peaceful-scottish-loch-45m.mp3', title: 'Cozy Lodge by a Peaceful Scottish Loch', duration: '45:21', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+  { id: 'med-drift-to-sleep-at-the-oceans-edge-45m', filename: 'drift-to-sleep-at-the-oceans-edge-45m.mp3', title: 'Drift to Sleep at the Ocean’s Edge', duration: '45:18', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+  { id: 'med-evening-tide-45m', filename: 'evening-tide-45m.mp3', title: 'Evening Tide', duration: '45:12', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+  { id: 'med-fall-asleep-in-a-hushed-theater-45m', filename: 'fall-asleep-in-a-hushed-theater-45m.mp3', title: 'Fall Asleep in a Hushed Theater', duration: '45:20', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+  { id: 'med-fall-asleep-in-the-wilderness-olympic-national-park-46m', filename: 'fall-asleep-in-the-wilderness-olympic-national-park-46m.mp3', title: 'Fall Asleep in the Wilderness (Olympic National Park)', duration: '45:30', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+  { id: 'med-flower-market-45m', filename: 'flower-market-45m.mp3', title: 'Flower Market', duration: '45:00', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+  { id: 'med-lavender-fields-45m', filename: 'lavender-fields-45m.mp3', title: 'Lavender Fields', duration: '45:13', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+  { id: 'med-moonlit-stones-ocean-waves-45m', filename: 'moonlit-stones-ocean-waves-45m.mp3', title: 'Moonlit Stones & Ocean Waves', duration: '45:21', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+  { id: 'med-rainday-antiques-46m', filename: 'rainday-antiques-46m.mp3', title: 'Rainday Antiques', duration: '45:30', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+  { id: 'med-rainday-antiques-ii-45m', filename: 'rainday-antiques-ii-45m.mp3', title: 'Rainday Antiques II', duration: '45:12', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+  { id: 'med-sleep-sounds-by-the-sea-sandy-cove-45m', filename: 'sleep-sounds-by-the-sea-sandy-cove-45m.mp3', title: 'Sleep Sounds by the Sea (Sandy Cove)', duration: '45:03', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+  { id: 'med-snuggly-pup-palace-45m', filename: 'snuggly-pup-palace-45m.mp3', title: 'Snuggly Pup Palace', duration: '45:23', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+  { id: 'med-starlight-diner-45m', filename: 'starlight-diner-45m.mp3', title: 'Starlight Diner', duration: '45:27', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+  { id: 'med-sunset-boat-ride-45m', filename: 'sunset-boat-ride-45m.mp3', title: 'Sunset Boat Ride', duration: '45:20', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+  { id: 'med-twilight-in-the-grand-canyon-45m', filename: 'twilight-in-the-grand-canyon-45m.mp3', title: 'Twilight in the Grand Canyon', duration: '45:20', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+  { id: 'med-vineyard-bedtime-story-no-wine-required-45m', filename: 'vineyard-bedtime-story-no-wine-required-45m.mp3', title: 'Vineyard Bedtime Story (No Wine Required)', duration: '45:19', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
 
   // Achtsamkeit (Import 2026-07-30)
-  { id: 'med-guided-meditation-andy-10m', filename: 'guided-meditation-andy-10m.mp3', title: 'Guided Meditation (Andy · 10 Min)', duration: '10:00', tag: 'Achtsamkeit' },
-  { id: 'med-guided-meditation-andy-15m', filename: 'guided-meditation-andy-15m.mp3', title: 'Guided Meditation (Andy · 15 Min)', duration: '15:00', tag: 'Achtsamkeit' },
-  { id: 'med-guided-meditation-andy-20m', filename: 'guided-meditation-andy-20m.mp3', title: 'Guided Meditation (Andy · 20 Min)', duration: '20:00', tag: 'Achtsamkeit' },
-  { id: 'med-guided-meditation-andy-5m', filename: 'guided-meditation-andy-5m.mp3', title: 'Guided Meditation (Andy · 5 Min)', duration: '5:00', tag: 'Achtsamkeit' },
-  { id: 'med-guided-meditation-eve-10m', filename: 'guided-meditation-eve-10m.mp3', title: 'Guided Meditation (Eve · 10 Min)', duration: '10:00', tag: 'Achtsamkeit' },
-  { id: 'med-guided-meditation-eve-15m', filename: 'guided-meditation-eve-15m.mp3', title: 'Guided Meditation (Eve · 15 Min)', duration: '15:00', tag: 'Achtsamkeit' },
-  { id: 'med-guided-meditation-eve-5m', filename: 'guided-meditation-eve-5m.mp3', title: 'Guided Meditation (Eve · 5 Min)', duration: '5:00', tag: 'Achtsamkeit' },
+  { id: 'med-guided-meditation-5m', filename: 'guided-meditation-andy-5m.mp3', title: 'Guided Meditation (5 Min)', duration: '5:00', tag: 'Achtsamkeit', narrators: [
+    { narrator: 'Andy', filename: 'guided-meditation-andy-5m.mp3', duration: '5:00' },
+    { narrator: 'Eve', filename: 'guided-meditation-eve-5m.mp3', duration: '5:00' },
+  ] },
+  { id: 'med-guided-meditation-10m', filename: 'guided-meditation-andy-10m.mp3', title: 'Guided Meditation (10 Min)', duration: '10:00', tag: 'Achtsamkeit', narrators: [
+    { narrator: 'Andy', filename: 'guided-meditation-andy-10m.mp3', duration: '10:00' },
+    { narrator: 'Eve', filename: 'guided-meditation-eve-10m.mp3', duration: '10:00' },
+  ] },
+  { id: 'med-guided-meditation-15m', filename: 'guided-meditation-andy-15m.mp3', title: 'Guided Meditation (15 Min)', duration: '15:00', tag: 'Achtsamkeit', narrators: [
+    { narrator: 'Andy', filename: 'guided-meditation-andy-15m.mp3', duration: '15:00' },
+    { narrator: 'Eve', filename: 'guided-meditation-eve-15m.mp3', duration: '15:00' },
+  ] },
+  { id: 'med-guided-meditation-andy-20m', filename: 'guided-meditation-andy-20m.mp3', title: 'Guided Meditation (20 Min)', duration: '20:00', tag: 'Achtsamkeit' },
   { id: 'med-pro-level-1-eve-12m', filename: 'pro-level-1-eve-12m.mp3', title: 'Pro Level 1', duration: '11:30', tag: 'Achtsamkeit' },
 ];
 
