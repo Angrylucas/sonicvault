@@ -1,4 +1,4 @@
-import { GuidedTrack, MixSound, BreathingPattern } from './types';
+import { GuidedTrack, MixSound } from './types';
 
 export const SOUND_BASE_PATH = '/sounds/';
 
@@ -204,48 +204,6 @@ export const MEDITATION_TAGS = ['Alle', 'Achtsamkeit', 'Body Scan', 'Schlaf', 'H
 /* Atemübungen                                                         */
 /* ------------------------------------------------------------------ */
 
-export const BREATHING_PATTERNS: BreathingPattern[] = [
-  {
-    id: 'box',
-    name: 'Box Breathing',
-    description: '4 · 4 · 4 · 4 — beruhigt das Nervensystem und schärft den Fokus.',
-    phases: [
-      { label: 'Einatmen', kind: 'in', seconds: 4 },
-      { label: 'Halten', kind: 'hold', seconds: 4 },
-      { label: 'Ausatmen', kind: 'out', seconds: 4 },
-      { label: 'Halten', kind: 'hold', seconds: 4 },
-    ],
-  },
-  {
-    id: '478',
-    name: '4-7-8 Atmung',
-    description: '4 · 7 · 8 — die klassische Übung zum Entspannen und Einschlafen.',
-    phases: [
-      { label: 'Einatmen', kind: 'in', seconds: 4 },
-      { label: 'Halten', kind: 'hold', seconds: 7 },
-      { label: 'Ausatmen', kind: 'out', seconds: 8 },
-    ],
-  },
-  {
-    id: 'coherent',
-    name: 'Kohärentes Atmen',
-    description: '5 · 5 — gleichmäßiger Rhythmus für innere Balance.',
-    phases: [
-      { label: 'Einatmen', kind: 'in', seconds: 5 },
-      { label: 'Ausatmen', kind: 'out', seconds: 5 },
-    ],
-  },
-  {
-    id: 'relax',
-    name: 'Entspannungsatmung',
-    description: '4 · 6 — längeres Ausatmen aktiviert den Ruhenerv.',
-    phases: [
-      { label: 'Einatmen', kind: 'in', seconds: 4 },
-      { label: 'Ausatmen', kind: 'out', seconds: 6 },
-    ],
-  },
-];
-
 export const BREATHING_TRACKS: GuidedTrack[] = [
   { id: 'br-3min', filename: '3-minute-breathing.mp3', title: '3 Minute Breathing', duration: '3:35', tag: 'Kurz' },
   { id: 'br-3min-space', filename: '3-minute-breathing-space.mp3', title: '3 Minute Breathing Space', duration: '3:34', tag: 'Kurz' },
@@ -354,16 +312,16 @@ export const MIX_SOUNDS: MixSound[] = [
   { id: 'clock', filename: 'clock.mp3', name: 'Uhrenticken', icon: 'Clock', category: 'Klang & Musik' },
 
   // Noise & Frequenzen
-  { id: 'white-noise', filename: 'white-noise.mp3', name: 'White Noise', icon: 'Radio', category: 'Noise & Frequenzen' },
-  { id: 'pink-noise', filename: 'pink-noise.mp3', name: 'Pink Noise', icon: 'Radio', category: 'Noise & Frequenzen' },
-  { id: 'brown-noise', filename: 'brown-noise.mp3', name: 'Brown Noise', icon: 'Radio', category: 'Noise & Frequenzen' },
-  { id: 'grey-noise', filename: 'grey-noise.mp3', name: 'Grey Noise', icon: 'Radio', category: 'Noise & Frequenzen' },
-  { id: 'blue-noise', filename: 'blue-noise.mp3', name: 'Blue Noise', icon: 'Radio', category: 'Noise & Frequenzen' },
-  { id: 'violet-noise', filename: 'violet-noise.mp3', name: 'Violet Noise', icon: 'Radio', category: 'Noise & Frequenzen' },
-  { id: 'hz-30', filename: '30-hz.mp3', name: '30 Hz', icon: 'Activity', category: 'Noise & Frequenzen' },
-  { id: 'hz-100', filename: '100-hz.mp3', name: '100 Hz', icon: 'Activity', category: 'Noise & Frequenzen' },
-  { id: 'hz-200', filename: '200-hz.mp3', name: '200 Hz', icon: 'Activity', category: 'Noise & Frequenzen' },
-  { id: 'hz-400', filename: '400-hz.mp3', name: '400 Hz', icon: 'Activity', category: 'Noise & Frequenzen' },
+  { id: 'white-noise', filename: 'white-noise.mp3', name: 'Weißes Rauschen', icon: 'Radio', category: 'Rauschen & Frequenzen' },
+  { id: 'pink-noise', filename: 'pink-noise.mp3', name: 'Rosa Rauschen', icon: 'Radio', category: 'Rauschen & Frequenzen' },
+  { id: 'brown-noise', filename: 'brown-noise.mp3', name: 'Braunes Rauschen', icon: 'Radio', category: 'Rauschen & Frequenzen' },
+  { id: 'grey-noise', filename: 'grey-noise.mp3', name: 'Graues Rauschen', icon: 'Radio', category: 'Rauschen & Frequenzen' },
+  { id: 'blue-noise', filename: 'blue-noise.mp3', name: 'Blaues Rauschen', icon: 'Radio', category: 'Rauschen & Frequenzen' },
+  { id: 'violet-noise', filename: 'violet-noise.mp3', name: 'Violettes Rauschen', icon: 'Radio', category: 'Rauschen & Frequenzen' },
+  { id: 'hz-30', filename: '30-hz.mp3', name: '30 Hz', icon: 'Activity', category: 'Rauschen & Frequenzen' },
+  { id: 'hz-100', filename: '100-hz.mp3', name: '100 Hz', icon: 'Activity', category: 'Rauschen & Frequenzen' },
+  { id: 'hz-200', filename: '200-hz.mp3', name: '200 Hz', icon: 'Activity', category: 'Rauschen & Frequenzen' },
+  { id: 'hz-400', filename: '400-hz.mp3', name: '400 Hz', icon: 'Activity', category: 'Rauschen & Frequenzen' },
 
   // Heilfrequenzen (Solfeggio) – prozedural erzeugt, nahtlos loopbar
   { id: 'sol-396', filename: '396-hz.wav', name: '396 Hz · Befreiung', icon: 'Sparkles', category: 'Heilfrequenzen' },
@@ -387,7 +345,7 @@ export const MIX_CATEGORIES = [
   'Tiere',
   'Orte & Atmosphäre',
   'Klang & Musik',
-  'Noise & Frequenzen',
+  'Rauschen & Frequenzen',
   'Heilfrequenzen',
   'Binaurale Beats',
 ];
