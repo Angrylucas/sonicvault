@@ -134,12 +134,12 @@ export const MEDITATIONS: GuidedTrack[] = [
   ] },
 
   // Schlafgeschichten
-  { id: 'med-45-minutes-of-gentle-aquarium-ambience-cozy-underwater-sleep-45m', filename: '45-minutes-of-gentle-aquarium-ambience-cozy-underwater-sleep-45m.mp3', title: '45 Minutes of Gentle Aquarium Ambience: Cozy Underwater Sleep Story for Deep Rest', duration: '45:21', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+  { id: 'med-45-minutes-of-gentle-aquarium-ambience-cozy-underwater-sleep-45m', filename: '45-minutes-of-gentle-aquarium-ambience-cozy-underwater-sleep-45m.mp3', title: 'Gentle Aquarium Ambience', duration: '45:21', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
   { id: 'med-arctic-light-45m', filename: 'arctic-light-dora-45m.mp3', title: 'Arctic Light', duration: '45:00', tag: 'Schlafgeschichten', series: 'Sleepcasts', narrators: [
     { narrator: 'Dora', filename: 'arctic-light-dora-45m.mp3', duration: '45:00' },
     { narrator: 'Kessonga', filename: 'arctic-light-kessonga-45m.mp3', duration: '45:00' },
   ] },
-  { id: 'med-kauai-at-sunset-45-minute-hawaiian-sleep-story-for-deep-rest-45m', filename: 'kauai-at-sunset-45-minute-hawaiian-sleep-story-for-deep-rest-45m.mp3', title: 'Kauai at Sunset: 45 Minute Hawaiian Sleep Story for Deep, Restful Slumber', duration: '45:20', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+  { id: 'med-kauai-at-sunset-45-minute-hawaiian-sleep-story-for-deep-rest-45m', filename: 'kauai-at-sunset-45-minute-hawaiian-sleep-story-for-deep-rest-45m.mp3', title: 'Kauai at Sunset', duration: '45:20', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
   { id: 'med-moonrise-meadow-45m', filename: 'moonrise-meadow-dora-45m.mp3', title: 'Moonrise Meadow', duration: '45:00', tag: 'Schlafgeschichten', series: 'Sleepcasts', narrators: [
     { narrator: 'Dora', filename: 'moonrise-meadow-dora-45m.mp3', duration: '45:00' },
     { narrator: 'Kessonga', filename: 'moonrise-meadow-kessonga-45m.mp3', duration: '45:00' },
@@ -159,7 +159,7 @@ export const MEDITATIONS: GuidedTrack[] = [
   { id: 'med-walk-by-the-riverside-dora-10m', filename: 'walk-by-the-riverside-dora-10m.mp3', title: 'Walk by the Riverside', duration: '10:00', tag: 'Schlafgeschichten' },
   { id: 'med-walking-in-nature-andy-5m', filename: 'walking-in-nature-andy-5m.mp3', title: 'Walking in Nature', duration: '5:00', tag: 'Schlafgeschichten' },
   { id: 'med-waters-of-the-mind-dora-7m', filename: 'waters-of-the-mind-dora-7m.mp3', title: 'Waters of the Mind', duration: '7:00', tag: 'Schlafgeschichten' },
-  { id: 'med-whispering-pines-45-minute-moonlit-woodland-bedtime-story-wi-45m', filename: 'whispering-pines-45-minute-moonlit-woodland-bedtime-story-wi-45m.mp3', title: 'Whispering Pines: 45 Minute Moonlit Woodland Bedtime Story, with Eve', duration: '45:13', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
+  { id: 'med-whispering-pines-45-minute-moonlit-woodland-bedtime-story-wi-45m', filename: 'whispering-pines-45-minute-moonlit-woodland-bedtime-story-wi-45m.mp3', title: 'Whispering Pines', duration: '45:13', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
 
   // Sleepcasts (Import 2026-07-30, Nachschlag)
   { id: 'med-a-bedtime-story-for-adults-45m', filename: 'a-bedtime-story-for-adults-45m.mp3', title: 'A Bedtime Story for Adults', duration: '45:24', tag: 'Schlafgeschichten', series: 'Sleepcasts' },
