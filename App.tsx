@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AudioWaveform, Flower2, Moon, Search, Sun, Wind } from 'lucide-react';
 import { Tab } from './types';
-import { MIX_SOUNDS, MEDITATIONS, BREATHING_PATTERNS, BREATHING_TRACKS } from './data';
+import { MIX_SOUNDS, MEDITATIONS, BREATHING_TRACKS } from './data';
 import { useMixer } from './hooks/useMixer';
 import { useGuidedPlayer } from './hooks/useGuidedPlayer';
 import { useTheme } from './hooks/useTheme';
@@ -29,7 +29,7 @@ const TAB_META: Record<Tab, { title: string; sub: string; placeholder: string }>
   },
   breathing: {
     title: 'Atme ruhig<br/>und tief.',
-    sub: `${BREATHING_PATTERNS.length} Muster · ${BREATHING_TRACKS.length} geführte Übungen`,
+    sub: `${BREATHING_TRACKS.length} geführte Übungen`,
     placeholder: 'Übung suchen …',
   },
 };
