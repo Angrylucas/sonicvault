@@ -88,13 +88,6 @@ input[type='range']::-moz-range-thumb {
   cursor: pointer;
 }
 
-/* Atem-Kreis */
-.breath-circle {
-  transition-property: transform;
-  transition-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
-  will-change: transform;
-}
-
 /* Punktmuster im Banner */
 .hero-pattern {
   background-image: radial-gradient(currentColor 5%, transparent 5%);
@@ -118,5 +111,5 @@ input[type='range']::-moz-range-thumb {
 .pulse-soft { animation: softPulse 2.4s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
-  .breath-circle, .fade-up, .pulse-soft { animation: none !important; transition: none !important; }
+  .fade-up, .pulse-soft { animation: none !important; transition: none !important; }
 }
