@@ -341,17 +341,16 @@ export const MIX_SOUNDS: MixSound[] = [
   { id: 'airplane', filename: 'airplane.mp3', name: 'Flugzeugkabine', icon: 'Plane', category: 'Orte & Atmosphäre' },
   { id: 'ceiling-fan', filename: 'ceiling-fan.mp3', name: 'Ventilator', icon: 'Fan', category: 'Orte & Atmosphäre' },
 
-  // Klang & Musik
+  // Klang & Musik — durchgängig aus github.com/remvze/moodist (CC0/Public Domain)
   { id: 'singing-bowl', filename: 'singing-bowl.mp3', name: 'Klangschale', icon: 'CircleDot', category: 'Klang & Musik' },
-  { id: 'monk-chant', filename: 'monk-chant.mp3', name: 'Mönchsgesang', icon: 'Music', category: 'Klang & Musik' },
-  { id: 'peaceful', filename: 'peaceful.mp3', name: 'Friedvoll', icon: 'Heart', category: 'Klang & Musik' },
-  { id: 'meditation-music', filename: 'meditation.mp3', name: 'Meditationsklang', icon: 'Music', category: 'Klang & Musik' },
-  { id: 'soundscapes', filename: 'soundscapes.mp3', name: 'Klanglandschaften', icon: 'AudioWaveform', category: 'Klang & Musik' },
-  { id: 'binaural-waves', filename: 'binaural-waves.mp3', name: 'Binaurale Wellen', icon: 'Brain', category: 'Klang & Musik' },
-  { id: 'heartbeat', filename: 'heartbeat.mp3', name: 'Herzschlag', icon: 'HeartPulse', category: 'Klang & Musik' },
   { id: 'wind-chimes', filename: 'wind-chimes.mp3', name: 'Windspiel', icon: 'Bell', category: 'Klang & Musik' },
   { id: 'vinyl-effect', filename: 'vinyl-effect.mp3', name: 'Vinyl-Knistern', icon: 'Disc3', category: 'Klang & Musik' },
   { id: 'clock', filename: 'clock.mp3', name: 'Uhrenticken', icon: 'Clock', category: 'Klang & Musik' },
+  { id: 'tuning-radio', filename: 'tuning-radio.mp3', name: 'Radiosuche', icon: 'RadioTower', category: 'Klang & Musik' },
+  { id: 'typewriter', filename: 'typewriter.mp3', name: 'Schreibmaschine', icon: 'Type', category: 'Klang & Musik' },
+  { id: 'morse-code', filename: 'morse-code.mp3', name: 'Morsecode', icon: 'Zap', category: 'Klang & Musik' },
+  { id: 'keyboard', filename: 'keyboard.mp3', name: 'Tastatur', icon: 'Keyboard', category: 'Klang & Musik' },
+  { id: 'paper', filename: 'paper.mp3', name: 'Papierrascheln', icon: 'FileText', category: 'Klang & Musik' },
 
   // Noise & Frequenzen
   { id: 'white-noise', filename: 'white-noise.mp3', name: 'White Noise', icon: 'Radio', category: 'Noise & Frequenzen' },
