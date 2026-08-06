@@ -285,6 +285,14 @@ export const MIX_SOUNDS: MixSound[] = [
   { id: 'heavy-rain', filename: 'heavy-rain.mp3', name: 'Starker Regen', icon: 'CloudRain', category: 'Regen & Gewitter' },
   { id: 'rain-on-leaves', filename: 'rain-on-leaves.mp3', name: 'Regen auf Blättern', icon: 'Leaf', category: 'Regen & Gewitter' },
   { id: 'rain-on-umbrella', filename: 'rain-on-umbrella.mp3', name: 'Regen auf Schirm', icon: 'Umbrella', category: 'Regen & Gewitter' },
+  { id: 'drizzle', filename: 'drizzle.mp3', name: 'Nieselregen', icon: 'CloudDrizzle', category: 'Regen & Gewitter' },
+  { id: 'heavy-rain-on-glass', filename: 'heavy-rain-on-glass.mp3', name: 'Starkregen am Glas', icon: 'CloudRain', category: 'Regen & Gewitter' },
+  { id: 'rain-on-eaves', filename: 'rain-on-eaves.mp3', name: 'Regen an der Dachrinne', icon: 'Home', category: 'Regen & Gewitter' },
+  { id: 'rain-on-empty-street', filename: 'rain-on-empty-street.mp3', name: 'Regen auf leerer Straße', icon: 'CloudRain', category: 'Regen & Gewitter' },
+  { id: 'rain-on-raincoat', filename: 'rain-on-raincoat.mp3', name: 'Regen auf Regenmantel', icon: 'Umbrella', category: 'Regen & Gewitter' },
+  { id: 'rain-on-windowsill', filename: 'rain-on-windowsill.mp3', name: 'Regen auf Fensterbank', icon: 'CloudDrizzle', category: 'Regen & Gewitter' },
+  { id: 'rain-on-wooden-house', filename: 'rain-on-wooden-house.mp3', name: 'Regen auf Holzhaus', icon: 'Home', category: 'Regen & Gewitter' },
+  { id: 'rain-while-driving', filename: 'rain-while-driving.mp3', name: 'Regen beim Autofahren', icon: 'Car', category: 'Regen & Gewitter' },
 
   // Wasser
   { id: 'ocean-waves', filename: 'ocean-waves.mp3', name: 'Meereswellen', icon: 'Waves', category: 'Wasser' },
@@ -298,6 +306,8 @@ export const MIX_SOUNDS: MixSound[] = [
   { id: 'bubbles', filename: 'bubbles.mp3', name: 'Blubbern', icon: 'Droplets', category: 'Wasser' },
   { id: 'rowing-boat', filename: 'rowing-boat.mp3', name: 'Ruderboot', icon: 'Sailboat', category: 'Wasser' },
   { id: 'sailboat', filename: 'sailboat.mp3', name: 'Segelboot', icon: 'Sailboat', category: 'Wasser' },
+  { id: 'rowing', filename: 'rowing.mp3', name: 'Ruderschläge', icon: 'Sailboat', category: 'Wasser' },
+  { id: 'lake', filename: 'lake.mp3', name: 'See', icon: 'Waves', category: 'Wasser' },
 
   // Natur
   { id: 'birds', filename: 'birds.mp3', name: 'Vögel', icon: 'Bird', category: 'Natur' },
@@ -313,6 +323,10 @@ export const MIX_SOUNDS: MixSound[] = [
   { id: 'jungle', filename: 'jungle.mp3', name: 'Dschungel', icon: 'Trees', category: 'Natur' },
   { id: 'walk-on-leaves', filename: 'walk-on-leaves.mp3', name: 'Schritte im Laub', icon: 'Footprints', category: 'Natur' },
   { id: 'campfire', filename: 'campfire.mp3', name: 'Lagerfeuer', icon: 'Flame', category: 'Natur' },
+  { id: 'field', filename: 'field.mp3', name: 'Feld', icon: 'Wind', category: 'Natur' },
+  { id: 'windmill', filename: 'windmill.mp3', name: 'Windmühle', icon: 'Wind', category: 'Natur' },
+  { id: 'drifting', filename: 'drifting.mp3', name: 'Treiben im Wind', icon: 'Wind', category: 'Natur' },
+  { id: 'snow-walking', filename: 'snow-walking.mp3', name: 'Schritte im Tiefschnee', icon: 'Footprints', category: 'Natur' },
 
   // Tiere
   { id: 'cat-purring', filename: 'cat-purring.mp3', name: 'Schnurrende Katze', icon: 'Cat', category: 'Tiere' },
@@ -340,6 +354,9 @@ export const MIX_SOUNDS: MixSound[] = [
   { id: 'inside-a-train', filename: 'inside-a-train.mp3', name: 'Zugfahrt', icon: 'TrainFront', category: 'Orte & Atmosphäre' },
   { id: 'airplane', filename: 'airplane.mp3', name: 'Flugzeugkabine', icon: 'Plane', category: 'Orte & Atmosphäre' },
   { id: 'ceiling-fan', filename: 'ceiling-fan.mp3', name: 'Ventilator', icon: 'Fan', category: 'Orte & Atmosphäre' },
+  { id: 'kitchen', filename: 'kitchen.mp3', name: 'Küche', icon: 'Coffee', category: 'Orte & Atmosphäre' },
+  { id: 'morning-coffee', filename: 'morning-coffee.mp3', name: 'Morgenkaffee', icon: 'Coffee', category: 'Orte & Atmosphäre' },
+  { id: 'study', filename: 'study.mp3', name: 'Lernatmosphäre', icon: 'BookOpen', category: 'Orte & Atmosphäre' },
 
   // Klang & Musik — durchgängig aus github.com/remvze/moodist (CC0/Public Domain)
   { id: 'singing-bowl', filename: 'singing-bowl.mp3', name: 'Klangschale', icon: 'CircleDot', category: 'Klang & Musik' },
@@ -351,6 +368,13 @@ export const MIX_SOUNDS: MixSound[] = [
   { id: 'morse-code', filename: 'morse-code.mp3', name: 'Morsecode', icon: 'Zap', category: 'Klang & Musik' },
   { id: 'keyboard', filename: 'keyboard.mp3', name: 'Tastatur', icon: 'Keyboard', category: 'Klang & Musik' },
   { id: 'paper', filename: 'paper.mp3', name: 'Papierrascheln', icon: 'FileText', category: 'Klang & Musik' },
+  { id: 'guitar', filename: 'guitar.mp3', name: 'Gitarre', icon: 'Guitar', category: 'Klang & Musik' },
+  { id: 'guzheng', filename: 'guzheng.mp3', name: 'Guzheng (Zither)', icon: 'Music2', category: 'Klang & Musik' },
+  { id: 'light-piano', filename: 'light-piano.mp3', name: 'Sanftes Klavier', icon: 'Piano', category: 'Klang & Musik' },
+  { id: 'piano', filename: 'piano.mp3', name: 'Klavier', icon: 'Piano', category: 'Klang & Musik' },
+  { id: 'eating-chips', filename: 'eating-chips.mp3', name: 'Chips essen (ASMR)', icon: 'Popcorn', category: 'Klang & Musik' },
+  { id: 'ear-cleaning-1', filename: 'ear-cleaning-1.mp3', name: 'Ohrreinigung I (ASMR)', icon: 'Ear', category: 'Klang & Musik' },
+  { id: 'ear-cleaning-2', filename: 'ear-cleaning-2.mp3', name: 'Ohrreinigung II (ASMR)', icon: 'Ear', category: 'Klang & Musik' },
 
   // Noise & Frequenzen
   { id: 'white-noise', filename: 'white-noise.mp3', name: 'White Noise', icon: 'Radio', category: 'Noise & Frequenzen' },
