@@ -50,6 +50,12 @@ Ein Teil der Ambient-Sounds stammt aus dem Open-Source-Projekt
 [Moodist](https://github.com/remvze/moodist) (MIT-Lizenz; die Aufnahmen
 selbst sind CC0 / Public Domain, u. a. von freesound.org).
 
+Weitere Sounds (u. a. zusätzliche Regen-Varianten, ASMR- und
+Instrumenten-Klänge) stammen aus [XMSLEEP](https://github.com/Tosencen/XMSLEEP)
+(MIT-Lizenz; Sounds laut Projekt-README aus offenen Audio-Bibliotheken,
+Moodist sowie Pixabay Content License / CC0). Dieses Projekt ist privat
+und wird nicht weiterverbreitet.
+
 ## Deployment (Vercel)
 
 1. Repository auf [vercel.com](https://vercel.com) importieren.

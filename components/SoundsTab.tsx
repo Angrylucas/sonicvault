@@ -2,10 +2,11 @@ import React, { useMemo, useState } from 'react';
 import {
   Activity, AudioWaveform, Bath, Bell, Bird, BookOpen, Brain, Bug, Car, Cat, Check,
   Church, CircleDot, Clock, CloudDrizzle, CloudLightning, CloudRain, Coffee, Disc3,
-  Droplets, Fan, FileText, Fish, Flame, Footprints, Heart, HeartPulse, Home, Keyboard,
-  Landmark, Layers, Leaf, Moon, Mountain, Music, Pause, Plane, Play, Radio, RadioTower,
-  Rocket, Sailboat, Save, Shuffle, Snowflake, Sparkles, Sunset, Tent, TrainFront,
-  Trash2, Trees, Type, Umbrella, Volume2, Waves, Wind, X, Zap,
+  Droplets, Ear, Fan, FileText, Fish, Flame, Footprints, Guitar, Heart, HeartPulse,
+  Home, Keyboard, Landmark, Layers, Leaf, Moon, Mountain, Music, Music2, Pause, Piano,
+  Plane, Play, Popcorn, Radio, RadioTower, Rocket, Sailboat, Save, Shuffle, Snowflake,
+  Sparkles, Sunset, Tent, TrainFront, Trash2, Trees, Type, Umbrella, Volume2, Waves,
+  Wind, X, Zap,
 } from 'lucide-react';
 import { MIX_CATEGORIES, MIX_SOUNDS } from '../data';
 import { Mixer } from '../hooks/useMixer';
@@ -13,9 +14,10 @@ import { Mixer } from '../hooks/useMixer';
 const ICON_MAP: Record<string, React.FC<{ className?: string }>> = {
   Activity, AudioWaveform, Bath, Bell, Bird, BookOpen, Brain, Bug, Car, Cat, Church,
   CircleDot, Clock, CloudDrizzle, CloudLightning, CloudRain, Coffee, Disc3, Droplets,
-  Fan, FileText, Fish, Flame, Footprints, Heart, HeartPulse, Home, Keyboard, Landmark,
-  Leaf, Moon, Mountain, Music, Plane, Radio, RadioTower, Rocket, Sailboat, Snowflake,
-  Sparkles, Sunset, Tent, TrainFront, Trees, Type, Umbrella, Waves, Wind, Zap,
+  Ear, Fan, FileText, Fish, Flame, Footprints, Guitar, Heart, HeartPulse, Home,
+  Keyboard, Landmark, Leaf, Moon, Mountain, Music, Music2, Piano, Plane, Popcorn,
+  Radio, RadioTower, Rocket, Sailboat, Snowflake, Sparkles, Sunset, Tent, TrainFront,
+  Trees, Type, Umbrella, Waves, Wind, Zap,
 };
 
 // Kategorien wechseln sich zwischen Mint (accent) und Lavendel (lav) ab.
