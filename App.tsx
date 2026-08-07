@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AudioWaveform, Flower2, Moon, Search, Sun, Wind } from 'lucide-react';
 import { Tab } from './types';
-import { MIX_SOUNDS, MEDITATIONS, BREATHING_PATTERNS, BREATHING_TRACKS } from './data';
+import { MIX_SOUNDS, MEDITATIONS, BREATHING_TRACKS } from './data';
 import { useMixer } from './hooks/useMixer';
 import { useGuidedPlayer } from './hooks/useGuidedPlayer';
 import { useTheme } from './hooks/useTheme';
@@ -11,7 +11,7 @@ import { SoundsTab } from './components/SoundsTab';
 import { GuidedPlayer } from './components/GuidedPlayer';
 
 const TABS: { id: Tab; label: string; icon: React.FC<{ className?: string }> }[] = [
-  { id: 'sounds',    label: 'Sounds',    icon: AudioWaveform },
+  { id: 'sounds',    label: 'Klänge',    icon: AudioWaveform },
   { id: 'meditation',label: 'Meditation',icon: Flower2 },
   { id: 'breathing', label: 'Atmung',    icon: Wind },
 ];
@@ -19,17 +19,17 @@ const TABS: { id: Tab; label: string; icon: React.FC<{ className?: string }> }[]
 const TAB_META: Record<Tab, { title: string; sub: string; placeholder: string }> = {
   sounds: {
     title: 'Guten Abend.<br/>Wonach klingt es heute?',
-    sub: `${MIX_SOUNDS.length} Sounds · frei kombinierbar`,
-    placeholder: 'Sound suchen …',
+    sub: `${MIX_SOUNDS.length} Klänge · frei kombinierbar`,
+    placeholder: 'Klang suchen …',
   },
   meditation: {
     title: 'Einen Moment<br/>für dich.',
-    sub: `${MEDITATIONS.length} geführte Sessions`,
+    sub: `${MEDITATIONS.length} geführte Einheiten`,
     placeholder: 'Meditation suchen …',
   },
   breathing: {
     title: 'Atme ruhig<br/>und tief.',
-    sub: `${BREATHING_PATTERNS.length} Muster · ${BREATHING_TRACKS.length} geführte Übungen`,
+    sub: `${BREATHING_TRACKS.length} geführte Übungen`,
     placeholder: 'Übung suchen …',
   },
 };
@@ -68,7 +68,7 @@ const App: React.FC = () => {
           </div>
           <button
             onClick={toggleTheme}
-            aria-label={theme === 'dark' ? 'Zu Light Mode wechseln' : 'Zu Dark Mode wechseln'}
+            aria-label={theme === 'dark' ? 'Zum hellen Design wechseln' : 'Zum dunklen Design wechseln'}
             className="w-11 h-11 rounded-full flex items-center justify-center shrink-0 transition-transform hover:scale-105"
             style={{ background: 'var(--surface)', color: 'var(--accent)', boxShadow: '0 8px 20px var(--shadow)' }}
           >

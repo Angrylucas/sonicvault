@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Activity, AudioWaveform, Bath, Bell, Bird, BookOpen, Brain, Bug, Car, Cat, Check,
   Church, CircleDot, Clock, CloudDrizzle, CloudLightning, CloudRain, Coffee, Disc3,
@@ -28,7 +28,7 @@ const CATEGORY_TINT: Record<string, 'accent' | 'lav'> = {
   'Tiere': 'lav',
   'Orte & Atmosphäre': 'accent',
   'Klang & Musik': 'lav',
-  'Noise & Frequenzen': 'accent',
+  'Rauschen & Frequenzen': 'accent',
   'Heilfrequenzen': 'lav',
   'Binaurale Beats': 'accent',
 };
@@ -73,14 +73,14 @@ const MixPanel: React.FC<{ mixer: Mixer }> = ({ mixer }) => {
         <div className="min-w-0 flex-grow">
           <p className="text-sm font-bold" style={{ color: 'var(--text)' }}>Dein Klangraum</p>
           <p className="text-xs font-semibold" style={{ color: 'var(--text-muted)' }}>
-            {activeCount} {activeCount === 1 ? 'Sound' : 'Sounds'} {playing ? 'aktiv' : 'pausiert'}
+            {activeCount} {activeCount === 1 ? 'Klang' : 'Klänge'} {playing ? 'aktiv' : 'pausiert'}
           </p>
         </div>
 
         <button
           onClick={() => setAllRandomness(!allNatural)}
           aria-pressed={allNatural}
-          title="Natürliche Schwankung für alle Sounds"
+          title="Natürliche Schwankung für alle Klänge"
           className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold transition-all"
           style={allNatural ? { background: 'var(--accent)', color: 'var(--accent-ink)' } : { background: 'var(--surface-2)', color: 'var(--text-muted)' }}
         >
@@ -222,6 +222,56 @@ const SavedSpaces: React.FC<{ mixer: Mixer }> = ({ mixer }) => {
   );
 };
 
+
+const INTRO_STORAGE_KEY = 'sonicvault-sounds-intro-seen';
+
+const SoundsIntroDialog: React.FC = () => {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    try {
+      if (localStorage.getItem(INTRO_STORAGE_KEY) !== 'true') setOpen(true);
+    } catch {
+      setOpen(true);
+    }
+  }, []);
+
+  const close = () => {
+    try { localStorage.setItem(INTRO_STORAGE_KEY, 'true'); } catch { /* noop */ }
+    setOpen(false);
+  };
+
+  if (!open) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center px-5" role="dialog" aria-modal="true" aria-labelledby="sounds-intro-title">
+      <button className="absolute inset-0 bg-black/45" aria-label="Einführung schließen" onClick={close} />
+      <div className="relative w-full max-w-sm rounded-3xl p-5 fade-up" style={{ background: 'var(--surface)', boxShadow: '0 24px 60px var(--shadow)' }}>
+        <div className="flex items-start justify-between gap-4">
+          <span className="w-11 h-11 rounded-full flex items-center justify-center shrink-0" style={{ background: 'var(--accent-soft)', color: 'var(--accent)' }}>
+            <Layers className="w-5 h-5" />
+          </span>
+          <button onClick={close} aria-label="Einführung schließen" className="p-1.5 rounded-full" style={{ color: 'var(--text-faint)' }}>
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+        <h2 id="sounds-intro-title" className="mt-4 text-xl font-extrabold leading-tight" style={{ color: 'var(--text)' }}>
+          Baue deinen eigenen Klangraum
+        </h2>
+        <p className="mt-2 text-sm font-medium leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+          Kombiniere beliebig viele Klänge zu einem persönlichen Klangraum. Der Natürlich-Regler lässt die Lautstärke sanft schwanken, damit alles lebendiger und weniger künstlich wirkt.
+        </p>
+        <p className="mt-2 text-sm font-medium leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+          Fertige Klangräume kannst du speichern und später mit einem Tippen wieder laden.
+        </p>
+        <button onClick={close} className="mt-5 w-full rounded-full px-4 py-3 text-sm font-extrabold transition-opacity hover:opacity-85" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>
+          Verstanden
+        </button>
+      </div>
+    </div>
+  );
+};
+
 export const SoundsTab: React.FC<Props> = ({ mixer, query }) => {
   const { sounds, playing, activeCount, toggle, setVolume, toggleRandomness } = mixer;
   const q = query.trim().toLowerCase();
@@ -237,10 +287,11 @@ export const SoundsTab: React.FC<Props> = ({ mixer, query }) => {
 
   return (
     <div className="fade-up">
+      <SoundsIntroDialog />
       <SavedSpaces mixer={mixer} />
 
       {groups.length === 0 && (
-        <p className="text-center text-sm py-16" style={{ color: 'var(--text-faint)' }}>Keine Sounds gefunden.</p>
+        <p className="text-center text-sm py-16" style={{ color: 'var(--text-faint)' }}>Keine Klänge gefunden.</p>
       )}
 
       {groups.map(({ category, items }) => {
@@ -314,7 +365,7 @@ export const SoundsTab: React.FC<Props> = ({ mixer, query }) => {
                               : { background: 'rgba(255,255,255,0.22)', color: 'var(--accent-ink)' }
                           }
                           aria-pressed={state.randomness}
-                          title="Natürliche Lautstärke-Schwankung"
+                          title="Natürliche Lautstärkeschwankung"
                         >
                           <Shuffle className="w-2.5 h-2.5" />
                           natürlich
