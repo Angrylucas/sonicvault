@@ -41,7 +41,7 @@ const GroupedTracks: React.FC<{
       {seriesGroups.map(group => (
         <section key={group.name}>
           <h3 className="text-xs font-extrabold tracking-wide uppercase mb-3" style={{ color: 'var(--text-faint)' }}>
-            {group.name}
+            {group.name === 'Sleepcasts' ? 'Schlafreisen' : group.name}
           </h3>
           <TrackList tracks={group.tracks} currentId={currentId} onSelect={onSelect} />
         </section>
@@ -121,7 +121,7 @@ export const MeditationTab: React.FC<Props> = ({ currentId, onSelect, query }) =
             <div className="absolute inset-x-0 bottom-0 p-3">
               <span className="block text-sm font-extrabold text-white leading-snug">{t}</span>
               <span className="block text-[11px] font-semibold text-white/70 mt-0.5">
-                {count} {count === 1 ? 'Session' : 'Sessions'}
+                {count} {count === 1 ? 'Einheit' : 'Einheiten'}
               </span>
             </div>
           </button>
