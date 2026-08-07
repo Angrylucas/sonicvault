@@ -1,4 +1,4 @@
-import { GuidedTrack, MixSound, BreathingPattern } from './types';
+import { GuidedTrack, MixSound } from './types';
 
 export const SOUND_BASE_PATH = '/sounds/';
 
@@ -203,48 +203,6 @@ export const MEDITATION_TAGS = ['Alle', 'Achtsamkeit', 'Body Scan', 'Schlaf', 'H
 /* ------------------------------------------------------------------ */
 /* Atemübungen                                                         */
 /* ------------------------------------------------------------------ */
-
-export const BREATHING_PATTERNS: BreathingPattern[] = [
-  {
-    id: 'box',
-    name: 'Box Breathing',
-    description: '4 · 4 · 4 · 4 — beruhigt das Nervensystem und schärft den Fokus.',
-    phases: [
-      { label: 'Einatmen', kind: 'in', seconds: 4 },
-      { label: 'Halten', kind: 'hold', seconds: 4 },
-      { label: 'Ausatmen', kind: 'out', seconds: 4 },
-      { label: 'Halten', kind: 'hold', seconds: 4 },
-    ],
-  },
-  {
-    id: '478',
-    name: '4-7-8 Atmung',
-    description: '4 · 7 · 8 — die klassische Übung zum Entspannen und Einschlafen.',
-    phases: [
-      { label: 'Einatmen', kind: 'in', seconds: 4 },
-      { label: 'Halten', kind: 'hold', seconds: 7 },
-      { label: 'Ausatmen', kind: 'out', seconds: 8 },
-    ],
-  },
-  {
-    id: 'coherent',
-    name: 'Kohärentes Atmen',
-    description: '5 · 5 — gleichmäßiger Rhythmus für innere Balance.',
-    phases: [
-      { label: 'Einatmen', kind: 'in', seconds: 5 },
-      { label: 'Ausatmen', kind: 'out', seconds: 5 },
-    ],
-  },
-  {
-    id: 'relax',
-    name: 'Entspannungsatmung',
-    description: '4 · 6 — längeres Ausatmen aktiviert den Ruhenerv.',
-    phases: [
-      { label: 'Einatmen', kind: 'in', seconds: 4 },
-      { label: 'Ausatmen', kind: 'out', seconds: 6 },
-    ],
-  },
-];
 
 export const BREATHING_TRACKS: GuidedTrack[] = [
   { id: 'br-3min', filename: '3-minute-breathing.mp3', title: '3 Minute Breathing', duration: '3:35', tag: 'Kurz' },
