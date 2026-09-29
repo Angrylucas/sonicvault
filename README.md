@@ -23,8 +23,7 @@ Fortschritt und ±15 s.
 
 ### 🌬️ Atmung
 - **Atemmuster** (Box Breathing, 4-7-8, Kohärentes Atmen,
-  Entspannungsatmung) als reiner Audio-Pacer: Ansage per Stimme oder Glocke
-  pro Phase, dazu Phasenname und Countdown als Text.
+  Entspannungsatmung) als Übersicht mit Phasen und Dauer.
 - Geführte Atem-Audios (3–46 Minuten, inkl. Wim-Hof-Übungen).
 
 ## Entwicklung
