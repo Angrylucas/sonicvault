@@ -158,7 +158,7 @@ Zwei kühle, nahe verwandte Töne (Minze, Lavendel) auf einem nahezu neutralen G
 - **Schiefernebel** (#4b5263; Dunkel: #a7abc2): Sekundärtext, inaktive Desktop-Nav, Meta-Zeilen (7,4 : 1).
 - **Dunst** (#6b7280; Dunkel: #8a8fa6): Tertiärtext, Zähler, Tags, inaktive Mobile-Nav, Placeholder. Bewusst die schwächste Stufe, die noch AA schafft (4,6–4,8 : 1 hell, 4,7–5,6 : 1 dunkel).
 - **Haarlinie** (#ececec; Dunkel: #2a2d3a): Nur Slider-Spur und Scrollbar-Daumen; sie trennt nirgends Karten.
-- **Signalrot** (#d13431; Dunkel: **Nachtsignal** #f2706a): Ausschließlich destruktive Aktionen (Mix leeren, Sound entfernen, Klangraum löschen); über `--danger`.
+- **Signalrot** (#d13431; Dunkel: **Nachtsignal** #f2706a): Ausschließlich destruktive Aktionen (Clear, Remove, Delete — jeweils mit Undo-Toast); über `--danger`.
 - **Szenen-Schiefer / Szenen-Indigo** (#405b73 / #384268): Feste Verlaufsstopps der Themenkacheln; sie gehören zur Illustration und folgen dem Theme nicht.
 
 ### Named Rules
@@ -179,7 +179,7 @@ Zwei kühle, nahe verwandte Töne (Minze, Lavendel) auf einem nahezu neutralen G
 **Character:** Cairo ist geometrisch-freundlich mit leicht abgerundeten Endungen, weich genug für ein Spa, klar genug für 12px-Labels. Die Hierarchie kommt fast ausschließlich über Gewicht (600 → 800), kaum über Größe: Titel wirken „gepolstert", nicht „laut".
 
 ### Hierarchy
-- **Headline** (800, 1.5rem/24px, 1.25): Banner-Titel („Guten Abend. Wonach klingt es heute?"), zweizeilig mit `<br/>`.
+- **Headline** (800, 1.5rem/24px, 1.25): Banner-Titel („Good evening. Find your sound.", Begrüßung nach Tageszeit), zweizeilig mit `<br/>`.
 - **Title** (800, 0.875rem/14px, 1.375): Kartentitel, Kategorien- und Gruppennamen (Sleepcasts), Nav-Beschriftung, Kachel-Namen; bis 2 Zeilen mit `line-clamp`.
 - **Body** (600, 0.875rem/14px, 1.5): Sucheingabe, Player-Titel (700), Hinweistexte.
 - **Label** (700, 0.75rem/12px, 1.375): Sound-Kachel-Label, Chips (12px/700), Dauer-Zeilen (12px/700).

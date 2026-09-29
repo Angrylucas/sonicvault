@@ -68,9 +68,12 @@ export function useMixer() {
   const [sounds, setSounds] = useState<Record<string, MixerSoundState>>(loadSaved);
   const [playing, setPlaying] = useState(false);
   const [savedSpaces, setSavedSpaces] = useState<SavedSpace[]>(loadSpaces);
+  const [pendingLoads, setPendingLoads] = useState(0);
 
   // Web Audio API refs — AudioBufferSourceNode gives zero-gap looping
   const ctxRef = useRef<AudioContext | null>(null);
+  const masterRef = useRef<GainNode | null>(null);
+  const fadeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const bufferCache = useRef(new Map<string, AudioBuffer>());
   const activeNodes = useRef(new Map<string, ActiveNode>());
   const lfo = useRef(new Map<string, LfoState>());
@@ -92,7 +95,11 @@ export function useMixer() {
 
   const getCtx = useCallback((): AudioContext => {
     if (!ctxRef.current) {
-      ctxRef.current = new AudioContext();
+      const ctx = new AudioContext();
+      const master = ctx.createGain();
+      master.connect(ctx.destination);
+      ctxRef.current = ctx;
+      masterRef.current = master;
     }
     return ctxRef.current;
   }, []);
@@ -100,6 +107,7 @@ export function useMixer() {
   const fetchBuffer = useCallback(async (id: string): Promise<AudioBuffer | null> => {
     const cached = bufferCache.current.get(id);
     if (cached) return cached;
+    setPendingLoads(n => n + 1);
     try {
       const url = SOUND_BASE_PATH + encodeURIComponent(FILE_BY_ID[id]);
       const res = await fetch(url);
@@ -110,6 +118,8 @@ export function useMixer() {
       return buf;
     } catch {
       return null;
+    } finally {
+      setPendingLoads(n => n - 1);
     }
   }, [getCtx]);
 
@@ -119,7 +129,7 @@ export function useMixer() {
 
     const gain = ctx.createGain();
     gain.gain.setValueAtTime(volume, ctx.currentTime);
-    gain.connect(ctx.destination);
+    gain.connect(masterRef.current ?? ctx.destination);
 
     const source = ctx.createBufferSource();
     source.buffer = buffer;
@@ -239,12 +249,7 @@ export function useMixer() {
     const active = soundsRef.current;
     if (Object.keys(active).length === 0) return;
     const ctx = getCtx();
-    if (ctx.state === 'suspended') {
-      await ctx.resume();
-      setPlaying(true);
-      return;
-    }
-    // Nodes missing (e.g. after stopAll then re-play)
+    // Fehlende Nodes anlegen (z. B. wiederhergestellter Mix nach Neuladen)
     for (const [id, st] of Object.entries(active) as [string, MixerSoundState][]) {
       if (activeNodes.current.has(id)) continue;
       const buf = bufferCache.current.get(id);
@@ -252,15 +257,21 @@ export function useMixer() {
         activeNodes.current.set(id, spawnNode(id, buf, st.volume));
       } else {
         fetchBuffer(id).then(b => {
-          if (!b || !soundsRef.current[id]) return;
+          if (!b || !soundsRef.current[id] || activeNodes.current.has(id)) return;
           activeNodes.current.set(id, spawnNode(id, b, soundsRef.current[id].volume));
         });
       }
     }
+    if (masterRef.current) {
+      masterRef.current.gain.cancelScheduledValues(0);
+      masterRef.current.gain.setValueAtTime(1, ctx.currentTime);
+    }
+    if (ctx.state === 'suspended') await ctx.resume();
     setPlaying(true);
   }, [getCtx, spawnNode, fetchBuffer]);
 
   const stopAll = useCallback(() => {
+    if (fadeTimer.current) clearTimeout(fadeTimer.current);
     for (const id of activeNodes.current.keys()) killNode(id);
     lfo.current.clear();
     setSounds({});
@@ -272,19 +283,27 @@ export function useMixer() {
     if (Object.keys(snapshot).length === 0) return;
     const space: SavedSpace = {
       id: Date.now().toString(),
-      name: name.trim() || 'Klangraum',
+      name: name.trim() || 'Soundscape',
       sounds: JSON.parse(JSON.stringify(snapshot)),
     };
     setSavedSpaces(prev => [...prev, space]);
   }, []);
 
-  const loadSpace = useCallback((id: string) => {
-    const space = spacesRef.current.find(s => s.id === id);
-    if (!space) return;
+  /** Ersetzt den aktuellen Mix durch die gegebenen Sounds und startet ihn. */
+  const applySounds = useCallback((incoming: Record<string, MixerSoundState>) => {
     for (const nid of activeNodes.current.keys()) killNode(nid);
     lfo.current.clear();
-    const next: Record<string, MixerSoundState> = JSON.parse(JSON.stringify(space.sounds));
+    const next: Record<string, MixerSoundState> = {};
+    for (const [sid, st] of Object.entries(incoming) as [string, MixerSoundState][]) {
+      if (FILE_BY_ID[sid]) next[sid] = { volume: st.volume, randomness: st.randomness };
+    }
     setSounds(next);
+    if (fadeTimer.current) clearTimeout(fadeTimer.current);
+    const master = masterRef.current, mctx = ctxRef.current;
+    if (master && mctx) {
+      master.gain.cancelScheduledValues(0);
+      master.gain.setValueAtTime(1, mctx.currentTime);
+    }
     for (const [sid, st] of Object.entries(next) as [string, MixerSoundState][]) {
       const buf = bufferCache.current.get(sid);
       if (buf) {
@@ -299,16 +318,49 @@ export function useMixer() {
     setPlaying(Object.keys(next).length > 0);
   }, [killNode, spawnNode, fetchBuffer]);
 
+  const loadSpace = useCallback((id: string) => {
+    const space = spacesRef.current.find(s => s.id === id);
+    if (space) applySounds(space.sounds);
+  }, [applySounds]);
+
   const deleteSpace = useCallback((id: string) => {
     setSavedSpaces(prev => prev.filter(s => s.id !== id));
+  }, []);
+
+  /** Für Undo: legt einen zuvor gelöschten Raum wieder an seine alte Position. */
+  const restoreSpace = useCallback((space: SavedSpace, index: number) => {
+    setSavedSpaces(prev => {
+      if (prev.some(s => s.id === space.id)) return prev;
+      const next = [...prev];
+      next.splice(Math.min(index, next.length), 0, space);
+      return next;
+    });
+  }, []);
+
+  /** Blendet den Mix aus und pausiert ihn (Sleep-Timer). */
+  const fadeOutAndPause = useCallback((seconds: number) => {
+    const ctx = ctxRef.current, master = masterRef.current;
+    if (!ctx || !master || !playingRef.current) return;
+    const now = ctx.currentTime;
+    master.gain.cancelScheduledValues(now);
+    master.gain.setValueAtTime(master.gain.value, now);
+    master.gain.linearRampToValueAtTime(0, now + seconds);
+    if (fadeTimer.current) clearTimeout(fadeTimer.current);
+    fadeTimer.current = setTimeout(() => {
+      ctx.suspend();
+      setPlaying(false);
+      master.gain.cancelScheduledValues(0);
+      master.gain.setValueAtTime(1, ctx.currentTime);
+    }, seconds * 1000);
   }, []);
 
   return {
     sounds, playing, savedSpaces,
     activeCount: Object.keys(sounds).length,
+    loading: pendingLoads > 0,
     toggle, setVolume, toggleRandomness, setAllRandomness,
     pause, resume, stopAll,
-    saveSpace, loadSpace, deleteSpace,
+    saveSpace, loadSpace, deleteSpace, restoreSpace, applySounds, fadeOutAndPause,
   };
 }
 

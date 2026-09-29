@@ -8,34 +8,45 @@ import { useTheme } from './hooks/useTheme';
 import { MeditationTab } from './components/MeditationTab';
 import { BreathingTab } from './components/BreathingTab';
 import { SoundsTab } from './components/SoundsTab';
-import { GuidedPlayer } from './components/GuidedPlayer';
+import { Dock } from './components/Dock';
+import { usePrefs } from './hooks/usePrefs';
+import { useSleepTimer } from './hooks/useSleepTimer';
+import { useToast } from './hooks/useToast';
 
 const TABS: { id: Tab; label: string; icon: React.FC<{ className?: string }> }[] = [
   { id: 'sounds',    label: 'Sounds',    icon: AudioWaveform },
   { id: 'meditation',label: 'Meditation',icon: Flower2 },
-  { id: 'breathing', label: 'Atmung',    icon: Wind },
+  { id: 'breathing', label: 'Breathing', icon: Wind },
 ];
 
-const TAB_META: Record<Tab, { title: [string, string]; sub: string; placeholder: string }> = {
+function greeting(hour = new Date().getHours()): string {
+  if (hour >= 5 && hour < 12) return 'Good morning.';
+  if (hour >= 12 && hour < 18) return 'Good afternoon.';
+  if (hour >= 18 && hour < 23) return 'Good evening.';
+  return 'Still awake?';
+}
+
+const TAB_META: Record<Tab, { title: () => [string, string]; sub: string; placeholder: string }> = {
   sounds: {
-    title: ['Guten Abend.', 'Wonach klingt es heute?'],
-    sub: `${MIX_SOUNDS.length} Sounds · frei kombinierbar`,
-    placeholder: 'Sound suchen …',
+    title: () => [greeting(), 'Find your sound.'],
+    sub: `${MIX_SOUNDS.length} sounds · mix them freely`,
+    placeholder: 'Search sounds …',
   },
   meditation: {
-    title: ['Einen Moment', 'für dich.'],
-    sub: `${MEDITATIONS.length} geführte Sessions`,
-    placeholder: 'Meditation suchen …',
+    title: () => ['A moment', 'for you.'],
+    sub: `${MEDITATIONS.length} guided sessions`,
+    placeholder: 'Search meditations …',
   },
   breathing: {
-    title: ['Atme ruhig', 'und tief.'],
-    sub: `${BREATHING_TRACKS.length} geführte Übungen`,
-    placeholder: 'Übung suchen …',
+    title: () => ['Breathe slowly', 'and deeply.'],
+    sub: `${BREATHING_TRACKS.length} guided exercises`,
+    placeholder: 'Search exercises …',
   },
 };
 
-// Höhe des schwebenden Players; hält die Mix-Leiste darüber und den Inhalt frei.
-const DOCK_HEIGHT = '104px';
+// Höhe der schwebenden Leisten (inkl. Abstand), hält den Inhalt frei.
+const MIX_BAR_HEIGHT = 68;
+const PLAYER_HEIGHT = 104;
 
 const App: React.FC = () => {
   const [tab, setTab] = useState<Tab>('sounds');
@@ -43,22 +54,38 @@ const App: React.FC = () => {
   const mixer = useMixer();
   const player = useGuidedPlayer();
   const { theme, toggle: toggleTheme } = useTheme();
+  const prefs = usePrefs();
+  const toast = useToast();
+  const timer = useSleepTimer(seconds => {
+    mixer.fadeOutAndPause(seconds);
+    player.fadeOutAndPause(seconds);
+  });
 
   const changeTab = (t: Tab) => {
     setTab(t);
     setQuery('');
   };
 
+  const clearQuery = () => setQuery('');
   const meta = TAB_META[tab];
+  const title = meta.title();
 
   return (
     <div
       className="min-h-dvh flex flex-col"
-      style={{ background: 'var(--bg)', '--dock-h': player.track ? DOCK_HEIGHT : '0px' } as React.CSSProperties}
+      style={{ background: 'var(--bg)', '--dock-h': `${(mixer.activeCount > 0 ? MIX_BAR_HEIGHT : 0) + (player.track ? PLAYER_HEIGHT : 0)}px` } as React.CSSProperties}
     >
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:rounded-full text-sm font-bold"
+        style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}
+      >
+        Skip to content
+      </a>
+
       {/* ── Banner ── */}
       <header
-        className="relative overflow-hidden px-5 pt-5 pb-14"
+        className="relative overflow-hidden px-5 pt-4 pb-12"
         style={{ background: 'linear-gradient(160deg, var(--accent-soft), var(--lav-soft) 130%)' }}
       >
         <div className="hero-pattern absolute inset-0 pointer-events-none opacity-30" style={{ color: 'var(--text)' }} aria-hidden="true" />
@@ -74,7 +101,7 @@ const App: React.FC = () => {
           </div>
           <button
             onClick={toggleTheme}
-            aria-label={theme === 'dark' ? 'Zu Light Mode wechseln' : 'Zu Dark Mode wechseln'}
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             className="w-11 h-11 rounded-full flex items-center justify-center shrink-0 transition-transform hover:scale-105"
             style={{ background: 'var(--surface)', color: 'var(--accent)', boxShadow: '0 8px 20px var(--shadow)' }}
           >
@@ -83,12 +110,11 @@ const App: React.FC = () => {
         </div>
 
         <h1
-          className="relative mt-5 text-2xl font-extrabold leading-tight"
+          className="relative mt-4 text-2xl font-extrabold leading-tight"
           style={{ color: 'var(--text)' }}
-          aria-live="polite"
         >
-          <span className="block">{meta.title[0]}</span>
-          <span className="block">{meta.title[1]}</span>
+          <span className="block">{title[0]}</span>
+          <span className="block">{title[1]}</span>
         </h1>
         <p className="relative mt-1 text-xs font-semibold" style={{ color: 'var(--text-muted)' }}>{meta.sub}</p>
       </header>
@@ -115,7 +141,7 @@ const App: React.FC = () => {
 
       {/* ── Desktop-Navigation ── */}
       <nav
-        aria-label="Hauptnavigation"
+        aria-label="Main navigation"
         className="hidden md:flex items-center gap-1 px-6 pt-4 sticky top-0 z-20"
         style={{ background: 'var(--bg)' }}
       >
@@ -138,15 +164,15 @@ const App: React.FC = () => {
       </nav>
 
       {/* ── Inhalt ── */}
-      <main className="flex-grow w-full max-w-6xl mx-auto px-5 pt-6 pb-[calc(var(--nav-h)_+_var(--dock-h)_+_1.5rem)] md:pb-[calc(var(--dock-h)_+_2.5rem)]">
-        {tab === 'sounds'     && <SoundsTab mixer={mixer} query={query} />}
-        {tab === 'meditation' && <MeditationTab currentId={player.track?.id} onSelect={player.select} query={query} />}
-        {tab === 'breathing'  && <BreathingTab  player={player} query={query} />}
+      <main id="main" tabIndex={-1} className="flex-grow w-full max-w-6xl mx-auto px-5 pt-6 pb-[calc(var(--nav-h)_+_var(--dock-h)_+_1.5rem)] md:pb-[calc(var(--dock-h)_+_2.5rem)]">
+        {tab === 'sounds'     && <SoundsTab mixer={mixer} prefs={prefs} toast={toast} query={query} onClearQuery={clearQuery} />}
+        {tab === 'meditation' && <MeditationTab currentId={player.track?.id} playing={player.playing} onSelect={player.select} query={query} onClearQuery={clearQuery} />}
+        {tab === 'breathing'  && <BreathingTab  player={player} query={query} onClearQuery={clearQuery} />}
       </main>
 
       {/* ── Mobile Bottom-Tab-Bar ── */}
       <nav
-        aria-label="Hauptnavigation"
+        aria-label="Main navigation (mobile)"
         className="md:hidden fixed bottom-0 inset-x-0 z-30 flex items-start px-2.5 pt-2"
         style={{ height: 'var(--nav-h)', background: 'var(--surface)', boxShadow: '0 -8px 24px var(--shadow)' }}
       >
@@ -165,7 +191,7 @@ const App: React.FC = () => {
       </nav>
 
       {/* ── Geführter Player ── */}
-      <GuidedPlayer player={player} />
+      <Dock mixer={mixer} player={player} timer={timer} toast={toast} />
     </div>
   );
 };

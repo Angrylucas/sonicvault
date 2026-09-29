@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Play, Pause, X, RotateCcw, RotateCw } from 'lucide-react';
+import { Play, Pause, X, RotateCcw, RotateCw, Loader2 } from 'lucide-react';
 import { GuidedPlayerState } from '../hooks/useGuidedPlayer';
 
 function fmt(sec: number): string {
@@ -10,8 +10,8 @@ function fmt(sec: number): string {
 }
 
 /** Schwebender Mini-Player für geführte Tracks. Die Zeit tickt nur hier, nicht in der App. */
-export const GuidedPlayer: React.FC<{ player: GuidedPlayerState }> = ({ player }) => {
-  const { track, playing, duration, close, togglePlay, seek, skip, getTime } = player;
+export const GuidedPlayer: React.FC<{ player: GuidedPlayerState; timerSlot?: React.ReactNode }> = ({ player, timerSlot }) => {
+  const { track, playing, loading, duration, close, togglePlay, seek, skip, getTime } = player;
   const [time, setTime] = useState(0);
 
   useEffect(() => {
@@ -32,27 +32,36 @@ export const GuidedPlayer: React.FC<{ player: GuidedPlayerState }> = ({ player }
   return (
     <section
       aria-label="Player"
-      className="fixed inset-x-0 z-40 fade-up bottom-[var(--nav-h)] md:bottom-0"
+      className="fade-up"
     >
-      <div className="mx-auto max-w-3xl px-3 pb-2 md:pb-4">
+      <div>
         <div
           className="player-grid rounded-2xl px-4 py-3"
           style={{ background: 'var(--surface)', boxShadow: '0 14px 32px var(--shadow)' }}
         >
           <button
             onClick={togglePlay}
-            aria-label={playing ? 'Pause' : 'Abspielen'}
+            aria-label={playing ? 'Pause' : 'Play'}
             className="player-play w-11 h-11 shrink-0 rounded-full flex items-center justify-center transition-opacity hover:opacity-80"
             style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}
           >
-            {playing ? <Pause className="w-5 h-5" aria-hidden="true" /> : <Play className="w-5 h-5 ml-0.5" aria-hidden="true" />}
+            {loading
+              ? <Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" />
+              : playing
+                ? <Pause className="w-5 h-5" aria-hidden="true" />
+                : <Play className="w-5 h-5 ml-0.5" aria-hidden="true" />}
           </button>
 
-          <p className="player-title text-sm font-bold truncate" style={{ color: 'var(--text)' }}>{track.title}</p>
+          <div className="player-title">
+            <p className="text-sm font-bold truncate" style={{ color: 'var(--text)' }}>{track.title}</p>
+            <p className="text-xs font-semibold truncate" style={{ color: 'var(--text-muted)' }} aria-live="polite">
+              {loading ? 'Loading…' : playing ? 'Playing' : 'Paused · tap play'}
+            </p>
+          </div>
 
           <button
             onClick={() => { skip(-15); setTime(getTime()); }}
-            aria-label="15 Sekunden zurück"
+            aria-label="Back 15 seconds"
             className="player-skipb hit w-10 h-10 flex items-center justify-center rounded-full"
             style={{ color: 'var(--text-muted)' }}
           >
@@ -60,15 +69,16 @@ export const GuidedPlayer: React.FC<{ player: GuidedPlayerState }> = ({ player }
           </button>
           <button
             onClick={() => { skip(15); setTime(getTime()); }}
-            aria-label="15 Sekunden vor"
+            aria-label="Forward 15 seconds"
             className="player-skipf hit w-10 h-10 flex items-center justify-center rounded-full"
             style={{ color: 'var(--text-muted)' }}
           >
             <RotateCw className="w-4 h-4" aria-hidden="true" />
           </button>
+          {timerSlot && <div className="player-timer">{timerSlot}</div>}
           <button
             onClick={close}
-            aria-label="Player schließen"
+            aria-label="Close player"
             className="player-close hit w-10 h-10 flex items-center justify-center rounded-full"
             style={{ color: 'var(--text-muted)' }}
           >
@@ -85,8 +95,8 @@ export const GuidedPlayer: React.FC<{ player: GuidedPlayerState }> = ({ player }
               value={time}
               onChange={e => { const v = Number(e.target.value); seek(v); setTime(v); }}
               style={{ '--fill': `${progress}%` } as React.CSSProperties}
-              aria-label="Fortschritt"
-              aria-valuetext={`${fmt(time)} von ${fmt(duration)}`}
+              aria-label="Progress"
+              aria-valuetext={`${fmt(time)} of ${fmt(duration)}`}
             />
             <span className="text-xs font-semibold tabular-nums w-9 text-right" style={{ color: 'var(--text-muted)' }}>{fmt(duration)}</span>
           </div>

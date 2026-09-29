@@ -6,22 +6,25 @@ Mobile (Bottom-Navigation). Design-Kontext: `PRODUCT.md`, `DESIGN.md`.
 
 ## Features
 
-Drei Tabs, ein Klangraum: **Sounds**, **Meditation**, **Atmung**. Hell und
-dunkel (Mond-/Sonnen-Button im Banner; ohne Wahl folgt die App dem System).
+Drei Tabs: **Sounds**, **Meditation**, **Breathing**. Die Oberfläche ist
+Englisch. Hell und dunkel (Mond-/Sonnen-Button im Banner; ohne Wahl folgt die
+App dem System).
 
-### 🎚️ Sounds – dein eigener Klangraum
-Beliebig viele Ambient-Sounds lassen sich **stapeln** und gemeinsam
-abspielen, jeder mit eigenem **Lautstärke-Regler**. Loops laufen lückenlos
-(Web Audio). Der Mix läuft beim Tab-Wechsel weiter, lässt sich über die
-Mix-Leiste pausieren/leeren, benennen und speichern und wird in
-`localStorage` wiederhergestellt.
+### 🎚️ Sounds
+- 111 Ambient-Sounds in 9 Kategorien, beliebig **stapelbar**, je mit eigener
+  Lautstärke und „natural" (organische Schwankung). Loops laufen lückenlos.
+- **Quick start**: vier fertige Räume, gespeicherte Soundscapes, Favoriten
+  (Herz auf aktiver Kachel) und zuletzt genutzte Sounds; Kategorie-Chips
+  springen direkt zum Abschnitt.
+- **Dock** unten: Mix-Leiste (einklappbar) und Player übereinander, dazu ein
+  **Sleep-Timer** (15/30/60 min, blendet aus). Löschen wird per Undo-Toast
+  abgefangen.
 
 ### 🧘 Meditation
-Geführte Meditationen und Sleepcasts als Themenkacheln (Body Scans, Schlaf,
-Achtsamkeit, Mitgefühl, Heilung), mit Sprecherwahl und einem Mini-Player mit
-Fortschritt und ±15 s.
+Themenkacheln in vier Gruppen (Settle and focus, Sleep, Feelings and people,
+Everyday life) mit Sprecherwahl und Mini-Player (Fortschritt, ±15 s).
 
-### 🌬️ Atmung
+### 🌬️ Breathing
 Geführte Atem-Audios (3–46 Minuten, inkl. Wim-Hof-Übungen).
 
 ## Entwicklung
