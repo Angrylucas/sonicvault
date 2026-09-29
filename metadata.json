@@ -1,5 +1,5 @@
 {
   "name": "SonicVault",
-  "description": "Meditations- und Sound-Plattform: geführte Meditationen, animierte Atemübungen und ein stapelbarer Ambient-Sound-Mixer mit Lautstärke- und Randomness-Reglern.",
+  "description": "Klangräume, geführte Meditationen und Atemübungen: stapelbarer Ambient-Sound-Mixer, Meditations-Player und Atem-Pacer mit Ansage, hell und dunkel.",
   "requestFramePermissions": []
 }

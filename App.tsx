@@ -16,23 +16,26 @@ const TABS: { id: Tab; label: string; icon: React.FC<{ className?: string }> }[]
   { id: 'breathing', label: 'Atmung',    icon: Wind },
 ];
 
-const TAB_META: Record<Tab, { title: string; sub: string; placeholder: string }> = {
+const TAB_META: Record<Tab, { title: [string, string]; sub: string; placeholder: string }> = {
   sounds: {
-    title: 'Guten Abend.<br/>Wonach klingt es heute?',
+    title: ['Guten Abend.', 'Wonach klingt es heute?'],
     sub: `${MIX_SOUNDS.length} Sounds · frei kombinierbar`,
     placeholder: 'Sound suchen …',
   },
   meditation: {
-    title: 'Einen Moment<br/>für dich.',
+    title: ['Einen Moment', 'für dich.'],
     sub: `${MEDITATIONS.length} geführte Sessions`,
     placeholder: 'Meditation suchen …',
   },
   breathing: {
-    title: 'Atme ruhig<br/>und tief.',
+    title: ['Atme ruhig', 'und tief.'],
     sub: `${BREATHING_PATTERNS.length} Muster · ${BREATHING_TRACKS.length} geführte Übungen`,
     placeholder: 'Übung suchen …',
   },
 };
+
+// Höhe des schwebenden Players; hält die Mix-Leiste darüber und den Inhalt frei.
+const DOCK_HEIGHT = '104px';
 
 const App: React.FC = () => {
   const [tab, setTab] = useState<Tab>('sounds');
@@ -49,7 +52,10 @@ const App: React.FC = () => {
   const meta = TAB_META[tab];
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: 'var(--bg)' }}>
+    <div
+      className="min-h-screen flex flex-col"
+      style={{ background: 'var(--bg)', '--dock-h': player.track ? DOCK_HEIGHT : '0px' } as React.CSSProperties}
+    >
       {/* ── Banner ── */}
       <header
         className="relative overflow-hidden px-5 pt-5 pb-14"
@@ -62,7 +68,7 @@ const App: React.FC = () => {
               className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
               style={{ background: 'var(--surface)', color: 'var(--accent)', boxShadow: '0 6px 16px var(--shadow)' }}
             >
-              <AudioWaveform className="w-4 h-4" />
+              <AudioWaveform className="w-4 h-4" aria-hidden="true" />
             </span>
             <span className="font-bold text-base" style={{ color: 'var(--text)' }}>SonicVault</span>
           </div>
@@ -72,57 +78,67 @@ const App: React.FC = () => {
             className="w-11 h-11 rounded-full flex items-center justify-center shrink-0 transition-transform hover:scale-105"
             style={{ background: 'var(--surface)', color: 'var(--accent)', boxShadow: '0 8px 20px var(--shadow)' }}
           >
-            {theme === 'dark' ? <Sun className="w-[18px] h-[18px]" /> : <Moon className="w-[18px] h-[18px]" />}
+            {theme === 'dark' ? <Sun className="w-[18px] h-[18px]" aria-hidden="true" /> : <Moon className="w-[18px] h-[18px]" aria-hidden="true" />}
           </button>
         </div>
 
         <h1
           className="relative mt-5 text-2xl font-extrabold leading-tight"
           style={{ color: 'var(--text)' }}
-          dangerouslySetInnerHTML={{ __html: meta.title }}
-        />
+          aria-live="polite"
+        >
+          <span className="block">{meta.title[0]}</span>
+          <span className="block">{meta.title[1]}</span>
+        </h1>
         <p className="relative mt-1 text-xs font-semibold" style={{ color: 'var(--text-muted)' }}>{meta.sub}</p>
       </header>
 
       {/* ── Suche (überlappt das Banner) ── */}
       <div className="relative px-5 -mt-8 z-10">
         <div
-          className="flex items-center gap-2.5 rounded-full px-4 py-3"
+          className="search-shell flex items-center gap-2.5 rounded-full px-4 py-3"
           style={{ background: 'var(--surface)', boxShadow: '0 10px 26px var(--shadow)' }}
         >
-          <Search className="w-4 h-4 shrink-0" style={{ color: 'var(--text-faint)' }} />
+          <Search className="w-4 h-4 shrink-0" style={{ color: 'var(--text-faint)' }} aria-hidden="true" />
           <input
             type="text"
             value={query}
             onChange={e => setQuery(e.target.value)}
             placeholder={meta.placeholder}
-            className="w-full bg-transparent outline-none text-sm font-semibold placeholder:font-medium"
+            aria-label={meta.placeholder.replace(' …', '')}
+            autoComplete="off"
+            className="w-full bg-transparent text-sm font-semibold placeholder:font-medium placeholder:text-[color:var(--text-faint)]"
             style={{ color: 'var(--text)' }}
           />
         </div>
       </div>
 
       {/* ── Desktop-Navigation ── */}
-      <nav className="hidden md:flex items-center gap-1 px-6 pt-4 sticky top-0 z-20" style={{ background: 'var(--bg)' }}>
+      <nav
+        aria-label="Hauptnavigation"
+        className="hidden md:flex items-center gap-1 px-6 pt-4 sticky top-0 z-20"
+        style={{ background: 'var(--bg)' }}
+      >
         {TABS.map(({ id, label, icon: Icon }) => (
           <button
             key={id}
             onClick={() => changeTab(id)}
-            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold transition-all"
+            aria-current={tab === id ? 'page' : undefined}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-bold transition-all"
             style={
               tab === id
                 ? { background: 'var(--accent)', color: 'var(--accent-ink)' }
                 : { color: 'var(--text-muted)' }
             }
           >
-            <Icon className="w-4 h-4" />
+            <Icon className="w-4 h-4" aria-hidden="true" />
             {label}
           </button>
         ))}
       </nav>
 
       {/* ── Inhalt ── */}
-      <main className="flex-grow w-full max-w-6xl mx-auto px-5 pt-6 pb-28 md:pb-10">
+      <main className="flex-grow w-full max-w-6xl mx-auto px-5 pt-6 pb-[calc(var(--nav-h)_+_var(--dock-h)_+_1.5rem)] md:pb-[calc(var(--dock-h)_+_2.5rem)]">
         {tab === 'sounds'     && <SoundsTab mixer={mixer} query={query} />}
         {tab === 'meditation' && <MeditationTab currentId={player.track?.id} onSelect={player.select} query={query} />}
         {tab === 'breathing'  && <BreathingTab  player={player} query={query} />}
@@ -130,17 +146,19 @@ const App: React.FC = () => {
 
       {/* ── Mobile Bottom-Tab-Bar ── */}
       <nav
-        className="md:hidden fixed bottom-0 inset-x-0 z-30 flex"
-        style={{ background: 'var(--surface)', boxShadow: '0 -8px 24px var(--shadow)', padding: '10px 10px calc(10px + env(safe-area-inset-bottom, 0px))' }}
+        aria-label="Hauptnavigation"
+        className="md:hidden fixed bottom-0 inset-x-0 z-30 flex items-start px-2.5 pt-2"
+        style={{ height: 'var(--nav-h)', background: 'var(--surface)', boxShadow: '0 -8px 24px var(--shadow)' }}
       >
         {TABS.map(({ id, label, icon: Icon }) => (
           <button
             key={id}
             onClick={() => changeTab(id)}
-            className="flex-1 flex flex-col items-center gap-1 py-1 text-[10.5px] font-bold"
+            aria-current={tab === id ? 'page' : undefined}
+            className="flex-1 flex flex-col items-center justify-center gap-1 min-h-[44px] text-[11px] font-bold"
             style={{ color: tab === id ? 'var(--accent)' : 'var(--text-faint)' }}
           >
-            <Icon className="w-[18px] h-[18px]" />
+            <Icon className="w-[18px] h-[18px]" aria-hidden="true" />
             {label}
           </button>
         ))}

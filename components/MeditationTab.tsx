@@ -3,7 +3,7 @@ import { ChevronLeft } from 'lucide-react';
 import { GuidedTrack } from '../types';
 import { MEDITATIONS, MEDITATION_TAGS } from '../data';
 import { TrackList } from './TrackList';
-import { THEME_ART, DEFAULT_THEME_ART } from './ThemeArt';
+import { THEME_ART, DEFAULT_THEME_ART, ThemeArtDefs } from './ThemeArt';
 
 interface Props {
   currentId?: string;
@@ -40,7 +40,7 @@ const GroupedTracks: React.FC<{
     <div className="space-y-8">
       {seriesGroups.map(group => (
         <section key={group.name}>
-          <h3 className="text-xs font-extrabold tracking-wide uppercase mb-3" style={{ color: 'var(--text-faint)' }}>
+          <h3 className="text-sm font-extrabold mb-3" style={{ color: 'var(--text)' }}>
             {group.name}
           </h3>
           <TrackList tracks={group.tracks} currentId={currentId} onSelect={onSelect} />
@@ -49,7 +49,7 @@ const GroupedTracks: React.FC<{
       {standalone.length > 0 && (
         <section>
           {seriesGroups.length > 0 && (
-            <h3 className="text-xs font-extrabold tracking-wide uppercase mb-3" style={{ color: 'var(--text-faint)' }}>
+            <h3 className="text-sm font-extrabold mb-3" style={{ color: 'var(--text)' }}>
               Weitere
             </h3>
           )}
@@ -89,10 +89,10 @@ export const MeditationTab: React.FC<Props> = ({ currentId, onSelect, query }) =
       <div className="fade-up">
         <button
           onClick={() => setSelectedTag(null)}
-          className="flex items-center gap-1.5 mb-5 text-sm font-bold"
+          className="flex items-center gap-1.5 min-h-[44px] -ml-1 pr-3 mb-3 text-sm font-bold rounded-full"
           style={{ color: 'var(--text-muted)' }}
         >
-          <ChevronLeft className="w-4 h-4" />
+          <ChevronLeft className="w-4 h-4" aria-hidden="true" />
           Themen
         </button>
         <h2 className="text-xl font-extrabold mb-5" style={{ color: 'var(--text)' }}>{selectedTag}</h2>
@@ -104,6 +104,7 @@ export const MeditationTab: React.FC<Props> = ({ currentId, onSelect, query }) =
   // Themen-Kachel-Menü: erste Ebene, führt zu den jeweiligen Meditationen.
   return (
     <div className="fade-up grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5">
+      <ThemeArtDefs />
       {TAGS.map(t => {
         const count = MEDITATIONS.filter(m => m.tag === t).length;
         const { gradient, Scene } = THEME_ART[t] ?? DEFAULT_THEME_ART;
@@ -120,7 +121,7 @@ export const MeditationTab: React.FC<Props> = ({ currentId, onSelect, query }) =
             <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/55 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-3">
               <span className="block text-sm font-extrabold text-white leading-snug">{t}</span>
-              <span className="block text-[11px] font-semibold text-white/70 mt-0.5">
+              <span className="block text-[11px] font-semibold text-white/80 mt-0.5">
                 {count} {count === 1 ? 'Session' : 'Sessions'}
               </span>
             </div>

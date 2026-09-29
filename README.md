@@ -1,37 +1,37 @@
 # SonicVault – Meditation & Klangwelten
 
-Eine ruhige, moderne Web-App für Meditation, Atemübungen und individuelle
-Klangräume – inspiriert von Apps wie BetterSleep. Funktioniert auf Desktop
-und Mobile (responsives Design mit Bottom-Navigation).
+Eine ruhige Web-App für Klangräume, Meditation und Atemübungen im Stil eines
+Spa-Foyers (Salbeiminze und Dämmerlavendel). Funktioniert auf Desktop und
+Mobile (Bottom-Navigation). Design-Kontext: `PRODUCT.md`, `DESIGN.md`.
 
 ## Features
 
-### 🧘 Meditation
-Geführte Meditationen (Body Scans, Schlaf, Achtsamkeit, Mitgefühl, Heilung)
-mit Filter-Chips und einem Mini-Player mit Fortschrittsanzeige und ±15 s.
-
-### 🌬️ Atemübungen
-- Animierte Atem-Sessions: **Box Breathing**, **4-7-8**, **Kohärentes Atmen**,
-  **Entspannungsatmung** – ein Kreis wächst beim Einatmen und zieht sich beim
-  Ausatmen zusammen, inklusive Phasen-Countdown.
-- Geführte Atem-Audios (3–46 Minuten, inkl. Wim-Hof-Übungen).
+Drei Tabs, ein Klangraum: **Sounds**, **Meditation**, **Atmung**. Hell und
+dunkel (Mond-/Sonnen-Button im Banner; ohne Wahl folgt die App dem System).
 
 ### 🎚️ Sounds – dein eigener Klangraum
-Beliebig viele Ambient-Sounds lassen sich **stapeln** und gemeinsam abspielen.
-Pro Sound gibt es:
-- einen **Lautstärke-Regler**
-- einen **Randomness-Regler**: Die Lautstärke schwankt organisch um den
-  eingestellten Wert, sodass der Mix lebendig und natürlich klingt.
+Beliebig viele Ambient-Sounds lassen sich **stapeln** und gemeinsam
+abspielen, jeder mit eigenem **Lautstärke-Regler**. Loops laufen lückenlos
+(Web Audio). Der Mix läuft beim Tab-Wechsel weiter, lässt sich über die
+Mix-Leiste pausieren/leeren, benennen und speichern und wird in
+`localStorage` wiederhergestellt.
 
-Der Mix läuft beim Tab-Wechsel weiter, lässt sich über die Mix-Leiste
-pausieren/leeren und wird in `localStorage` gespeichert, sodass er beim
-nächsten Besuch wiederhergestellt wird.
+### 🧘 Meditation
+Geführte Meditationen und Sleepcasts als Themenkacheln (Body Scans, Schlaf,
+Achtsamkeit, Mitgefühl, Heilung), mit Sprecherwahl und einem Mini-Player mit
+Fortschritt und ±15 s.
+
+### 🌬️ Atmung
+- **Atemmuster** (Box Breathing, 4-7-8, Kohärentes Atmen,
+  Entspannungsatmung) als reiner Audio-Pacer: Ansage per Stimme oder Glocke
+  pro Phase, dazu Phasenname und Countdown als Text.
+- Geführte Atem-Audios (3–46 Minuten, inkl. Wim-Hof-Übungen).
 
 ## Entwicklung
 
 ```bash
 npm install
-npm run dev      # Dev-Server auf Port 3000
+npm run dev      # Dev-Server auf Port 3000 (Tailwind über PostCSS)
 npm run build    # Produktions-Build nach dist/
 npm run preview  # Build lokal testen
 ```

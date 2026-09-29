@@ -4,13 +4,13 @@ import { SOUND_BASE_PATH } from '../data';
 
 /**
  * Globaler Player für geführte Tracks (Meditation & Atmung).
- * Hält das Audio-Element außerhalb der UI, damit z. B. der Atmung-Tab
- * den visuellen Indikator zur Abspielposition synchronisieren kann.
+ * Hält das Audio-Element außerhalb der UI. Die Abspielposition steckt bewusst
+ * NICHT im State: sie tickt mehrmals pro Sekunde und würde sonst die ganze App
+ * neu rendern. Der Player liest sie selbst über `getTime()`.
  */
 export function useGuidedPlayer() {
   const [track, setTrack] = useState<GuidedTrack | null>(null);
   const [playing, setPlaying] = useState(false);
-  const [time, setTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -18,7 +18,6 @@ export function useGuidedPlayer() {
     if (!track) return;
     const el = new Audio(SOUND_BASE_PATH + encodeURIComponent(track.filename));
     audioRef.current = el;
-    setTime(0);
     setDuration(0);
     el.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
 
@@ -27,15 +26,17 @@ export function useGuidedPlayer() {
     el.addEventListener('loadedmetadata', onMeta);
     el.addEventListener('ended', onEnd);
 
-    // Feinere Auflösung als 'timeupdate' (~4 Hz), damit der
-    // Atem-Indikator und der Countdown flüssig laufen.
-    const iv = setInterval(() => setTime(el.currentTime), 100);
+    const onPlay = () => setPlaying(true);
+    const onPause = () => setPlaying(false);
+    el.addEventListener('play', onPlay);
+    el.addEventListener('pause', onPause);
 
     return () => {
       el.pause();
       el.removeEventListener('loadedmetadata', onMeta);
       el.removeEventListener('ended', onEnd);
-      clearInterval(iv);
+      el.removeEventListener('play', onPlay);
+      el.removeEventListener('pause', onPause);
       audioRef.current = null;
     };
   }, [track]);
@@ -62,7 +63,6 @@ export function useGuidedPlayer() {
     const el = audioRef.current;
     if (el && isFinite(el.duration)) {
       el.currentTime = value;
-      setTime(value);
     }
   }, []);
 
@@ -71,11 +71,12 @@ export function useGuidedPlayer() {
     if (el) {
       const next = Math.min(Math.max(0, el.currentTime + delta), el.duration || 0);
       el.currentTime = next;
-      setTime(next);
     }
   }, []);
 
-  return { track, playing, time, duration, select, close, togglePlay, seek, skip };
+  const getTime = useCallback(() => audioRef.current?.currentTime ?? 0, []);
+
+  return { track, playing, duration, select, close, togglePlay, seek, skip, getTime };
 }
 
 export type GuidedPlayerState = ReturnType<typeof useGuidedPlayer>;
