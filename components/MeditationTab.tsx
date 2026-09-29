@@ -121,7 +121,7 @@ export const MeditationTab: React.FC<Props> = ({ currentId, onSelect, query }) =
             <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/55 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-3">
               <span className="block text-sm font-extrabold text-white leading-snug">{t}</span>
-              <span className="block text-[11px] font-semibold text-white/80 mt-0.5">
+              <span className="block text-xs font-semibold text-white/80 mt-0.5">
                 {count} {count === 1 ? 'Session' : 'Sessions'}
               </span>
             </div>

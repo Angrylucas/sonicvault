@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AudioWaveform, Flower2, Moon, Search, Sun, Wind } from 'lucide-react';
 import { Tab } from './types';
-import { MIX_SOUNDS, MEDITATIONS, BREATHING_PATTERNS, BREATHING_TRACKS } from './data';
+import { MIX_SOUNDS, MEDITATIONS, BREATHING_TRACKS } from './data';
 import { useMixer } from './hooks/useMixer';
 import { useGuidedPlayer } from './hooks/useGuidedPlayer';
 import { useTheme } from './hooks/useTheme';
@@ -29,7 +29,7 @@ const TAB_META: Record<Tab, { title: [string, string]; sub: string; placeholder:
   },
   breathing: {
     title: ['Atme ruhig', 'und tief.'],
-    sub: `${BREATHING_PATTERNS.length} Muster · ${BREATHING_TRACKS.length} geführte Übungen`,
+    sub: `${BREATHING_TRACKS.length} geführte Übungen`,
     placeholder: 'Übung suchen …',
   },
 };
@@ -53,7 +53,7 @@ const App: React.FC = () => {
 
   return (
     <div
-      className="min-h-screen flex flex-col"
+      className="min-h-dvh flex flex-col"
       style={{ background: 'var(--bg)', '--dock-h': player.track ? DOCK_HEIGHT : '0px' } as React.CSSProperties}
     >
       {/* ── Banner ── */}
@@ -95,8 +95,8 @@ const App: React.FC = () => {
 
       {/* ── Suche (überlappt das Banner) ── */}
       <div className="relative px-5 -mt-8 z-10">
-        <div
-          className="search-shell flex items-center gap-2.5 rounded-full px-4 py-3"
+        <label
+          className="search-shell flex items-center gap-2.5 rounded-full px-4 py-3 cursor-text"
           style={{ background: 'var(--surface)', boxShadow: '0 10px 26px var(--shadow)' }}
         >
           <Search className="w-4 h-4 shrink-0" style={{ color: 'var(--text-faint)' }} aria-hidden="true" />
@@ -110,7 +110,7 @@ const App: React.FC = () => {
             className="w-full bg-transparent text-sm font-semibold placeholder:font-medium placeholder:text-[color:var(--text-faint)]"
             style={{ color: 'var(--text)' }}
           />
-        </div>
+        </label>
       </div>
 
       {/* ── Desktop-Navigation ── */}
@@ -155,7 +155,7 @@ const App: React.FC = () => {
             key={id}
             onClick={() => changeTab(id)}
             aria-current={tab === id ? 'page' : undefined}
-            className="flex-1 flex flex-col items-center justify-center gap-1 min-h-[44px] text-[11px] font-bold"
+            className="flex-1 flex flex-col items-center justify-center gap-1 min-h-[44px] text-xs font-bold"
             style={{ color: tab === id ? 'var(--accent)' : 'var(--text-faint)' }}
           >
             <Icon className="w-[18px] h-[18px]" aria-hidden="true" />

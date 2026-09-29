@@ -176,17 +176,17 @@ Zwei kühle, nahe verwandte Töne (Minze, Lavendel) auf einem nahezu neutralen G
 **Body Font:** Cairo (mit `system-ui, sans-serif`)
 **Label/Mono Font:** Cairo; Ziffern mit `tabular-nums` (Countdown, Zeitanzeige)
 
-**Character:** Cairo ist geometrisch-freundlich mit leicht abgerundeten Endungen, weich genug für ein Spa, klar genug für 10–11px-Labels. Die Hierarchie kommt fast ausschließlich über Gewicht (600 → 800), kaum über Größe: Titel wirken „gepolstert", nicht „laut".
+**Character:** Cairo ist geometrisch-freundlich mit leicht abgerundeten Endungen, weich genug für ein Spa, klar genug für 12px-Labels. Die Hierarchie kommt fast ausschließlich über Gewicht (600 → 800), kaum über Größe: Titel wirken „gepolstert", nicht „laut".
 
 ### Hierarchy
 - **Headline** (800, 1.5rem/24px, 1.25): Banner-Titel („Guten Abend. Wonach klingt es heute?"), zweizeilig mit `<br/>`.
-- **Title** (800, 0.875rem/14px, 1.375): Kartentitel, Kategorien- und Gruppennamen (Sleepcasts, Atemmuster), Nav-Beschriftung, Kachel-Namen; bis 2 Zeilen mit `line-clamp`.
+- **Title** (800, 0.875rem/14px, 1.375): Kartentitel, Kategorien- und Gruppennamen (Sleepcasts), Nav-Beschriftung, Kachel-Namen; bis 2 Zeilen mit `line-clamp`.
 - **Body** (600, 0.875rem/14px, 1.5): Sucheingabe, Player-Titel (700), Hinweistexte.
-- **Label** (700, 0.6875rem/11px, 1.375): Sound-Kachel-Label, Chips (12px/700), Dauer-Zeilen (12px/700).
-- **Eyebrow** (800, 0.625rem/10px, +0.025em, Versalien): Tag neben dem Icon auf Karten, nie über einer Überschrift; kleinste erlaubte Größe.
+- **Label** (700, 0.75rem/12px, 1.375): Sound-Kachel-Label, Chips (12px/700), Dauer-Zeilen (12px/700).
+- **Eyebrow** (800, 0.75rem/12px, +0.025em, Versalien): Tag neben dem Icon auf Karten, nie über einer Überschrift; kleinste erlaubte Größe.
 
 ### Named Rules
-**The Weight-Not-Size Rule.** Rangfolge über Gewicht 600/700/800 lösen; die Größenspanne bleibt eng (10–24px). Kein zusätzlicher Schrifttyp.
+**The Weight-Not-Size Rule.** Rangfolge über Gewicht 600/700/800 lösen; die Größenspanne bleibt eng (12–24px, nichts unter 12px). Kein zusätzlicher Schrifttyp.
 
 ## Layout
 
@@ -199,9 +199,9 @@ Raster füllen die Breite dicht, aber mit großzügigem Zwischenraum (12–14px)
 Hybrid aus Schwebe und Tönung: Ruhende Flächen sind bereits leicht angehoben (kein „flach bei Ruhe"), Aktivierung macht den Schatten nur etwas näher und dichter. Dunkel behält dieselben Schattenwerte, mit `night-shadow` (`rgba(0, 0, 0, 0.5)`) statt Nachtblau-getönt.
 
 ### Shadow Vocabulary
-- **Card rest** (`box-shadow: 0 10px 22px -12px var(--shadow)`): Sound-Kacheln, Themenkacheln (24px), Atemmuster-Karten, Track-Karten (`0 10px 24px -12px`).
+- **Card rest** (`box-shadow: 0 10px 22px -12px var(--shadow)`): Sound-Kacheln, Themenkacheln (24px), Track-Karten (`0 10px 24px -12px`).
 - **Card active** (`0 12px 26px -10px`, Track `0 14px 28px -10px`): Aktivierter Sound, laufende Karte.
-- **Search / Panel** (`0 10px 26px var(--shadow)`; Atem-Panel `0 10px 26px -12px`): Suchleiste, größere Container.
+- **Search / Panel** (`0 10px 26px var(--shadow)`): Suchleiste, größere Container.
 - **Chip** (`0 4px 12px var(--shadow)`): Filter-Chips im Ruhezustand.
 - **Float bar** (`0 14px 30px var(--shadow)`; Player `0 14px 32px`): Mix-Leiste und geführter Player.
 - **Header controls** (`0 6px 16px` Logo-Marke, `0 8px 20px` Theme-Toggle): Kreise im Banner.
@@ -216,7 +216,7 @@ Hybrid aus Schwebe und Tönung: Ruhende Flächen sind bereits leicht angehoben (
 
 ## Shapes
 
-Kissenweich. Karten und Kacheln sind `rounded-2xl` (16px); große Container wie das Atem-Panel `rounded-3xl` (24px); alles Kleine ist eine Pille oder ein Kreis (Chips, Nav, Suche, Play-Buttons, Icon-Rondelle, Theme-Toggle). Icon-Rondelle sind 36px (Kacheln, Karten) bzw. 32px (Play). Kein Element hat einen Radius unter 16px außer 1.5px-Bars und Fortschrittsspuren. Icons: Lucide (Strich), 12–18px.
+Kissenweich. Karten und Kacheln sind `rounded-2xl` (16px); große Container wie die Mix-Leiste `rounded-3xl` (24px); alles Kleine ist eine Pille oder ein Kreis (Chips, Nav, Suche, Play-Buttons, Icon-Rondelle, Theme-Toggle). Icon-Rondelle sind 36px (Kacheln, Karten) bzw. 32px (Play). Kein Element hat einen Radius unter 16px außer 1.5px-Bars und Fortschrittsspuren. Icons: Lucide (Strich), 12–18px.
 
 Wiederkehrende Silhouette: **runder Icon-Kreis oben, Text darunter, zweite Pille unten** — die „Kissen-Kachel".
 
@@ -224,16 +224,16 @@ Wiederkehrende Silhouette: **runder Icon-Kreis oben, Text darunter, zweite Pille
 
 ### Buttons
 - **Shape:** Pille (9999px); Play/Pause als Kreis 32–44px.
-- **Primary:** Salbeiminze-Füllung mit `accent-ink`, `px-8 py-3`, 14px/700 (Start), Play-Kreis 44px im Mixer.
-- **Secondary:** `surface-2` mit Tinten-Text und 1px-Innenring `inset 0 0 0 1px var(--border)` (Beenden); Play-Kreis auf Karten im Ruhezustand in `-soft`-Tönung mit Akzent-Icon.
+- **Primary:** Salbeiminze-Füllung mit `accent-ink`, `px-8 py-3`, 14px/700 (Play), Play-Kreis 44px im Mixer.
+- **Secondary:** `surface-2` mit Tinten-Text und 1px-Innenring `inset 0 0 0 1px var(--border)` ; Play-Kreis auf Karten im Ruhezustand in `-soft`-Tönung mit Akzent-Icon.
 - **Hover / Focus:** Sanfte Bewegung/Opazität: `hover:opacity-80`, `hover:scale-105` (Toggle), `hover:-translate-y-0.5` (Karten; entfällt bei reduzierter Bewegung). Fokus: 2px-Ring in `--focus` (= Akzent), 2px Abstand, auf jedem Element; Karten zeigen ihn als Ring um die ganze Karte (Stretched Link).
 
 ### Chips
 - **Style:** Ruhe: Porzellan mit Schiefernebel-Text und Chip-Schatten; aktiv: Salbeiminze-Fläche, `accent-ink`.
-- **State:** Auswahl = Füllung, keine Häkchen. Sprecher-Chips auf Karten sind kleiner (10px/700, `px-2 py-0.5`), aktiv Minze, ruhend `surface-2`.
+- **State:** Auswahl = Füllung, keine Häkchen. Sprecher-Chips auf Karten sind kleiner (12px/700, `px-2 py-0.5`), aktiv Minze, ruhend `surface-2`.
 
 ### Cards / Containers
-- **Corner Style:** 16px (Themen 16px mit Bild), Atem-Panel 24px.
+- **Corner Style:** 16px (Themen 16px mit Bild), .
 - **Background:** Porzellan / Nachtfläche; aktive Sound-Kachel Salbeiminze.
 - **Shadow Strategy:** Siehe Elevation; Ruhe schwebt, Aktiv rückt näher.
 - **Border:** Keine. Laufende Track-Karte bekommt einen 2px-Innenring in Minze (`outline: 2px solid var(--accent); outline-offset: -2px`).
@@ -245,17 +245,17 @@ Wiederkehrende Silhouette: **runder Icon-Kreis oben, Text darunter, zweite Pille
 - **Error / Disabled:** Nicht definiert.
 
 ### Navigation
-- **Style:** Desktop: klebende Pillen-Leiste unter dem Banner, aktiv Minz-Füllung, inaktiv Schiefernebel ohne Fläche. Mobile: feste Bottom-Tab-Bar auf Porzellan, Icon 18px über 11px/700-Label, Höhe `--nav-h`, aktiv Minze, inaktiv Dunst; oberer Schatten; aktiver Tab trägt `aria-current`.
+- **Style:** Desktop: klebende Pillen-Leiste unter dem Banner, aktiv Minz-Füllung, inaktiv Schiefernebel ohne Fläche. Mobile: feste Bottom-Tab-Bar auf Porzellan, Icon 18px über 12px/700-Label, Höhe `--nav-h`, aktiv Minze, inaktiv Dunst; oberer Schatten; aktiver Tab trägt `aria-current`.
 - **Mobile:** Bar mit Safe-Area-Inset; Player und Mix-Leiste sitzen darüber (`bottom-[76px]`/`[84px]`).
 
 ### Sound-Kachel (Signature)
-Kissen-Kachel: 36px-Icon-Rondell in der Tönung der Kategorie, darunter 11px/700-Label (min. 2 Zeilen hoch). Aktiv: ganze Kachel wird Salbeiminze, Rondell abgedunkelt (`--veil`), darunter Lautstärke-Slider (max. 110px, Füllung in `accent-ink`) und „natürlich"-Pille; das Icon pulsiert sacht (`softPulse` 2.4s), solange der Mix läuft.
+Kissen-Kachel: 36px-Icon-Rondell in der Tönung der Kategorie, darunter 12px/700-Label (min. 2 Zeilen hoch). Aktiv: ganze Kachel wird Salbeiminze, Rondell abgedunkelt (`--veil`), darunter Lautstärke-Slider (max. 110px, Füllung in `accent-ink`) und „natürlich"-Pille; das Icon pulsiert sacht (`softPulse` 2.4s), solange der Mix läuft.
 
 ### Themenkachel (Signature)
 Immer dunkle Szene (feste Nachtverläufe aus Navy, Minz- und Lavendeltönen), 144px hoch, mit selbstgezeichneter Inline-SVG-Illustration (Mond, Sterne, Silhouetten, Halo) und Fußverlauf `black/55`. Weißer Titel + 11px-Sessionzahl. Die Kachel folgt dem Theme nicht: sie ist im Hellen wie im Dunklen dieselbe Nachtszene.
 
 ### Slider
-4px-Spur, Minz-Füllung bis `--fill`, Restspur `--border`; 14px-Daumen in Fläche mit 2px Minz-Rand und weichem Schatten.
+4px-Spur in 44px hoher Trefferfläche (negativer Rand, Layout unverändert), Minz-Füllung bis `--fill`, Restspur `--border`; 14px-Daumen in Fläche mit 2px Minz-Rand und weichem Schatten.
 
 ## Do's and Don'ts
 
@@ -275,5 +275,5 @@ Immer dunkle Szene (feste Nachtverläufe aus Navy, Minz- und Lavendeltönen), 14
 - **Don't** `--accent` wieder aufhellen (etwa zurück auf #3fae7c, 2,8 : 1 mit Weiß) oder `--text-faint` unter 4,5 : 1 ziehen; beide tragen Text.
 - **Don't** rotes Tailwind (`text-red-400`) oder feste Weiß-Overlays auf Akzentflächen verwenden; dafür gibt es `--danger` und `--veil`.
 - **Don't** interaktive Elemente ineinander schachteln (Button in Button); Karten nutzen den Stretched-Link-Ansatz.
-- **Don't** einen animierten Atem-Kreis (oder ein Ersatz-Bild dafür) einbauen; die Atmung läuft über Ansage und Textanzeige.
-- **Don't** einen zweiten Schrifttyp einführen oder Größen jenseits von 10–24px für die App-Oberfläche.
+- **Don't** einen animierten Atem-Kreis (oder ein Ersatz-Bild dafür) einbauen; der Atmung-Tab bleibt eine Liste geführter Übungen.
+- **Don't** einen zweiten Schrifttyp einführen oder Größen außerhalb von 12–24px für die App-Oberfläche.

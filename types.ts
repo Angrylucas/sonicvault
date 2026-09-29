@@ -39,17 +39,3 @@ export interface SavedSpace {
   name: string;
   sounds: Record<string, MixerSoundState>;
 }
-
-/** Phase einer Atemübung */
-export interface BreathPhase {
-  label: string;
-  kind: 'in' | 'hold' | 'out';
-  seconds: number;
-}
-
-export interface BreathingPattern {
-  id: string;
-  name: string;
-  description: string;
-  phases: BreathPhase[];
-}

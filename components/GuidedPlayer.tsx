@@ -76,7 +76,7 @@ export const GuidedPlayer: React.FC<{ player: GuidedPlayerState }> = ({ player }
           </button>
 
           <div className="player-prog flex items-center gap-2">
-            <span className="text-[11px] font-semibold tabular-nums w-9" style={{ color: 'var(--text-muted)' }}>{fmt(time)}</span>
+            <span className="text-xs font-semibold tabular-nums w-9" style={{ color: 'var(--text-muted)' }}>{fmt(time)}</span>
             <input
               type="range"
               min={0}
@@ -88,7 +88,7 @@ export const GuidedPlayer: React.FC<{ player: GuidedPlayerState }> = ({ player }
               aria-label="Fortschritt"
               aria-valuetext={`${fmt(time)} von ${fmt(duration)}`}
             />
-            <span className="text-[11px] font-semibold tabular-nums w-9 text-right" style={{ color: 'var(--text-muted)' }}>{fmt(duration)}</span>
+            <span className="text-xs font-semibold tabular-nums w-9 text-right" style={{ color: 'var(--text-muted)' }}>{fmt(duration)}</span>
           </div>
         </div>
       </div>
