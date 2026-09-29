@@ -98,7 +98,7 @@ export const BreathingTab: React.FC<Props> = ({ player, query }) => {
                   {p.phases.map((ph, i) => (
                     <span
                       key={i}
-                      className="inline-flex items-center gap-1 text-[10px] font-extrabold px-1.5 py-0.5 rounded-full"
+                      className="inline-flex items-center gap-1 text-xs font-extrabold px-1.5 py-0.5 rounded-full"
                       style={{ background: PHASE_TINT[ph.kind], color: 'var(--text)' }}
                     >
                       <span className="w-1.5 h-1.5 rounded-full" style={{ background: PHASE_COLOR[ph.kind] }} aria-hidden="true" />
@@ -106,7 +106,7 @@ export const BreathingTab: React.FC<Props> = ({ player, query }) => {
                     </span>
                   ))}
                 </div>
-                <span className="block text-[11px] leading-relaxed" style={{ color: 'var(--text-muted)' }}>{p.description}</span>
+                <span className="block text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>{p.description}</span>
               </div>
             </button>
           );

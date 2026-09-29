@@ -275,7 +275,7 @@ const SoundTile = memo<TileProps>(({ sound, tint, active, volume, randomness, pl
           <Icon className={`w-[17px] h-[17px] ${active && playing ? 'pulse-soft' : ''}`} aria-hidden="true" />
         </span>
         <span
-          className="text-[11px] font-bold mt-2 leading-snug min-h-[2.4em] flex items-start justify-center"
+          className="text-xs font-bold mt-2 leading-snug min-h-[2.4em] flex items-start justify-center"
           style={{ color: active ? 'var(--accent-ink)' : 'var(--text)' }}
         >
           {sound.name}
@@ -298,7 +298,7 @@ const SoundTile = memo<TileProps>(({ sound, tint, active, volume, randomness, pl
 
           <button
             onClick={() => onRandom(sound.id)}
-            className="hit flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[11px] font-bold transition-all"
+            className="hit flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-bold transition-all"
             style={
               randomness
                 ? { background: 'var(--accent-ink)', color: 'var(--accent)' }

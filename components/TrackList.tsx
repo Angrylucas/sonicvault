@@ -82,7 +82,7 @@ const TrackCard = memo<{
         >
           <Icon className="w-4 h-4" aria-hidden="true" />
         </span>
-        <span className="text-[10px] font-extrabold uppercase tracking-wide" style={{ color: 'var(--text-faint)' }}>
+        <span className="text-xs font-extrabold uppercase tracking-wide" style={{ color: 'var(--text-faint)' }}>
           {track.tag}
         </span>
       </div>
@@ -104,7 +104,7 @@ const TrackCard = memo<{
               key={v.narrator}
               onClick={() => pickNarrator(v.narrator)}
               aria-pressed={v.narrator === narrator}
-              className="hit px-3 py-1.5 rounded-full text-[11px] font-bold transition-colors"
+              className="hit px-3 py-1.5 rounded-full text-xs font-bold transition-colors"
               style={
                 v.narrator === narrator
                   ? { background: 'var(--accent)', color: 'var(--accent-ink)' }
