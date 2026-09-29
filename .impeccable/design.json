@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-29T19:33:24Z",
+  "generatedAt": "2026-09-29T19:35:44Z",
   "title": "Design System: SonicVault",
   "extensions": {
     "colorMeta": {
@@ -657,7 +657,7 @@
       "Don't `--accent` wieder aufhellen (etwa zurück auf #3fae7c, 2,8 : 1 mit Weiß) oder `--text-faint` unter 4,5 : 1 ziehen; beide tragen Text.",
       "Don't rotes Tailwind (`text-red-400`) oder feste Weiß-Overlays auf Akzentflächen verwenden; dafür gibt es `--danger` und `--veil`.",
       "Don't interaktive Elemente ineinander schachteln (Button in Button); Karten nutzen den Stretched-Link-Ansatz.",
-      "Don't einen animierten Atem-Kreis (oder ein Ersatz-Bild dafür) einbauen; die Atemmuster bleiben statische Info-Karten.",
+      "Don't einen animierten Atem-Kreis (oder ein Ersatz-Bild dafür) einbauen; der Atmung-Tab bleibt eine Liste geführter Übungen.",
       "Don't einen zweiten Schrifttyp einführen oder Größen außerhalb von 12–24px für die App-Oberfläche."
     ]
   }

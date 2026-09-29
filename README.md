@@ -22,9 +22,7 @@ Achtsamkeit, Mitgefühl, Heilung), mit Sprecherwahl und einem Mini-Player mit
 Fortschritt und ±15 s.
 
 ### 🌬️ Atmung
-- **Atemmuster** (Box Breathing, 4-7-8, Kohärentes Atmen,
-  Entspannungsatmung) als Übersicht mit Phasen und Dauer.
-- Geführte Atem-Audios (3–46 Minuten, inkl. Wim-Hof-Übungen).
+Geführte Atem-Audios (3–46 Minuten, inkl. Wim-Hof-Übungen).
 
 ## Entwicklung
 

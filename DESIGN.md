@@ -180,7 +180,7 @@ Zwei kühle, nahe verwandte Töne (Minze, Lavendel) auf einem nahezu neutralen G
 
 ### Hierarchy
 - **Headline** (800, 1.5rem/24px, 1.25): Banner-Titel („Guten Abend. Wonach klingt es heute?"), zweizeilig mit `<br/>`.
-- **Title** (800, 0.875rem/14px, 1.375): Kartentitel, Kategorien- und Gruppennamen (Sleepcasts, Atemmuster), Nav-Beschriftung, Kachel-Namen; bis 2 Zeilen mit `line-clamp`.
+- **Title** (800, 0.875rem/14px, 1.375): Kartentitel, Kategorien- und Gruppennamen (Sleepcasts), Nav-Beschriftung, Kachel-Namen; bis 2 Zeilen mit `line-clamp`.
 - **Body** (600, 0.875rem/14px, 1.5): Sucheingabe, Player-Titel (700), Hinweistexte.
 - **Label** (700, 0.75rem/12px, 1.375): Sound-Kachel-Label, Chips (12px/700), Dauer-Zeilen (12px/700).
 - **Eyebrow** (800, 0.75rem/12px, +0.025em, Versalien): Tag neben dem Icon auf Karten, nie über einer Überschrift; kleinste erlaubte Größe.
@@ -199,7 +199,7 @@ Raster füllen die Breite dicht, aber mit großzügigem Zwischenraum (12–14px)
 Hybrid aus Schwebe und Tönung: Ruhende Flächen sind bereits leicht angehoben (kein „flach bei Ruhe"), Aktivierung macht den Schatten nur etwas näher und dichter. Dunkel behält dieselben Schattenwerte, mit `night-shadow` (`rgba(0, 0, 0, 0.5)`) statt Nachtblau-getönt.
 
 ### Shadow Vocabulary
-- **Card rest** (`box-shadow: 0 10px 22px -12px var(--shadow)`): Sound-Kacheln, Themenkacheln (24px), Atemmuster-Karten, Track-Karten (`0 10px 24px -12px`).
+- **Card rest** (`box-shadow: 0 10px 22px -12px var(--shadow)`): Sound-Kacheln, Themenkacheln (24px), Track-Karten (`0 10px 24px -12px`).
 - **Card active** (`0 12px 26px -10px`, Track `0 14px 28px -10px`): Aktivierter Sound, laufende Karte.
 - **Search / Panel** (`0 10px 26px var(--shadow)`): Suchleiste, größere Container.
 - **Chip** (`0 4px 12px var(--shadow)`): Filter-Chips im Ruhezustand.
@@ -275,5 +275,5 @@ Immer dunkle Szene (feste Nachtverläufe aus Navy, Minz- und Lavendeltönen), 14
 - **Don't** `--accent` wieder aufhellen (etwa zurück auf #3fae7c, 2,8 : 1 mit Weiß) oder `--text-faint` unter 4,5 : 1 ziehen; beide tragen Text.
 - **Don't** rotes Tailwind (`text-red-400`) oder feste Weiß-Overlays auf Akzentflächen verwenden; dafür gibt es `--danger` und `--veil`.
 - **Don't** interaktive Elemente ineinander schachteln (Button in Button); Karten nutzen den Stretched-Link-Ansatz.
-- **Don't** einen animierten Atem-Kreis (oder ein Ersatz-Bild dafür) einbauen; die Atemmuster bleiben statische Info-Karten.
+- **Don't** einen animierten Atem-Kreis (oder ein Ersatz-Bild dafür) einbauen; der Atmung-Tab bleibt eine Liste geführter Übungen.
 - **Don't** einen zweiten Schrifttyp einführen oder Größen außerhalb von 12–24px für die App-Oberfläche.
