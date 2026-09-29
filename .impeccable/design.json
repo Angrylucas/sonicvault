@@ -1,0 +1,664 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-29T19:22:47Z",
+  "title": "Design System: SonicVault",
+  "extensions": {
+    "colorMeta": {
+      "foyer-white": {
+        "role": "neutral",
+        "displayName": "Foyer-Weiß",
+        "canonical": "oklch(97.9% 0.000 90)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "porcelain": {
+        "role": "neutral",
+        "displayName": "Porzellan",
+        "canonical": "oklch(100.0% 0.000 90)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "mint-frost": {
+        "role": "neutral",
+        "displayName": "Minzfrost",
+        "canonical": "oklch(98.3% 0.007 165)",
+        "tonalRamp": [
+          "#080c0a",
+          "#222624",
+          "#3e4341",
+          "#5d6360",
+          "#7e8481",
+          "#a1a6a4",
+          "#c5cbc8",
+          "#eaf0ed"
+        ]
+      },
+      "dusk-ink": {
+        "role": "neutral",
+        "displayName": "Dämmertinte",
+        "canonical": "oklch(29.4% 0.049 269)",
+        "tonalRamp": [
+          "#040920",
+          "#1b243d",
+          "#37415d",
+          "#55607e",
+          "#7682a1",
+          "#98a4c5",
+          "#bcc9ea",
+          "#e8eeff"
+        ]
+      },
+      "slate-mist": {
+        "role": "neutral",
+        "displayName": "Schiefernebel",
+        "canonical": "oklch(43.9% 0.029 268)",
+        "tonalRamp": [
+          "#060a18",
+          "#1f2534",
+          "#3b4252",
+          "#5a6173",
+          "#7a8295",
+          "#9da5b8",
+          "#c1c9dd",
+          "#e7eeff"
+        ]
+      },
+      "haze": {
+        "role": "neutral",
+        "displayName": "Dunst",
+        "canonical": "oklch(55.1% 0.023 264)",
+        "tonalRamp": [
+          "#070b15",
+          "#1f2531",
+          "#3c424f",
+          "#5b616f",
+          "#7b8291",
+          "#9ea5b4",
+          "#c2c9d9",
+          "#e7efff"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Haarlinie",
+        "canonical": "oklch(94.3% 0.000 90)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "sage-mint": {
+        "role": "primary",
+        "displayName": "Salbeiminze",
+        "canonical": "oklch(53.0% 0.097 161)",
+        "tonalRamp": [
+          "#001006",
+          "#002e1b",
+          "#024f33",
+          "#1e724f",
+          "#46946f",
+          "#6ab891",
+          "#8eddb4",
+          "#c2ffde"
+        ]
+      },
+      "sage-mint-soft": {
+        "role": "tertiary",
+        "displayName": "Minzhauch",
+        "canonical": "oklch(93.4% 0.031 162)",
+        "tonalRamp": [
+          "#010f07",
+          "#172a20",
+          "#33473d",
+          "#52675c",
+          "#73887d",
+          "#95ab9f",
+          "#b8d0c3",
+          "#ddf5e8"
+        ]
+      },
+      "sage-mint-deep": {
+        "role": "tertiary",
+        "displayName": "Minzhauch tief",
+        "canonical": "oklch(89.4% 0.046 160)",
+        "tonalRamp": [
+          "#001006",
+          "#0d2c1d",
+          "#2b4a3a",
+          "#4a6a58",
+          "#6b8b79",
+          "#8dae9b",
+          "#b0d3bf",
+          "#d5f9e4"
+        ]
+      },
+      "dusk-lavender": {
+        "role": "secondary",
+        "displayName": "Dämmerlavendel",
+        "canonical": "oklch(49.3% 0.105 285)",
+        "tonalRamp": [
+          "#0c002f",
+          "#231755",
+          "#3e3777",
+          "#5c579a",
+          "#7c79bf",
+          "#9e9be4",
+          "#c3c2ff",
+          "#ecedfe"
+        ]
+      },
+      "dusk-lavender-soft": {
+        "role": "secondary",
+        "displayName": "Lavendelhauch",
+        "canonical": "oklch(81.6% 0.086 296)",
+        "tonalRamp": [
+          "#10002a",
+          "#2a1949",
+          "#46376a",
+          "#65578d",
+          "#8678b0",
+          "#a99ad5",
+          "#cdbefc",
+          "#efebff"
+        ]
+      },
+      "night-ground": {
+        "role": "neutral",
+        "displayName": "Nachtgrund",
+        "canonical": "oklch(20.2% 0.018 275)",
+        "tonalRamp": [
+          "#090b13",
+          "#22242e",
+          "#3f414c",
+          "#5e616c",
+          "#7f828e",
+          "#a1a4b1",
+          "#c5c8d5",
+          "#ebeefb"
+        ]
+      },
+      "night-surface": {
+        "role": "neutral",
+        "displayName": "Nachtfläche",
+        "canonical": "oklch(24.5% 0.017 275)",
+        "tonalRamp": [
+          "#090b13",
+          "#22242e",
+          "#3f414b",
+          "#5e616b",
+          "#7f828d",
+          "#a2a4b0",
+          "#c6c8d5",
+          "#ebeefb"
+        ]
+      },
+      "night-surface-raised": {
+        "role": "neutral",
+        "displayName": "Nachtfläche erhöht",
+        "canonical": "oklch(27.1% 0.021 277)",
+        "tonalRamp": [
+          "#090a14",
+          "#22242f",
+          "#3f414d",
+          "#5e606d",
+          "#7f818f",
+          "#a1a4b2",
+          "#c5c8d7",
+          "#ebeefd"
+        ]
+      },
+      "moonlit-paper": {
+        "role": "neutral",
+        "displayName": "Mondpapier",
+        "canonical": "oklch(95.5% 0.008 91)",
+        "tonalRamp": [
+          "#0c0b07",
+          "#262521",
+          "#43423d",
+          "#63615c",
+          "#84827d",
+          "#a7a59f",
+          "#cbc9c3",
+          "#f0eee8"
+        ]
+      },
+      "night-mist": {
+        "role": "neutral",
+        "displayName": "Nachtnebel",
+        "canonical": "oklch(74.5% 0.033 278)",
+        "tonalRamp": [
+          "#080919",
+          "#212435",
+          "#3d4054",
+          "#5c6074",
+          "#7d8197",
+          "#a0a4ba",
+          "#c3c8df",
+          "#eaedff"
+        ]
+      },
+      "night-haze": {
+        "role": "neutral",
+        "displayName": "Nachtdunst",
+        "canonical": "oklch(65.4% 0.035 276)",
+        "tonalRamp": [
+          "#07091a",
+          "#202436",
+          "#3d4155",
+          "#5b6075",
+          "#7c8198",
+          "#9fa4bb",
+          "#c2c8e0",
+          "#eaeefe"
+        ]
+      },
+      "night-hairline": {
+        "role": "neutral",
+        "displayName": "Nacht-Haarlinie",
+        "canonical": "oklch(30.0% 0.024 275)",
+        "tonalRamp": [
+          "#080a15",
+          "#212431",
+          "#3e414f",
+          "#5d606f",
+          "#7e8291",
+          "#a0a4b5",
+          "#c4c8d9",
+          "#eaeefe"
+        ]
+      },
+      "night-mint": {
+        "role": "primary",
+        "displayName": "Nachtminze",
+        "canonical": "oklch(80.8% 0.107 162)",
+        "tonalRamp": [
+          "#001007",
+          "#002e1c",
+          "#004f34",
+          "#03734e",
+          "#3a966e",
+          "#60ba90",
+          "#85dfb4",
+          "#c2ffdf"
+        ]
+      },
+      "night-mint-ink": {
+        "role": "neutral",
+        "displayName": "Nachtminze-Tinte",
+        "canonical": "oklch(25.8% 0.043 159)",
+        "tonalRamp": [
+          "#001006",
+          "#102b1d",
+          "#2d493a",
+          "#4c6958",
+          "#6c8b79",
+          "#8eae9b",
+          "#b2d2bf",
+          "#d7f8e4"
+        ]
+      },
+      "night-mint-soft": {
+        "role": "tertiary",
+        "displayName": "Nachtminzhauch",
+        "canonical": "oklch(30.5% 0.023 168)",
+        "tonalRamp": [
+          "#030e09",
+          "#1a2923",
+          "#364640",
+          "#55665f",
+          "#768780",
+          "#98aaa2",
+          "#bccec6",
+          "#e1f4ec"
+        ]
+      },
+      "night-mint-deep": {
+        "role": "tertiary",
+        "displayName": "Nachtminzhauch tief",
+        "canonical": "oklch(34.2% 0.026 164)",
+        "tonalRamp": [
+          "#020f08",
+          "#192922",
+          "#35473e",
+          "#54665d",
+          "#75887e",
+          "#97aba1",
+          "#bacfc5",
+          "#dff4ea"
+        ]
+      },
+      "night-lavender": {
+        "role": "secondary",
+        "displayName": "Nachtlavendel",
+        "canonical": "oklch(75.7% 0.100 294)",
+        "tonalRamp": [
+          "#10002c",
+          "#291650",
+          "#463571",
+          "#645594",
+          "#8576b9",
+          "#a899de",
+          "#ccbeff",
+          "#efecff"
+        ]
+      },
+      "night-lavender-soft": {
+        "role": "secondary",
+        "displayName": "Nachtlavendelhauch",
+        "canonical": "oklch(31.2% 0.053 289)",
+        "tonalRamp": [
+          "#0b0620",
+          "#24203d",
+          "#413d5d",
+          "#605c7e",
+          "#817da1",
+          "#a3a0c5",
+          "#c7c4ea",
+          "#edecff"
+        ]
+      },
+      "signal-red": {
+        "role": "neutral",
+        "displayName": "Signalrot",
+        "canonical": "oklch(56.9% 0.194 27)",
+        "tonalRamp": [
+          "#210000",
+          "#4d0003",
+          "#81000a",
+          "#b60e18",
+          "#df423d",
+          "#ff7368",
+          "#ffb3aa",
+          "#ffe9e6"
+        ]
+      },
+      "night-signal": {
+        "role": "neutral",
+        "displayName": "Nachtsignal",
+        "canonical": "oklch(69.9% 0.161 25)",
+        "tonalRamp": [
+          "#200000",
+          "#4e0005",
+          "#800011",
+          "#aa2d2f",
+          "#d1534f",
+          "#fa7771",
+          "#feb3ac",
+          "#fee9e7"
+        ]
+      },
+      "scene-slate": {
+        "role": "neutral",
+        "displayName": "Szenen-Schiefer",
+        "canonical": "oklch(46.0% 0.051 246)",
+        "tonalRamp": [
+          "#000c1d",
+          "#0d273c",
+          "#2a455c",
+          "#49647d",
+          "#6986a0",
+          "#8ba9c4",
+          "#afcde9",
+          "#e1f1ff"
+        ]
+      },
+      "scene-indigo": {
+        "role": "neutral",
+        "displayName": "Szenen-Indigo",
+        "canonical": "oklch(38.8% 0.066 272)",
+        "tonalRamp": [
+          "#040626",
+          "#1a2245",
+          "#363f65",
+          "#545f87",
+          "#7480ab",
+          "#96a3cf",
+          "#bac7f5",
+          "#e9eefe"
+        ]
+      },
+      "night-shadow": {
+        "role": "neutral",
+        "displayName": "Nachtschatten",
+        "canonical": "rgba(0, 0, 0, 0.5)",
+        "tonalRamp": []
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Banner-Titel pro Tab."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Kartentitel, Kategorienamen, Nav."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Sucheingabe, Player-Titel, Hinweise."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Sound-Kachel-Label, Chips, Dauer."
+      },
+      "eyebrow": {
+        "displayName": "Eyebrow",
+        "purpose": "Tags und Abschnittsüberschriften in Versalien."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-rest",
+        "value": "0 10px 22px -12px var(--shadow)",
+        "purpose": "Sound- und Themenkacheln im Ruhezustand."
+      },
+      {
+        "name": "card-active",
+        "value": "0 12px 26px -10px var(--shadow)",
+        "purpose": "Aktivierter Sound; laufende Track-Karte 0 14px 28px -10px."
+      },
+      {
+        "name": "search-panel",
+        "value": "0 10px 26px var(--shadow)",
+        "purpose": "Suchleiste und größere Container."
+      },
+      {
+        "name": "chip",
+        "value": "0 4px 12px var(--shadow)",
+        "purpose": "Filter-Chips."
+      },
+      {
+        "name": "float-bar",
+        "value": "0 14px 30px var(--shadow)",
+        "purpose": "Mix-Leiste und Player (32px)."
+      },
+      {
+        "name": "bottom-bar",
+        "value": "0 -8px 24px var(--shadow)",
+        "purpose": "Bottom-Tab-Bar, Schatten nach oben."
+      }
+    ],
+    "motion": [
+      {
+        "name": "fade-up",
+        "value": "0.4s ease-out both (translateY 10px → 0)",
+        "purpose": "Tab-Inhalte erscheinen."
+      },
+      {
+        "name": "soft-pulse",
+        "value": "2.4s ease-in-out infinite (opacity 1 ↔ .55)",
+        "purpose": "Icon eines aktiven, laufenden Sounds."
+      },
+      {
+        "name": "lift",
+        "value": "translateY(-2px)",
+        "purpose": "Hover auf Karten (hover:-translate-y-0.5)."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Sound-Kachel",
+      "kind": "card",
+      "refersTo": "sound-tile",
+      "description": "Kissen-Kachel im Ruhezustand: Icon-Rondell in Minz-Tönung, Label darunter.",
+      "html": "<button class=\"ds-tile\"><span class=\"ds-tile-icon\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242\"/><path d=\"M16 14v6\"/><path d=\"M8 14v6\"/><path d=\"M12 16v6\"/></svg></span><span class=\"ds-tile-label\">Sanfter Regen</span></button>",
+      "css": ".ds-tile{display:flex;flex-direction:column;align-items:center;width:132px;padding:16px 8px 14px;border:0;border-radius:16px;background:var(--surface, #fff);box-shadow:0 10px 22px -12px var(--shadow, rgba(34,43,69,.14));cursor:pointer;font-family:Cairo,system-ui,sans-serif;transition:transform .2s} .ds-tile:hover{transform:translateY(-2px)} .ds-tile:focus-visible{outline:2px solid var(--accent, #2c7d59);outline-offset:2px} .ds-tile-icon{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:9999px;background:var(--accent-soft, #d8f0e3);color:var(--accent, #2c7d59)} .ds-tile-label{margin-top:8px;min-height:2.4em;font-size:11px;font-weight:700;line-height:1.35;color:var(--text, #222b45)"
+    },
+    {
+      "name": "Sound-Kachel (aktiv)",
+      "kind": "card",
+      "refersTo": "sound-tile-active",
+      "description": "Aktiv: Fläche wird Salbeiminze, Rondell abgedunkelt, Regler und natürlich-Pille erscheinen.",
+      "html": "<div class=\"ds-tile-on\"><span class=\"ds-on-icon\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242\"/><path d=\"M16 14v6\"/><path d=\"M8 14v6\"/><path d=\"M12 16v6\"/></svg></span><span class=\"ds-on-label\">Sanfter Regen</span><span class=\"ds-on-slider\"><i></i></span><span class=\"ds-on-pill\">natürlich</span></div>",
+      "css": ".ds-tile-on{display:flex;flex-direction:column;align-items:center;width:132px;padding:16px 8px 14px;border-radius:16px;background:var(--accent, #2c7d59);box-shadow:0 12px 26px -10px var(--shadow, rgba(34,43,69,.14));font-family:Cairo,system-ui,sans-serif} .ds-on-icon{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:9999px;background:var(--veil, rgba(34,43,69,.16));color:var(--accent-ink, #fff)} .ds-on-label{margin-top:8px;font-size:11px;font-weight:700;color:var(--accent-ink, #fff)} .ds-on-slider{display:block;width:96px;height:4px;margin-top:10px;border-radius:9999px;background:var(--veil, rgba(34,43,69,.16));position:relative} .ds-on-slider i{position:absolute;left:0;top:0;height:4px;width:65%;border-radius:9999px;background:'+V('accent-ink','#fff')+'} .ds-on-pill{margin-top:10px;padding:4px 10px;border-radius:9999px;background:var(--veil, rgba(34,43,69,.16));font-size:11px;font-weight:700;color:var(--accent-ink, #fff)"
+    },
+    {
+      "name": "Track-Karte",
+      "kind": "card",
+      "refersTo": "track-card",
+      "description": "Meditation/Atemübung: Rondell mit Tag, Titel, Dauer, Play-Kreis.",
+      "html": "<button class=\"ds-track\"><span class=\"ds-track-top\"><span class=\"ds-track-icon\"><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z\"/><path d=\"M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12\"/></svg></span><span class=\"ds-track-tag\">ACHTSAMKEIT</span></span><span class=\"ds-track-title\">Guided Meditation (10 Min)</span><span class=\"ds-track-bottom\"><span class=\"ds-track-dur\"><svg viewBox=\"0 0 24 24\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><polyline points=\"12 6 12 12 16 14\"/></svg>10:00</span><span class=\"ds-track-play\"><svg viewBox=\"0 0 24 24\" width=\"14\" height=\"14\" fill=\"currentColor\" aria-hidden=\"true\"><polygon points=\"6 3 20 12 6 21 6 3\"/></svg></span></span></button>",
+      "css": ".ds-track{display:flex;flex-direction:column;gap:14px;width:240px;padding:16px;border:0;border-radius:16px;text-align:left;background:var(--surface, #fff);box-shadow:0 10px 24px -12px var(--shadow, rgba(34,43,69,.14));cursor:pointer;font-family:Cairo,system-ui,sans-serif;transition:transform .2s} .ds-track:hover{transform:translateY(-2px)} .ds-track:focus-visible{outline:2px solid var(--accent, #2c7d59);outline-offset:2px} .ds-track-top{display:flex;align-items:center;justify-content:space-between} .ds-track-icon{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:9999px;background:var(--accent-soft, #d8f0e3);color:var(--accent, #2c7d59)} .ds-track-tag{font-size:10px;font-weight:800;letter-spacing:.025em;color:var(--text-faint, #6b7280)} .ds-track-title{font-size:14px;font-weight:800;line-height:1.375;color:var(--text, #222b45)} .ds-track-bottom{display:flex;align-items:center;justify-content:space-between} .ds-track-dur{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--text-muted, #4b5263)} .ds-track-play{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:9999px;background:var(--accent-soft, #d8f0e3);color:var(--accent, #2c7d59)"
+    },
+    {
+      "name": "Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Filter-Pille; aktiv = Salbeiminze-Füllung.",
+      "html": "<div class=\"ds-chips\"><button class=\"ds-chip is-on\">Alle</button><button class=\"ds-chip\">Schlaf</button><button class=\"ds-chip\">Emotionen</button></div>",
+      "css": ".ds-chips{display:flex;gap:8px;font-family:Cairo,system-ui,sans-serif} .ds-chip{padding:8px 16px;border:0;border-radius:9999px;background:var(--surface, #fff);color:var(--text-muted, #4b5263);font-size:12px;font-weight:700;box-shadow:0 4px 12px var(--shadow, rgba(34,43,69,.14));cursor:pointer;transition:background .2s} .ds-chip:focus-visible{outline:2px solid var(--accent, #2c7d59);outline-offset:2px} .ds-chip.is-on{background:var(--accent, #2c7d59);color:var(--accent-ink, #fff);box-shadow:none}"
+    },
+    {
+      "name": "Suchleiste",
+      "kind": "input",
+      "refersTo": "search-bar",
+      "description": "Vollpille auf Porzellan, überlappt das Banner.",
+      "html": "<label class=\"ds-search\"><span class=\"ds-search-ic\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg></span><input class=\"ds-search-in\" placeholder=\"Sound suchen …\"></label>",
+      "css": ".ds-search{display:flex;align-items:center;gap:10px;width:320px;padding:12px 16px;border-radius:9999px;background:var(--surface, #fff);box-shadow:0 10px 26px var(--shadow, rgba(34,43,69,.14));font-family:Cairo,system-ui,sans-serif} .ds-search-ic{display:flex;color:var(--text-faint, #6b7280)} .ds-search-in{flex:1;border:0;outline:0;background:transparent;font:600 14px Cairo,system-ui,sans-serif;color:var(--text, #222b45)} .ds-search-in::placeholder{font-weight:500;color:var(--text-faint, #6b7280)}"
+    },
+    {
+      "name": "Navigation (Desktop)",
+      "kind": "nav",
+      "refersTo": "nav-item-active",
+      "description": "Pillen-Leiste: aktiv Minz-Füllung, inaktiv nur Text.",
+      "html": "<nav class=\"ds-nav\"><button class=\"ds-nav-i is-on\">Sounds</button><button class=\"ds-nav-i\">Meditation</button><button class=\"ds-nav-i\">Atmung</button></nav>",
+      "css": ".ds-nav{display:flex;gap:4px;font-family:Cairo,system-ui,sans-serif} .ds-nav-i{padding:8px 16px;border:0;border-radius:9999px;background:transparent;color:var(--text-muted, #4b5263);font-size:14px;font-weight:700;cursor:pointer;transition:background .2s} .ds-nav-i:focus-visible{outline:2px solid var(--accent, #2c7d59);outline-offset:2px} .ds-nav-i.is-on{background:var(--accent, #2c7d59);color:var(--accent-ink, #fff)"
+    },
+    {
+      "name": "Themenkachel",
+      "kind": "custom",
+      "refersTo": "theme-tile",
+      "description": "Immer dunkle Nachtszene mit Illustration, weißem Titel und Sessionzahl.",
+      "html": "<button class=\"ds-theme\"><span class=\"ds-theme-art\"><svg viewBox=\"0 0 24 24\" width=\"44\" height=\"44\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z\"/></svg></span><span class=\"ds-theme-fade\"></span><span class=\"ds-theme-txt\"><b>Schlaf</b><i>2 Sessions</i></span></button>",
+      "css": ".ds-theme{position:relative;width:180px;height:144px;border:0;border-radius:16px;overflow:hidden;text-align:left;background:linear-gradient(160deg,#384268,#1e2029 76%);box-shadow:0 10px 24px -12px var(--shadow, rgba(34,43,69,.14));cursor:pointer;font-family:Cairo,system-ui,sans-serif;transition:transform .2s} .ds-theme:hover{transform:translateY(-2px)} .ds-theme:focus-visible{outline:2px solid var(--accent, #2c7d59);outline-offset:2px} .ds-theme-art{position:absolute;right:26px;top:22px;color:#dce4ff;opacity:.9} .ds-theme-fade{position:absolute;left:0;right:0;bottom:0;height:80px;background:linear-gradient(to top,rgba(0,0,0,.55),transparent)} .ds-theme-txt{position:absolute;left:12px;right:12px;bottom:12px;display:flex;flex-direction:column} .ds-theme-txt b{font-size:14px;font-weight:800;color:#fff;line-height:1.35} .ds-theme-txt i{margin-top:2px;font-size:11px;font-weight:600;font-style:normal;color:rgba(255,255,255,.7)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Das Spa-Foyer",
+    "overview": "\n**Creative North Star: \"Das Spa-Foyer\"**\n\nSonicVault fühlt sich an wie der Vorraum eines Spa: gedämpftes Licht, alles gepolstert, nichts kantig. Karten schweben knapp über einem hellen (oder nachtblauen) Boden, statt in Rahmen zu sitzen. Zwei Akzentfarben, Salbeiminze und Dämmerlavendel, tauchen ab, ohne je zu schreien; sie färben Icons, Auswahlzustände und Kategorien, nicht ganze Flächen. Die Grundstimmung ist weich, still, umhüllend.\n\nDas System will nicht beeindrucken, sondern verschwinden: Es liefert genug Form (runde Pillen, große Radien, ein sanfter Verlauf im Kopf), damit die Oberfläche als ein ruhiger Ort gelesen wird, und tritt dann zurück, sobald der erste Ton läuft. Das Dunkel ist kein Umkehrbild, sondern ein zweiter Raum derselben Architektur: kühles Nachtblau statt warmem Braun, Minze und Lavendel heller gestellt.\n",
+    "keyCharacteristics": [
+      "Tiefe entsteht durch weite, weiche Schatten mit negativem Spread, nicht durch Linien oder Rahmen.",
+      "Fast jede interaktive Form ist eine Pille oder ein Kissen (16px bis voll rund).",
+      "Auswahl = Füllung: aktive Elemente kippen von Weiß auf Salbeiminze.",
+      "Ein einziger Schrifttyp (Cairo), Hierarchie über Gewicht 600–800, nicht über Größe.",
+      "Light und Dark sind vollwertig; Wechsel per Kreis-Button oben rechts im Banner."
+    ],
+    "rules": [
+      {
+        "name": "The Tint Ladder Rule",
+        "body": "Ein Icon im Ruhezustand sitzt in der `-soft`-Tönung seiner Akzentfarbe; aktiv wird die Fläche selbst zur vollen Akzentfarbe, das Rondell dunkelt über `--veil` leicht ab und das Icon nimmt `accent-ink`. Keine dritte Stufe erfinden.",
+        "section": "colors"
+      },
+      {
+        "name": "The Alternating Tint Rule",
+        "body": "Kategorien und Tags wechseln in fester Reihenfolge zwischen Minze und Lavendel, damit ein Raster aus gleichförmigen Kacheln Rhythmus bekommt, ohne dass Farbe Bedeutung trägt.",
+        "section": "colors"
+      },
+      {
+        "name": "The Contrast Floor Rule",
+        "body": "Text und Steuerelemente erreichen AA in beiden Themes: weiß auf `--accent` ≥ 4,5 : 1, `--text-faint` ≥ 4,5 : 1 auf jeder Fläche, Akzent-Icons auf `-soft` ≥ 3 : 1. Wer eine Farbe aufhellt, prüft diese Paare zuerst.",
+        "section": "colors"
+      },
+      {
+        "name": "The Cool Ground Rule",
+        "body": "Der Dunkelgrund bleibt kühl (Nachtblau). Wärmere Akzente (Terrakotta, Amber, Koralle) wurden verworfen, weil sie gegen den kühlen Boden bissen; Orange ist ausdrücklich raus.",
+        "section": "colors"
+      },
+      {
+        "name": "The Weight-Not-Size Rule",
+        "body": "Rangfolge über Gewicht 600/700/800 lösen; die Größenspanne bleibt eng (10–24px). Kein zusätzlicher Schrifttyp.",
+        "section": "typography"
+      },
+      {
+        "name": "The Float Rule",
+        "body": "Karten trennen sich vom Boden durch Schatten mit negativem Spread, nie durch Rahmen oder Linien. `--border` gehört nur Slider-Spur und Scrollbar.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Ink-Tint Shadow Rule",
+        "body": "Helle Schatten sind bläulich getönt (`34, 43, 69`), damit sie wie Dämmerlicht wirken, nicht wie Schmutz.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do Tiefe über `box-shadow` mit negativem Spread (`0 10px 22px -12px var(--shadow)`) herstellen.",
+      "Do Auswahl als Flächenwechsel auf `--accent` mit `--accent-ink` zeigen (Chip, Nav, Sound-Kachel).",
+      "Do Icons im Ruhezustand in `-soft`-Tönung ihrer Akzentfarbe setzen und Minze/Lavendel pro Kategorie abwechseln.",
+      "Do Farben ausschließlich über die CSS-Variablen (`var(--accent)` etc.) ansprechen, damit beide Themes greifen.",
+      "Do `prefers-reduced-motion` beachten (Animationen und Transitions werden global abgeschaltet).",
+      "Do im Dunkel bei Nachtblau (#14161f) bleiben; Textfarbe ist ein warmes Off-White (#f2f0ea)."
+    ],
+    "donts": [
+      "Don't Orange, Terrakotta, Koralle oder Amber als Akzent einsetzen; der Wechsel zu Minz/Lavendel war eine bewusste Entscheidung.",
+      "Don't den Dunkelgrund wärmer machen (Braun, Espresso); das kühle Nachtblau wurde ausdrücklich bevorzugt.",
+      "Don't Karten mit Rahmen oder Trennlinien versehen; `--border` gehört Slider-Spur und Scrollbar.",
+      "Don't harte, schwarze Schatten im Hellen verwenden; `--shadow` ist bläulich getönt.",
+      "Don't `--accent` wieder aufhellen (etwa zurück auf #3fae7c, 2,8 : 1 mit Weiß) oder `--text-faint` unter 4,5 : 1 ziehen; beide tragen Text.",
+      "Don't rotes Tailwind (`text-red-400`) oder feste Weiß-Overlays auf Akzentflächen verwenden; dafür gibt es `--danger` und `--veil`.",
+      "Don't interaktive Elemente ineinander schachteln (Button in Button); Karten nutzen den Stretched-Link-Ansatz.",
+      "Don't einen animierten Atem-Kreis (oder ein Ersatz-Bild dafür) einbauen; die Atmung läuft über Ansage und Textanzeige.",
+      "Don't einen zweiten Schrifttyp einführen oder Größen jenseits von 10–24px für die App-Oberfläche."
+    ]
+  }
+}

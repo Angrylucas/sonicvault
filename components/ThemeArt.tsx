@@ -8,13 +8,19 @@ import React from 'react';
 
 const viewBox = '0 0 120 80';
 
-const wrap = (children: React.ReactNode) => (
-  <svg viewBox={viewBox} className="w-full h-full" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+/** Einmalige Filter-Definition für alle Kachel-Szenen (eine ID statt 13 doppelter). */
+export const ThemeArtDefs: React.FC = () => (
+  <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true" focusable="false">
     <defs>
       <filter id="soft-blur" x="-30%" y="-30%" width="160%" height="160%">
         <feGaussianBlur stdDeviation="5" />
       </filter>
     </defs>
+  </svg>
+);
+
+const wrap = (children: React.ReactNode) => (
+  <svg viewBox={viewBox} className="w-full h-full" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     {children}
   </svg>
 );
