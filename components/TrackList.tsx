@@ -4,34 +4,40 @@ import {
   Pause, Plane, Play, Sparkles, User, Users, Wind,
 } from 'lucide-react';
 import { GuidedTrack } from '../types';
+import { EmptyState } from './EmptyState';
 
 type Tint = 'accent' | 'lav';
 
 const TAG_STYLE: Record<string, { icon: React.FC<{ className?: string }>; tint: Tint }> = {
-  'Achtsamkeit': { icon: Leaf, tint: 'accent' },
+  'Mindfulness': { icon: Leaf, tint: 'accent' },
   'Body Scan':   { icon: User, tint: 'lav' },
-  'Schlaf':      { icon: Moon, tint: 'accent' },
-  'Heilung':     { icon: Sparkles, tint: 'lav' },
-  'Mitgefühl':   { icon: Heart, tint: 'accent' },
-  'Klang':       { icon: CircleDot, tint: 'lav' },
-  'Kurz':        { icon: Clock, tint: 'accent' },
-  'Technik':     { icon: Activity, tint: 'lav' },
+  'Sleep':      { icon: Moon, tint: 'accent' },
+  'Healing':     { icon: Sparkles, tint: 'lav' },
+  'Compassion':   { icon: Heart, tint: 'accent' },
+  'Sound':       { icon: CircleDot, tint: 'lav' },
+  'Short':        { icon: Clock, tint: 'accent' },
+  'Technique':     { icon: Activity, tint: 'lav' },
 
   // Import 2026-07-30: neue Tags
-  'Emotionen':                { icon: Heart, tint: 'lav' },
-  'Beziehungen':              { icon: Users, tint: 'accent' },
-  'Alltag & Arbeit':          { icon: Briefcase, tint: 'lav' },
-  'Reisen':                   { icon: Plane, tint: 'accent' },
-  'Angst & Stress':           { icon: Wind, tint: 'lav' },
-  'Dankbarkeit & Mitgefühl':  { icon: Heart, tint: 'accent' },
-  'Schlafgeschichten':        { icon: BookOpen, tint: 'lav' },
+  'Emotions':                { icon: Heart, tint: 'lav' },
+  'Relationships':              { icon: Users, tint: 'accent' },
+  'Daily Life & Work':          { icon: Briefcase, tint: 'lav' },
+  'Travel':                   { icon: Plane, tint: 'accent' },
+  'Anxiety & Stress':           { icon: Wind, tint: 'lav' },
+  'Gratitude & Compassion':  { icon: Heart, tint: 'accent' },
+  'Sleep Stories':        { icon: BookOpen, tint: 'lav' },
 };
 const DEFAULT_STYLE = { icon: Music, tint: 'accent' as Tint };
 
 interface Props {
   tracks: GuidedTrack[];
   currentId?: string;
+  playing?: boolean;
   onSelect: (track: GuidedTrack) => void;
+  /** Tag auf den Karten ausblenden, wenn die Ansicht schon danach gefiltert ist. */
+  hideTag?: boolean;
+  query?: string;
+  onClearQuery?: () => void;
 }
 
 /** Löst die aktuell gewählte Sprecher-Variante zu einem spielbaren Track auf. */
@@ -50,14 +56,17 @@ function resolveVariant(track: GuidedTrack, narrator: string | null): GuidedTrac
 const TrackCard = memo<{
   track: GuidedTrack;
   currentId?: string;
+  playing: boolean;
+  hideTag: boolean;
   onSelect: (track: GuidedTrack) => void;
-}>(({ track, currentId, onSelect }) => {
+}>(({ track, currentId, playing, hideTag, onSelect }) => {
   const hasNarrators = !!track.narrators && track.narrators.length > 1;
   const [narrator, setNarrator] = useState<string | null>(
     hasNarrators ? track.narrators![0].narrator : null
   );
   const resolved = resolveVariant(track, narrator);
   const active = resolved.id === currentId;
+  const running = active && playing;
   const { icon: Icon, tint } = TAG_STYLE[track.tag] ?? DEFAULT_STYLE;
 
   const pickNarrator = (name: string) => {
@@ -82,14 +91,16 @@ const TrackCard = memo<{
         >
           <Icon className="w-4 h-4" aria-hidden="true" />
         </span>
-        <span className="text-xs font-extrabold uppercase tracking-wide" style={{ color: 'var(--text-faint)' }}>
-          {track.tag}
-        </span>
+        {!hideTag && (
+          <span className="text-xs font-extrabold uppercase tracking-wide" style={{ color: 'var(--text-faint)' }} aria-hidden="true">
+            {track.tag}
+          </span>
+        )}
       </div>
 
       <button
         onClick={() => onSelect(resolved)}
-        aria-label={`${active ? 'Pause' : 'Abspielen'}: ${track.title}, ${resolved.duration}`}
+        aria-label={`${running ? 'Pause' : 'Play'}: ${track.title}${hideTag ? '' : `, ${track.tag}`}, ${resolved.duration}`}
         aria-pressed={active}
         className="stretch text-left text-sm font-extrabold leading-snug line-clamp-2"
         style={{ color: 'var(--text)' }}
@@ -98,7 +109,7 @@ const TrackCard = memo<{
       </button>
 
       {hasNarrators && (
-        <div role="group" aria-label="Sprecher" className="relative z-10 flex flex-wrap gap-1.5 -mt-1.5">
+        <div role="group" aria-label="Narrator" className="relative z-10 flex flex-wrap gap-1.5 -mt-1.5">
           {track.narrators!.map(v => (
             <button
               key={v.narrator}
@@ -130,7 +141,7 @@ const TrackCard = memo<{
               : { background: `var(--${tint}-soft)`, color: `var(--${tint})` }
           }
         >
-          {active ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 ml-0.5" />}
+          {running ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 ml-0.5" />}
         </span>
       </div>
     </div>
@@ -143,16 +154,17 @@ function relevantId(track: GuidedTrack, currentId?: string) {
   return currentId === track.id || currentId.startsWith(`${track.id}::`) ? currentId : undefined;
 }
 
-export const TrackList: React.FC<Props> = ({ tracks, currentId, onSelect }) => {
+export const TrackList: React.FC<Props> = ({ tracks, currentId, playing = false, onSelect, hideTag = false, query = '', onClearQuery }) => {
   if (tracks.length === 0) {
-    return <p className="text-center text-sm py-16" style={{ color: 'var(--text-faint)' }}>Nichts gefunden.</p>;
+    return query.trim() && onClearQuery ? <EmptyState what="sessions" query={query} onClear={onClearQuery} /> : null;
   }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-      {tracks.map(track => (
-        <TrackCard key={track.id} track={track} currentId={relevantId(track, currentId)} onSelect={onSelect} />
-      ))}
+      {tracks.map(track => {
+        const id = relevantId(track, currentId);
+        return <TrackCard key={track.id} track={track} currentId={id} playing={!!id && playing} hideTag={hideTag} onSelect={onSelect} />;
+      })}
     </div>
   );
 };

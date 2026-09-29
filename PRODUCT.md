@@ -30,11 +30,11 @@ Alles in einer App: Klangmixer (pro Sound Lautstärke und „natürliche" Schwan
 - Stack: React 19 + Vite + TypeScript, Tailwind per CDN, lucide-react; Web Audio API für nahtlose Loops.
 - Theme: Light/Dark-Umschaltung, persistiert.
 - Bibliothek wächst per Import aus Open-Source-Quellen (Moodist, XMSLEEP u. a.); Inhalte sind teils englischsprachig (Meditationen).
-- Offen/unentschieden: Sprache der Meditationstitel und -inhalte (Deutsch vs. Original), Umbenennung „Sounds" → „Klänge", Zukunft des Atem-Tabs (geführte Tracks vs. animierte Muster) — parallel laufen Codex-PRs #16–#18 mit abweichenden Entscheidungen.
+- Entschieden (2026-09-29): Die gesamte Oberfläche ist Englisch (Tabs Sounds / Meditation / Breathing, Kategorien, Soundnamen, Themen). Der Atem-Tab ist nur eine Liste geführter Übungen. Codex-PRs #16–#18 sind damit überholt.
 
 ## Brand Commitments
 
-Name: SonicVault. Kein Markenkit bestätigt. Die Oberfläche ist derzeit deutsch (inferiert aus dem Code, nicht als bindend bestätigt).
+Name: SonicVault. Kein Markenkit bestätigt. Die Oberfläche ist Englisch (Entscheidung 2026-09-29).
 
 ## Evidence on Hand
 

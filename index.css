@@ -101,6 +101,10 @@ input, textarea { caret-color: var(--accent); }
 .stretch:focus-visible { outline: none; }
 .stretch:focus-visible::after { outline: 2px solid var(--focus); outline-offset: 2px; }
 
+/* Horizontale Schienen (Quick start, Kategorien): Scrollbalken ausblenden, Wischen bleibt */
+.rail { scrollbar-width: none; }
+.rail::-webkit-scrollbar { display: none; }
+
 /* Unsichtbar vergrößerte Trefferfläche für kleine Icon-Buttons (≥ 44px) */
 .hit { position: relative; }
 .hit::after {
@@ -120,10 +124,10 @@ input, textarea { caret-color: var(--accent); }
 /* Player-Layout: Mobil zweizeilig, ab sm einzeilig (Titel über Regler) */
 .player-grid {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto auto auto;
+  grid-template-columns: auto minmax(0, 1fr) auto auto auto auto;
   grid-template-areas:
-    'play title skipb skipf close'
-    'prog prog  prog  prog  prog';
+    'play title skipb skipf timer close'
+    'prog prog  prog  prog  prog  prog';
   align-items: center;
   column-gap: 0.5rem;
   row-gap: 0.25rem;
@@ -133,12 +137,13 @@ input, textarea { caret-color: var(--accent); }
 .player-skipb { grid-area: skipb; }
 .player-skipf { grid-area: skipf; }
 .player-close { grid-area: close; }
+.player-timer { grid-area: timer; }
 .player-prog { grid-area: prog; }
 @media (min-width: 640px) {
   .player-grid {
     grid-template-areas:
-      'play title  skipb skipf close'
-      'play prog   skipb skipf close';
+      'play title  skipb skipf timer close'
+      'play prog   skipb skipf timer close';
     column-gap: 0.75rem;
   }
 }
@@ -146,10 +151,10 @@ input, textarea { caret-color: var(--accent); }
 /* Sehr schmale Displays (iPhone SE): Skip-Buttons weichen, damit der Titel lesbar bleibt */
 @media (max-width: 359px) {
   .player-grid {
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
     grid-template-areas:
-      'play title close'
-      'prog prog  prog';
+      'play title timer close'
+      'prog prog  prog  prog';
   }
   .player-skipb, .player-skipf { display: none; }
 }
@@ -219,7 +224,7 @@ input[type='range']::-moz-range-thumb {
 
 /* Reduzierte Bewegung: dekorative Animationen aus, Hover-Anhebung entfällt. */
 @media (prefers-reduced-motion: reduce) {
-  .fade-up, .pulse-soft { animation: none !important; }
+  .fade-up, .pulse-soft, .animate-spin { animation: none !important; }
   .hover\:-translate-y-0\.5:hover { transform: none !important; }
   .hover\:scale-105:hover { transform: none !important; }
 }

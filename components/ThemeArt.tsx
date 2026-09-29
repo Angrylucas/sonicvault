@@ -183,19 +183,19 @@ export interface ThemeArtConfig {
 }
 
 export const THEME_ART: Record<string, ThemeArtConfig> = {
-  'Schlafgeschichten':       { gradient: 'linear-gradient(160deg,#405b73,#242631 72%)', Scene: SchlafgeschichtenArt },
-  'Schlaf':                  { gradient: 'linear-gradient(160deg,#384268,#1e2029 76%)', Scene: SchlafArt },
-  'Achtsamkeit':             { gradient: 'linear-gradient(160deg,#24332d,#302c4a)', Scene: AchtsamkeitArt },
+  'Sleep Stories':       { gradient: 'linear-gradient(160deg,#405b73,#242631 72%)', Scene: SchlafgeschichtenArt },
+  'Sleep':                  { gradient: 'linear-gradient(160deg,#384268,#1e2029 76%)', Scene: SchlafArt },
+  'Mindfulness':             { gradient: 'linear-gradient(160deg,#24332d,#302c4a)', Scene: AchtsamkeitArt },
   'Body Scan':               { gradient: 'linear-gradient(160deg,#405b73,#242631 76%)', Scene: BodyScanArt },
-  'Heilung':                 { gradient: 'linear-gradient(160deg,#2c3d35,#1e2029 74%)', Scene: HeilungArt },
-  'Mitgefühl':               { gradient: 'linear-gradient(160deg,#302c4a,#242631 76%)', Scene: MitgefuehlArt },
-  'Klang':                   { gradient: 'linear-gradient(160deg,#405b73,#24332d 78%)', Scene: KlangArt },
-  'Emotionen':               { gradient: 'linear-gradient(160deg,#302c4a,#242631 76%)', Scene: EmotionenArt },
-  'Beziehungen':             { gradient: 'linear-gradient(160deg,#384268,#242631 76%)', Scene: BeziehungenArt },
-  'Alltag & Arbeit':         { gradient: 'linear-gradient(160deg,#405b73,#242631 76%)', Scene: AlltagArt },
-  'Reisen':                  { gradient: 'linear-gradient(160deg,#384268,#1e2029 76%)', Scene: ReisenArt },
-  'Angst & Stress':          { gradient: 'linear-gradient(160deg,#24332d,#1e2029 76%)', Scene: AngstStressArt },
-  'Dankbarkeit & Mitgefühl': { gradient: 'linear-gradient(160deg,#302c4a,#24332d 78%)', Scene: DankbarkeitArt },
+  'Healing':                 { gradient: 'linear-gradient(160deg,#2c3d35,#1e2029 74%)', Scene: HeilungArt },
+  'Compassion':               { gradient: 'linear-gradient(160deg,#302c4a,#242631 76%)', Scene: MitgefuehlArt },
+  'Sound':                   { gradient: 'linear-gradient(160deg,#405b73,#24332d 78%)', Scene: KlangArt },
+  'Emotions':               { gradient: 'linear-gradient(160deg,#302c4a,#242631 76%)', Scene: EmotionenArt },
+  'Relationships':             { gradient: 'linear-gradient(160deg,#384268,#242631 76%)', Scene: BeziehungenArt },
+  'Daily Life & Work':         { gradient: 'linear-gradient(160deg,#405b73,#242631 76%)', Scene: AlltagArt },
+  'Travel':                  { gradient: 'linear-gradient(160deg,#384268,#1e2029 76%)', Scene: ReisenArt },
+  'Anxiety & Stress':          { gradient: 'linear-gradient(160deg,#24332d,#1e2029 76%)', Scene: AngstStressArt },
+  'Gratitude & Compassion': { gradient: 'linear-gradient(160deg,#302c4a,#24332d 78%)', Scene: DankbarkeitArt },
 };
 
 export const DEFAULT_THEME_ART: ThemeArtConfig = {
